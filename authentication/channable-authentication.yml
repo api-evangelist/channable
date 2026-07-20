@@ -1,0 +1,41 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.channable.com/api/v1/
+docs: https://docs.channable.com/api/v1/
+summary:
+  types: [http, apiKey]
+  api_key_in: [query]
+  http_schemes: [bearer]
+  oauth2_flows: []
+  notes: >-
+    The Channable order connection API uses a single company-level API token. It is not declared in
+    the OpenAPI securitySchemes (the components.securitySchemes object is empty); this profile is
+    sourced from the published API documentation. Only company owners can generate a token from
+    Company settings > Channable API in app.channable.com. Channable does not store tokens; generating
+    a new token automatically revokes the previous one. Rate limiting is enforced per company, so
+    minting extra tokens does not raise limits.
+schemes:
+- name: BearerToken
+  type: http
+  scheme: bearer
+  description: >-
+    Preferred method. Send the company API token in the Authorization header as
+    `Authorization: Bearer [example key]`.
+  location: header
+  sources: [docs]
+- name: AccessTokenQuery
+  type: apiKey
+  in: query
+  parameter_name: access_token
+  description: >-
+    Alternative method. Send the company API token as the `access_token` query-string parameter,
+    e.g. `?access_token=your_api_token`. The header method is recommended over query for security.
+  sources: [docs]
+token_lifecycle:
+  managed_at: https://app.channable.com/
+  who_can_generate: company owners only
+  storage: Channable does not store tokens; store securely on the client side
+  rotation: generating a new token immediately revokes prior tokens
+  legacy_note: >-
+    Legacy Channable API tokens were deprecated; per the changelog (November 7, 2025) legacy tokens
+    expired December 9, 2025 and integrations had to move to newly generated tokens.
