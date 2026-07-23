@@ -1,0 +1,3465 @@
+openapi: 3.1.0
+info:
+  title: Channable order connection order_attachments orders API
+  description: "# Introduction\n\nWelcome to the Channable API __v1__.\n\nThis version of the Channable API allows you to:\n\n- Access orders\n- Manage order shipments\n- Update the stock of an offer on all marketplaces\n- Access returns\n\n### Details\n\n|    Key             |       Value\n-------------     | -----------\nApi version       | `v1`, `v2`\nProtocol          | `HTTPS`\nHostname          | `api.channable.com`\nCommon Path v1    | `/v1/companies/:company_id/projects/:project_id`\nCommon Path v2    | `/v2/companies/:company_id/projects/:project_id`\n\n\nThe <em>Common Path</em> is shared by all endpoints except the transporters endpoints in this version of our API. Note that you have to replace <code>:company_id</code> and <code>:project_id</code> with valid values. All endpoints using v2 will state so in their names, and should use the <em>common path v2</em>. All other endpoints are v1 endpoints and should use <em>Common Path v1</em>.\n\n## Taxonomy\n\n\n|    Term         | Description\n-------------     | -----------\n`Platform`        | A webshop platform, such as WooComerce, Lightspeed, etc.\n`Marketplace`     | A place where you can sell your products, such as Amazon, Bol, eBay, etc. Sometimes referred to as _channel_.\n`Order`           | A purchase of any products made by a client.\n`Offer`           | A selling proposal made by a seller over any class of products. It includes price, stock and other seller-dependent values.\n\n\n## Rate Limiting\n\nThe Channable API has a rate limiting policy to which you must comply.<br>\nIt is defined on a per-company basis, meaning that generating new API tokens will not circumvent our rate-limiting.\n\n|    Frequency             | Burst\n-------------              | -----------\nMax 4 requests per second  | Burst of 200 requests\n\n**Note**: We use the [Leaky Bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket) for rate-limiting.\n\n## Getting started\n\n\nTo get started you need to:\n\n1. Find the project ids you are interested in\n1. Find your Channable company id\n1. Generate an **API token** for your company\n\n**Note**: Information about the supported channels can be found in our [help center](https://helpcenter.channable.com/hc/en-us/articles/360011094300-For-which-marketplaces-does-Channable-support-an-order-connection-integration-).\n\n### 1. Find your project ids\n\nTo find the project ids you are interested in:\n\n1. Log in to the <a target=\"\\\\_blank\" href=\"https://app.channable.com\">Channable app</a>\n2. Select a project\n3. Open the project `Settings`\n4. Copy the _Project id_ value\n\n\n### 2. Generate an API Token for your company\n\nTo both find your Channable `company_id` and to generate a new **API token** for your company, go to [app.channable.com](https://app.channable.com) and sign in.\n\nOn the main page navigate to company settings then channabke API.\nFrom here you can see your company id, as well as generate your API token.\n\n<img src='https://lh3.googleusercontent.com/d/1yUAdfXLRryVV9i0ce0mJpOX3c7z97HSD=w1000' />\n\n**Notes**:\n\n- Only owners of companies are able to generate an API Token.\n- Channable does not store your tokens. Please store them securely.\n- In case you lose or leak your token, generate a new one. The previously generated tokens can be revoked by you or will expire after 1 year.\n- Two API tokens can be valid at any time, allowing you to seamlessly change to a new token, if needed.\n\n### 3. Using the API Token\n\nYou must include your API token in every request you make to Channable.<br/>\nThe token should be included in the headers of the request: `Authorization: Bearer your_api_token`\n\n<aside class=\"notice\">\nYou must replace <code>your_api_token</code> with your API token.\n</aside>\n\nAfter generating your API token you are ready to try out the endpoints and build your integration\nusing the Channable Sandbox.\n\n**How to include the token in your requests:**\n\n```shell\n# Headers method: Authorization: Bearer\ncurl \"api_endpoint_here\"\n  -H \"Authorization: Bearer your_api_token\"\n```\n\n\n### Common error codes and their meanings\n\nThe Channable API uses the following error codes:\n\nCode | Meaning | Reason\n---------- | ------- | -------\n400 | Bad Request | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)\n401 | Unauthorized | You are using an invalid or already revoked API token.\n403 | Forbidden | You are not allowed to access the resources your request targets.\n404 | Not Found | The targeted resources could not be found.\n405 | Method Not Allowed | You tried to access an endpoint with an invalid HTTP method.\n406 | Not Acceptable | You requested a format that isn't json.\n409 | Conflict | Your request could not be completed due to a conflict with the current state of the target resource.\n422 | Unprocessable Entity | We could understand the content type of the request entity, but we are unable to process the contained instructions.\n429 | Too Many Requests | You have sent too many requests in a given amount of time, thus exceeding our rate-limiting policy. Please try again later.\n500 | Internal Server Error | We had a problem with our server. Please try again later.\n503 | Service Unavailable | We are temporarily offline for maintenance. Please try again later.\n\n\n## Sandbox Testing\n\nThe Channable API sandbox lets you test your order integration with the Channable API in a safe\nenvironment without sending requests to the marketplaces you want to connect to. All data is mocked\nbut the structure of the data and API calls needed to manage your orders are the same no matter\nwhich marketplace you end up connecting with.\n\n\n### Setup\n\nTo set up a test environment with the Channable Sandbox you must first make a connection with the\nSandbox. This can be done in the same way as all other connections within Channable by going to\n\"Company settings\" -> \"Connections\" and clicking on \"+ Add new connection\".\n\n<img src='https://lh3.googleusercontent.com/d/1iBA33tS5JmjdJEVDuS0ks5j9MJEewJMg=w1000' />\n\nSelect \"Channable Sandbox\", give the connection a label and click on the blue \"Create\" button.\nNo further information is needed.\n\nOnce you have made a connection, navigate to the project you want to use and click on\n\"Setup\" -> \"Setup orders\" > \"+ Setup orders\".\n\n<img src='https://lh3.googleusercontent.com/d/1zjpfcCbbU84GD45qMn3wrI3WFMNk438D=w1000' />\n\nFrom here make an order connection between the \"Channable API\" and the \"Channable Sandbox\" and\nactivate the order connection. You are now ready to start testing.\n\n<img src='https://lh3.googleusercontent.com/d/1piCcRzylFAy9uZf6vpjdukozC9-mgV_q=w1000' />\n\n### Orders\n\nTo create a test order, navigate to \"Setup\" -> \"Orders\" -> \"Settings\" of the Channable Sandbox\norder connection.\n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test order\".\n\n<img src='https://lh3.googleusercontent.com/d/1f1tn9uooKz1uy0uq9xvfcMpREn5zKDVW=w1000' />\n\nIn the popup fill in an item id and click the blue \"Send test order\" button. A test order has now\nbeen created, and you can use all request methods described in \"Orders\" to interact with it. If you\nneed special test cases, most data in the test order can be provided by you in the popup when you\nclick on \"Send test order\".\n\n\n### Shipments/Cancellations\n\nOnce one or more testorders have been created, use the request methods described in \"Shipment\nupdate\" and \"Cancellation update\" under \"Orders\" above to mark an order as \"shipped\" and to give it\ntrack & trace information or to mark the order as \"cancelled\".\n\n\n### Offers\n\nTo test sending offer updates, that is updating the stock value on all marketplaces that you have\nan order connection to, you can use the request methods described in \"Offers\" above. You do not need\nto have created a test order to test this as you can update the stock value of any product in your\nstore, also products that you have not received an order for through Channable.\n\n\n### Returns\n\nReturns come from the marketplaces you will connect to. In order to test this, navigate to\n\"Setup\" -> \"Setup orders\" -> \"Settings\" of the Channable Sandbox order connection. \n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test return\".\n\n<img src='https://lh3.googleusercontent.com/d/1Xdbdn329jneJqwiqxMPXV4d_nFrAyb1H=w1000' />\n\nIn the popup fill in a Channable order id and click the blue \"Send test return\" button. A test\nreturn has now been created for the order id you filled in. You can now use all request methods\ndescribed in \"Returns\" to handle the return.\n\n\n### When you are done testing\n\nOnce you are satisfied with your Channable API setup and want to go live, contact our\n<a target=\"\\\\_blank\" href=\"https://www.channable.com/company/contact/\">support department</a>\nand they will help you setup the order connections.\n"
+  version: v1
+  x-logo:
+    url: https://www.channable.com/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FcntRnbAcSrCmS1wLTWrb&w=256&q=75
+tags:
+- name: orders
+paths:
+  /v1/companies/{company_id}/projects/{project_id}/orders:
+    get:
+      tags:
+      - orders
+      summary: All Orders
+      description: "<h3 style=\"background-color:#EC771A;color:#FFFFFF;margin:5px\">This operation is deprecated.\nUse <a href=\"https://api.channable.com/v1/docs#tag/orders/operation/all_orders_v2_v2_companies__company_id__projects__project_id__orders_get\">All orders v2</a> instead.</h3>\n\nThis endpoint retrieves all orders for a given project of your company, sorted from most recent\nto oldest. Optionally, you can pass query parameters to customize the response content.\n\nNote that the order data itself (like address information) can not be modified.\n\n**Timezones**\n\nWhen using the `start_date`, `end_date`, `last_modified_after`, `last_modified_before`,\n`retrieved_at_start` or `retrieved_at_end` parameters please keep in mind that the we will\ninterpret the provided dates and times to be in UTC timezone.\n\nThe timestamps on the returned orders are ISO 8601 compliant and have a UTC offset of +00:00.\n\n**Example usage**\n\nSuppose the following scenario for a given project of yours:\n    - The project contains the orders `o1`, `o2`, `o3`, and `o4` (from oldest to most recent)\n    - `o3` contains some error\n    - `o1` and `o4` are searchable by the term `t`\n    - `o3` is searchable by the term `tE`\n\n|  Request parameters                          | Response\n| -------------                                | -----------\n| _none_                                       | `{\"orders\": [o4, o3, o2, o1], \"error_count\": 1, \"total\": 4}`\n| `?errors=true`                               | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?limit=2`                                   | `{\"orders\": [o4, o3], \"error_count\": 1, \"total\": 2}`\n| `?offset=1`                                  | `{\"orders\": [o3, o2, o1], \"error_count\": 1, \"total\": 3}`\n| `?offset=4`                                  | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?offset=1&limit=1`                          | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?offset=1&limit=2`                          | `{\"orders\": [o3, o2], \"error_count\": 1, \"total\": 2}`\n| `?offset=1&limit=2&errors=true`              | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?search=t`                                  | `{\"orders\": [o4, o1], \"error_count\": 0, \"total\": 2}`\n| `?search=t&errors=true`                      | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?search=tE`                                 | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?search=tE&errors=true`                     | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?offset=1&limit=2&search=t&errors=true`     | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?status=not_shipped`                        | `{\"orders\": [o4], \"error_count\": 1, \"total\": 1}`\n| `?start_date=2018-01-01`                     | `{\"orders\": [o4, o3, o2], \"error_count\": 1, \"total\": 3}`\n| `?start_date=2018-01-01&end_date=2018-02-28` | `{\"orders\": [o3, o2], \"error_count\": 1, \"total\": 2}`\n| `?last_modified_after=2018-02-29`            | `{\"orders\": [o4], \"error_count\": 1, \"total\": 1}`"
+      operationId: all_orders_companies__company_id__projects__project_id__orders_get
+      deprecated: true
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: If true, a file download will be served
+          default: false
+          title: Download
+        description: If true, a file download will be served
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatus'
+          - type: array
+            items:
+              $ref: '#/components/schemas/OrderStatus'
+          - type: 'null'
+          title: Status
+      - name: channel
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channel
+      - name: errors
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Errors
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          description: Any text based search query
+          title: Search
+        description: Any text based search query
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      - name: retrieved_at_start
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At Start
+      - name: retrieved_at_end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At End
+      - name: last_modified_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified After
+      - name: last_modified_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified Before
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Max number of results in a single page.
+          default: 100
+          title: Limit
+        description: Max number of results in a single page.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          description: Filter results starting from this offset.
+          default: 0
+          title: Offset
+        description: Filter results starting from this offset.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecentOrders'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/anonymous_orders:
+    get:
+      tags:
+      - orders
+      summary: Anonymized All Orders
+      description: 'This endpoint is identical to `/orders`, but the returned order data has all personal
+
+        identifiable information (PII) removed.
+
+
+        See the docs of `/orders` for more info on how to query this endpoint.'
+      operationId: anonymized_all_orders_companies__company_id__projects__project_id__anonymous_orders_get
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          description: Any text based search query
+          title: Search
+        description: Any text based search query
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      - name: last_modified_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified After
+      - name: last_modified_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified Before
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Max number of results in a single page.
+          default: 100
+          title: Limit
+        description: Max number of results in a single page.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          description: Filter results starting from this offset.
+          default: 0
+          title: Offset
+        description: Filter results starting from this offset.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnonymizedRecentOrders'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}:
+    get:
+      tags:
+      - orders
+      summary: Single Order
+      description: '<h3 style="background-color:#EC771A;color:#FFFFFF;margin:5px">This operation is deprecated.
+
+        Use <a href="https://api.channable.com/v1/docs#tag/orders/operation/single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get">Single order v2</a> instead.</h3>
+
+
+        This endpoint retrieves an order, and its events, based on the order_id.
+
+
+        **Understanding the address fields**
+
+
+        There are two ways of storing the address information for order billing and shipping:
+
+
+        Using the fields street, house_number, house_number_ext, and address_supplement
+
+        Using the fields address1 and address2
+
+
+        The first is more used in the Netherlands, where an address requires a house number, while the
+
+        second version is more used abroad. We support both cases, and, in the example to the right,
+
+        you see how to translate one into the other.
+
+
+        **Understanding the price fields**
+
+
+        An order contains a list of products purchased by a customer.
+
+        The product.quantity stores the quantity of products of a given kind were purchased.
+
+        The product.price is per product, not product.quantity * price_per_unit.
+
+        The order.price.total is the sum of all purchased products'' price, shipping costs, and other
+
+        applicable fees.'
+      operationId: single_order_companies__company_id__projects__project_id__orders__order_id__get
+      deprecated: true
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderWithEvents'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/return:
+    post:
+      tags:
+      - orders
+      summary: Manual Return
+      description: 'Manually create a return for the ordered products on the marketplace. NB! Only a limited number of marketplaces support this operation: Fruugo, Otto, Veepee, Zalando'
+      operationId: manual_return_companies__company_id__projects__project_id__orders__order_id__return_post
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderReturnBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/test/{order_config_id}:
+    post:
+      tags:
+      - orders
+      summary: Create Test Order
+      description: 'This endpoint allows you to create one or more test orders containing fake data within Channable
+
+
+        Warning: This endpoint is not meant to be part of an automated process, and could change without
+
+        prior notice'
+      operationId: create_test_order_companies__company_id__projects__project_id__orders_test__order_config_id__post
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_config_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Config Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestOrderBody'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Create Test Order Companies  Company Id  Projects  Project Id  Orders Test  Order Config Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/shipment:
+    post:
+      tags:
+      - orders
+      summary: Shipment
+      description: 'This endpoint allows you to update an order shipment status.
+
+        We will then propagate the update to the involved marketplace.'
+      operationId: shipment_companies__company_id__projects__project_id__orders__order_id__shipment_post
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannableShippingPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingResponseModel'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Conflict
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/cancel:
+    post:
+      tags:
+      - orders
+      summary: Cancellation
+      description: 'This endpoint allows you to update an order status and set it to `cancelled`.
+
+        We will then propagate the update to the involved marketplaces.
+
+
+        Note that this only covers the case where the seller wants to cancel an order. If the buyer
+
+        cancels an order, the marketplace requires the seller to manually confirm this cancellation in
+
+        the marketplace seller account.'
+      operationId: cancellation_companies__company_id__projects__project_id__orders__order_id__cancel_post
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/ChannableCancellationPayload'
+              - type: 'null'
+              title: Body
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Conflict
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/manual:
+    post:
+      tags:
+      - orders
+      summary: Manual
+      description: 'This endpoint allows you to indicate that the given order will be handled manually.
+
+        Channable will no longer take any actions on the order after this operation has been performed.'
+      operationId: manual_companies__company_id__projects__project_id__orders__order_id__manual_post
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/companies/{company_id}/projects/{project_id}/orders:
+    get:
+      tags:
+      - orders
+      summary: All Orders V2
+      description: "This endpoint retrieves all orders for a given project of your company, sorted from most recent\nto oldest. Optionally, you can pass query parameters to customize the response content.\n\nNote that the order data itself (like address information) can not be modified.\n\n**Timezones**\n\nWhen using the `start_date`, `end_date`, `last_modified_after`, `last_modified_before`,\n`retrieved_at_start` or `retrieved_at_end` parameters please keep in mind that the we will\ninterpret the provided dates and times to be in UTC timezone.\n\nThe timestamps on the returned orders are ISO 8601 compliant and have a UTC offset of +00:00.\n\n**Example usage**\n\nSuppose the following scenario for a given project of yours:\n    - The project contains the orders `o1`, `o2`, `o3`, and `o4` (from oldest to most recent)\n    - `o3` contains some error\n    - `o1` and `o4` are searchable by the term `t`\n    - `o3` is searchable by the term `tE`\n\n|  Request parameters                          | Response\n| -------------                                | -----------\n| _none_                                       | `{\"orders\": [o4, o3, o2, o1], \"error_count\": 1, \"total\": 4}`\n| `?errors=true`                               | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?limit=2`                                   | `{\"orders\": [o4, o3], \"error_count\": 1, \"total\": 2}`\n| `?offset=1`                                  | `{\"orders\": [o3, o2, o1], \"error_count\": 1, \"total\": 3}`\n| `?offset=4`                                  | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?offset=1&limit=1`                          | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?offset=1&limit=2`                          | `{\"orders\": [o3, o2], \"error_count\": 1, \"total\": 2}`\n| `?offset=1&limit=2&errors=true`              | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?search=t`                                  | `{\"orders\": [o4, o1], \"error_count\": 0, \"total\": 2}`\n| `?search=t&errors=true`                      | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?search=tE`                                 | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?search=tE&errors=true`                     | `{\"orders\": [o3], \"error_count\": 1, \"total\": 1}`\n| `?offset=1&limit=2&search=t&errors=true`     | `{\"orders\": [], \"error_count\": 1, \"total\": 0}`\n| `?status=not_shipped`                        | `{\"orders\": [o4], \"error_count\": 1, \"total\": 1}`\n| `?start_date=2018-01-01`                     | `{\"orders\": [o4, o3, o2], \"error_count\": 1, \"total\": 3}`\n| `?start_date=2018-01-01&end_date=2018-02-28` | `{\"orders\": [o3, o2], \"error_count\": 1, \"total\": 2}`\n| `?last_modified_after=2018-02-29`            | `{\"orders\": [o4], \"error_count\": 1, \"total\": 1}`"
+      operationId: all_orders_v2_v2_companies__company_id__projects__project_id__orders_get
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatus'
+          - type: array
+            items:
+              $ref: '#/components/schemas/OrderStatus'
+          - type: 'null'
+          title: Status
+      - name: errors
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Errors
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          description: Any text based search query
+          title: Search
+        description: Any text based search query
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      - name: retrieved_at_start
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At Start
+      - name: retrieved_at_end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At End
+      - name: last_modified_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified After
+      - name: last_modified_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Modified Before
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Max number of results in a single page.
+          default: 100
+          title: Limit
+        description: Max number of results in a single page.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          description: Filter results starting from this offset.
+          default: 0
+          title: Offset
+        description: Filter results starting from this offset.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecentChannableAPIOrders'
+        '504':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Gateway Timeout
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/companies/{company_id}/projects/{project_id}/orders/{order_id}:
+    get:
+      tags:
+      - orders
+      summary: Single Order V2
+      description: 'This endpoint retrieves an order, and its events, based on the order_id.
+
+
+        **Understanding the address fields**
+
+
+        There are two ways of storing the address information for order billing and shipping:
+
+
+        Using the fields street, house_number, house_number_ext, and address_supplement
+
+        Using the fields address1 and address2
+
+
+        The first is more used in the Netherlands, where an address requires a house number, while the
+
+        second version is more used abroad. We support both cases, and, in the example to the right,
+
+        you see how to translate one into the other.
+
+
+        **Understanding the price fields**
+
+
+        An order contains a list of products purchased by a customer.
+
+        The product.quantity stores the quantity of products of a given kind were purchased.
+
+        The product.price is per product, not product.quantity * price_per_unit.
+
+        The order.price.total is the sum of all purchased products'' price, shipping costs, and other
+
+        applicable fees.'
+      operationId: single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Company Id
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Project Id
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          description: The Channable ID of the order
+          title: Order Id
+        description: The Channable ID of the order
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableApiOrderWithEvents'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannableErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ChannableOrderDataDeliveryRequest:
+      properties:
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Carrier
+        promise:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Promise
+        shipment_promise:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Shipment Promise
+      type: object
+      title: ChannableOrderDataDeliveryRequest
+    PlatformName:
+      type: string
+      enum:
+      - bigcommerce
+      - ccvshop
+      - channable
+      - divide
+      - lightspeed
+      - lightspeed_eseries
+      - magento
+      - prestashop
+      - shopify
+      - shoptrader
+      - shopware5
+      - shopware6
+      - squarespace
+      - woocommerce
+      - mijnwebwinkel
+      - webshop
+      title: PlatformName
+      description: This Enum contains the names of all possible platforms.
+    ManualReturnStatus:
+      type: string
+      enum:
+      - accepted
+      - rejected
+      title: ManualReturnStatus
+    ChannableOrderDataBillingAddress:
+      properties:
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        address1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address1
+        address2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address2
+        zip_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip Code
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+        street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+        house_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: House Number
+        house_number_ext:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: House Number Ext
+        address_supplement:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Supplement
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+        vat_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vat Number
+        tax_id_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tax Id Number
+      type: object
+      title: ChannableOrderDataBillingAddress
+    EfferentOrderDataDeliveryRequest:
+      properties:
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Carrier
+        promise:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Promise
+      type: object
+      title: EfferentOrderDataDeliveryRequest
+    ChannelName:
+      type: string
+      enum:
+      - aliexpress
+      - allegro
+      - amazon
+      - arise
+      - beslist
+      - bol
+      - cdiscount
+      - channable_sandbox
+      - check24
+      - ebay
+      - fnac
+      - fruugo
+      - galaxus
+      - google_ucp
+      - homedeco
+      - idealo
+      - kaufland
+      - manomano
+      - miinto
+      - miinto_new
+      - mirakl_anwb
+      - mirakl_boulanger
+      - mirakl_but
+      - mirakl_carrefour
+      - mirakl_carrefour_fr
+      - mirakl_castorama
+      - mirakl_conforama
+      - mirakl_conrad
+      - mirakl_coolshop
+      - mirakl_darty
+      - mirakl_debenhams
+      - mirakl_decathlon
+      - mirakl_douglas
+      - mirakl_eprice
+      - mirakl_fonq
+      - mirakl_galeries_lafayette
+      - mirakl_home24
+      - mirakl_hornbach
+      - mirakl_inno
+      - mirakl_kruidvat
+      - mirakl_la_redoute
+      - mirakl_le_bhv_marais
+      - mirakl_leen_bakker
+      - mirakl_leroy_merlin
+      - mirakl_maisons_du_monde
+      - mirakl_manor
+      - mirakl_maxeda_brico
+      - mirakl_maxeda_praxis
+      - mirakl_mediamarkt
+      - mirakl_nextail
+      - mirakl_nocibe
+      - mirakl_obelink
+      - mirakl_pccomponentes
+      - mirakl_shop_apotheke
+      - mirakl_shop_apotheke_at
+      - mirakl_shop_apotheke_farmaline
+      - mirakl_shop_apotheke_redcare
+      - mirakl_showroomprive
+      - mirakl_sprinter
+      - mirakl_teract
+      - mirakl_vtwonen
+      - mirakl_worten
+      - otto
+      - rakuten
+      - real
+      - spartoo
+      - tiktok
+      - tiktok_us
+      - tobedressed
+      - v_and_d
+      - veepee
+      - walmart
+      - wayfair
+      - wish
+      - zalando
+      title: ChannelName
+      description: This Enum contains the names of all possible channels.
+    RecentOrders:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        orders:
+          items:
+            $ref: '#/components/schemas/EfferentOrder'
+          type: array
+          title: Orders
+        channels:
+          items:
+            $ref: '#/components/schemas/OrderConfigNameAndId'
+          type: array
+          title: Channels
+          description: All order connection names in the project.
+      type: object
+      required:
+      - total
+      - error_count
+      - orders
+      - channels
+      title: RecentOrders
+      example:
+        channels:
+        - id: 1
+          name: Example order connection
+        error_count: 0
+        orders:
+        - attachments: []
+          channel_id: 123456789-6049197
+          channel_id_internal: ''
+          channel_name: ebay
+          created: '2022-04-19T06:38:23.044176+00:00'
+          data:
+            billing:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: Extra address info
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              region: Limburg
+              region_code: LI
+              street: Test street
+              tax_id_number: ''
+              vat_number: NL123456790B01
+              zip_code: 1234 AB
+            customer:
+              business_order: false
+              company: Test company
+              customer_channel_id: ''
+              email: dontemail@me.net
+              first_name: Test
+              gender: male
+              last_name: from Channable
+              middle_name: ''
+              mobile: '123456789'
+              phone: '123456789'
+            delivery_request:
+              carrier: ''
+              method: Standard
+              promise: 3 days
+              shipment_promise: '2019-11-08'
+            extra:
+              comment: 'Order id: 123'
+              external_status: ''
+              is_demo_order: false
+              is_test_order: false
+              label: ''
+              memo: Order from Channable
+            price:
+              commission: 0.32
+              currency: EUR
+              discount: 0.0
+              payment_details_iban: ''
+              payment_method: channable
+              shipping: 1.0
+              subtotal: 8.0
+              total: 10.0
+              transaction_fee: 1.0
+              transaction_id: ''
+            products:
+            - article_number: ''
+              commission: 0.32
+              delivery_period: 2016-06-28+02:00
+              ean: ''
+              gift_message: ''
+              id: '3124567'
+              price: 8.0
+              quantity: 1
+              reference_code: '123'
+              shipping: 1.0
+              title: Test item
+            shipping:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: ''
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              pickup_point_name: ''
+              region: Limburg
+              region_code: LI
+              shipping_center_id: ''
+              street: Test street
+              zip_code: 1234 AB
+          error: false
+          id: 8355
+          modified: '2022-05-20T14:47:58.995190+00:00'
+          obfuscated: false
+          order_config_id: 98734
+          platform_id: '8355'
+          platform_name: lightspeed
+          project_id: 53967
+          retrieved_at: '2022-04-19T06:38:23.044176+00:00'
+          status_paid: paid
+          status_shipped: not_shipped
+          supports_alternate_id_mapping: false
+          supports_order_attachments: false
+          supports_partial_fulfillments: true
+          supports_tracking: true
+        total: 1
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ChannableOrderDataShippingAddress:
+      properties:
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        address1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address1
+        address2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address2
+        zip_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip Code
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+        street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+        house_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: House Number
+        house_number_ext:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: House Number Ext
+        address_supplement:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Supplement
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+        shipping_center_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Shipping Center Id
+        pickup_point_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pickup Point Name
+      type: object
+      title: ChannableOrderDataShippingAddress
+    OrderAttachmentType:
+      type: string
+      enum:
+      - MIRAVIA_SHIPPING_LABEL
+      - WAYFAIR_SHIPPING_LABEL
+      - INVOICE
+      - AMAZON_EASYSHIP_LABEL
+      - ZALANDO_ZSS_DOCUMENT
+      - TIKTOK_SHIPPING_LABEL
+      - BOL_VVB_LABEL
+      title: OrderAttachmentType
+    OrderWithEvents:
+      properties:
+        order:
+          $ref: '#/components/schemas/EfferentOrder'
+          title: Order
+        events:
+          items:
+            $ref: '#/components/schemas/EfferentOrderEvent'
+          type: array
+          title: Events
+      type: object
+      required:
+      - order
+      - events
+      title: OrderWithEvents
+      example:
+        events:
+        - created: '2022-04-19T06:38:23.044176+00:00'
+          id: 1
+          message: Order sent to Lightspeed
+          modified: '2022-04-19T06:38:23.044176+00:00'
+          order_id: 1
+          project_id: 1
+          status: info
+        order:
+          attachments: []
+          channel_id: 123456789-6049197
+          channel_id_internal: ''
+          channel_name: ebay
+          created: '2022-04-19T06:38:23.044176+00:00'
+          data:
+            billing:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: Extra address info
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              region: Limburg
+              region_code: LI
+              street: Test street
+              tax_id_number: ''
+              vat_number: NL123456790B01
+              zip_code: 1234 AB
+            customer:
+              business_order: false
+              company: Test company
+              customer_channel_id: ''
+              email: dontemail@me.net
+              first_name: Test
+              gender: male
+              last_name: from Channable
+              middle_name: ''
+              mobile: '123456789'
+              phone: '123456789'
+            delivery_request:
+              carrier: ''
+              method: Standard
+              promise: 3 days
+              shipment_promise: '2019-11-08'
+            extra:
+              comment: 'Order id: 123'
+              external_status: ''
+              is_demo_order: false
+              is_test_order: false
+              label: ''
+              memo: Order from Channable
+            price:
+              commission: 0.32
+              currency: EUR
+              discount: 0.0
+              payment_details_iban: ''
+              payment_method: channable
+              shipping: 1.0
+              subtotal: 8.0
+              total: 10.0
+              transaction_fee: 1.0
+              transaction_id: ''
+            products:
+            - article_number: ''
+              commission: 0.32
+              delivery_period: 2016-06-28+02:00
+              ean: ''
+              gift_message: ''
+              id: '3124567'
+              price: 8.0
+              quantity: 1
+              reference_code: '123'
+              shipping: 1.0
+              title: Test item
+            shipping:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: ''
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              pickup_point_name: ''
+              region: Limburg
+              region_code: LI
+              shipping_center_id: ''
+              street: Test street
+              zip_code: 1234 AB
+          error: false
+          id: 8355
+          modified: '2022-05-20T14:47:58.995190+00:00'
+          obfuscated: false
+          order_config_id: 98734
+          platform_id: '8355'
+          platform_name: lightspeed
+          project_id: 53967
+          retrieved_at: '2022-04-19T06:38:23.044176+00:00'
+          status_paid: paid
+          status_shipped: not_shipped
+          supports_alternate_id_mapping: false
+          supports_order_attachments: false
+          supports_partial_fulfillments: true
+          supports_tracking: true
+    ChannableCancellationPayload:
+      properties:
+        order_item_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Order Item Ids
+          description: Channable order item ids that are part of a partial cancellation. If you want to cancel all order items of the order, you can set this field to `null` or provide all order item ids. If you want to cancel some of the order items of the order you can provide the item ids of the ones that you are willing to cancel. The status of the order will then change to `partial`. Once you cancel more of the order items, you can repeat the request using the new order item ids that you want to cancel.
+      type: object
+      title: ChannableCancellationPayload
+      example:
+        order_item_ids:
+        - 1
+        - 2
+    TestOrderBody:
+      properties:
+        item_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Item Id
+          description: Item ID of the product in the test order.
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: The ISO 3166-1 alpha-2 country code the test order should be created with.
+        billing:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableOrderDataBillingAddress'
+          - type: 'null'
+          title: Billing Address
+          description: Provide specific data to be used in the billing address, instead of the Channabledefault values for a test order.
+        shipping:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableOrderDataShippingAddress'
+          - type: 'null'
+          title: Shipping Address
+          description: Provide specific data to be used in the shipping address, instead of the Channable default values for a test order.
+        price:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableOrderDataPrice-Input'
+          - type: 'null'
+          title: Price
+          description: Provide specific data to be used for the price object, instead of the Channable default values for a test order. If provided all mandatory fields must be filled, otherwise de Channable defaults will be used
+        customer:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableOrderDataCustomer'
+          - type: 'null'
+          title: Customer
+          description: Provide specific data to be used in the customer info, instead of the Channable default values for a test order.
+        products:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChannableOrderDataProduct-Input'
+            type: array
+          - type: 'null'
+          title: Products
+          description: Provide specific product data to be used as the products, instead of the Channable default value for a test order. Multiple products can be provided to simulate a multi item order.
+      type: object
+      title: TestOrderBody
+      example:
+        country: NL
+        item_id: some-id
+    ChannableOrderItemStatusEnum:
+      type: string
+      enum:
+      - shipped
+      - cancelled
+      - manual
+      - waiting
+      - pending_shipment
+      - pending_cancellation
+      - cancellation_request
+      - processing
+      - error
+      title: ChannableOrderItemStatusEnum
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OrderAttachmentEfferent:
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+        title:
+          type: string
+          title: Title
+        project_id:
+          type: integer
+          title: Project Id
+        created:
+          type: string
+          format: date-time
+          title: Created
+        file_type:
+          $ref: '#/components/schemas/FileExtensionOrderAttachments'
+          default: .pdf
+        attachment_type:
+          $ref: '#/components/schemas/OrderAttachmentType'
+        order_id:
+          type: integer
+          title: Order Id
+        order_item_status_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Item Status Id
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+        id:
+          type: integer
+          title: Id
+      type: object
+      required:
+      - expires_at
+      - title
+      - project_id
+      - attachment_type
+      - order_id
+      - id
+      title: OrderAttachmentEfferent
+    OrderStatus:
+      type: string
+      enum:
+      - shipped
+      - not_shipped
+      - waiting
+      - cancelled
+      - processing
+      - pending_shipment
+      - pending_cancellation
+      - cancellation_request
+      - awaiting_confirmation
+      - partial
+      - manual
+      title: OrderStatus
+    Currency:
+      type: string
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BHD
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BTN
+      - BWP
+      - BYR
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CUP
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ERN
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - IQD
+      - IRR
+      - ISK
+      - JMD
+      - JOD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KPW
+      - KRW
+      - KWD
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LTL
+      - LVL
+      - LYD
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - OMR
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RUR
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SDG
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TMT
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VEF
+      - VND
+      - VUV
+      - WST
+      - XXX
+      - YER
+      - ZAR
+      - ZMK
+      - ZWL
+      title: Currency
+      description: This Enum contains all possible currencies.
+    EfferentOrderEvent:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        project_id:
+          type: integer
+          title: Project Id
+        order_id:
+          type: integer
+          title: Order Id
+        created:
+          type: string
+          format: date-time
+          title: Created
+        status:
+          $ref: '#/components/schemas/OrderEventStatus'
+          title: Order Event Status
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - project_id
+      - order_id
+      - created
+      - status
+      - modified
+      - message
+      title: EfferentOrderEvent
+      description: Differentiate EfferentOrderEvent to allow drift in the future
+    AnonymizedEfferentOrderData:
+      properties:
+        billing:
+          $ref: '#/components/schemas/AnonymizedEfferentOrderDataAddress'
+          title: Anonymized Billing Address
+        shipping:
+          $ref: '#/components/schemas/AnonymizedEfferentOrderDataAddress'
+          title: Anonymized Shipping Address
+        price:
+          $ref: '#/components/schemas/AnonymizedEfferentOrderDataPrice'
+          title: Anonymized Price
+        customer:
+          $ref: '#/components/schemas/AnonymizedEfferentOrderDataCustomer'
+          title: Anonymized Customer
+        products:
+          items:
+            $ref: '#/components/schemas/AnonymizedEfferentOrderDataProduct'
+          type: array
+          title: Anonymized Products
+        extra:
+          $ref: '#/components/schemas/EfferentOrderDataExtra'
+          title: Extra Order information
+        delivery_request:
+          $ref: '#/components/schemas/EfferentOrderDataDeliveryRequest'
+          title: Delivery Request
+      type: object
+      required:
+      - billing
+      - shipping
+      - price
+      - customer
+      - products
+      - extra
+      - delivery_request
+      title: AnonymizedEfferentOrderData
+    EfferentOrderDataExtra:
+      properties:
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+        external_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Status
+        is_test_order:
+          type: boolean
+          title: Is Test Order
+        platform_internal_reference:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Internal Reference
+        channel_order_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Order Number
+      type: object
+      required:
+      - is_test_order
+      title: EfferentOrderDataExtra
+    ChannableApiOrderWithEvents:
+      properties:
+        order:
+          $ref: '#/components/schemas/ChannableAPIOrder'
+          title: Order
+        events:
+          items:
+            $ref: '#/components/schemas/ChannableApiOrderEvent'
+          type: array
+          title: Events
+      type: object
+      required:
+      - order
+      - events
+      title: ChannableApiOrderWithEvents
+      example:
+        events:
+        - created: '2022-04-19T06:38:23.044176+00:00'
+          id: 1
+          message: Order sent to Lightspeed
+          modified: '2022-04-19T06:38:23.044176+00:00'
+          order_id: 1
+          project_id: 1
+          status: info
+        order:
+          attachments: []
+          channel_id: 123456789-6049197
+          channel_id_internal: ''
+          channel_name: ebay
+          created: '2022-04-19T06:38:23.044176+00:00'
+          data:
+            billing:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: Extra address info
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              region: Limburg
+              region_code: LI
+              street: Test street
+              tax_id_number: ''
+              vat_number: NL123456790B01
+              zip_code: 1234 AB
+            customer:
+              business_order: false
+              company: Test company
+              customer_channel_id: ''
+              email: dontemail@me.net
+              first_name: Test
+              gender: male
+              last_name: from Channable
+              middle_name: ''
+              mobile: '123456789'
+              phone: '123456789'
+            delivery_request:
+              carrier: ''
+              method: Standard
+              promise: 3 days
+              shipment_promise: '2019-11-08'
+            extra:
+              comment: 'Order id: 123'
+              external_status: ''
+              is_demo_order: false
+              is_test_order: false
+              label: ''
+              memo: Order from Channable
+            price:
+              commission: 0.32
+              currency: EUR
+              discount: 0.0
+              payment_details_iban: ''
+              payment_method: channable
+              shipping: 1.0
+              subtotal: 8.0
+              total: 10.0
+              transaction_fee: 1.0
+              transaction_id: ''
+            products:
+            - article_number: ''
+              commission: 0.32
+              delivery_period: 2016-06-28+02:00
+              ean: ''
+              gift_message: ''
+              id: '3124567'
+              price: 8.0
+              quantity: 1
+              reference_code: '123'
+              shipping: 1.0
+              title: Test item
+            shipping:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: ''
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              pickup_point_name: ''
+              region: Limburg
+              region_code: LI
+              shipping_center_id: ''
+              street: Test street
+              zip_code: 1234 AB
+          error: false
+          id: 8355
+          modified: '2022-05-20T14:47:58.995190+00:00'
+          obfuscated: false
+          order_config_id: 98734
+          platform_id: '8355'
+          platform_name: lightspeed
+          project_id: 53967
+          retrieved_at: '2022-04-19T06:38:23.044176+00:00'
+          status_paid: paid
+          status_shipped: not_shipped
+    AnonymizedEfferentOrderDataAddress:
+      properties:
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+      type: object
+      title: AnonymizedEfferentOrderDataAddress
+    OrderReturnBody:
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/OrderReturnProduct'
+          type: array
+          title: Products
+      type: object
+      required:
+      - products
+      title: OrderReturnBody
+    AnonymizedEfferentOrderDataCustomer:
+      properties:
+        gender:
+          $ref: '#/components/schemas/Gender'
+        business_order:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Business Order
+      type: object
+      required:
+      - gender
+      title: AnonymizedEfferentOrderDataCustomer
+    ChannableOrderDataPrice-Input:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+        currency:
+          $ref: '#/components/schemas/Currency'
+        subtotal:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Subtotal
+        shipping:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Shipping
+        discount:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Discount
+        total:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Total
+        transaction_fee:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Transaction Fee
+        commission:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Commission
+        transaction_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transaction Id
+        payment_details_iban:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Payment Details Iban
+      type: object
+      required:
+      - payment_method
+      - currency
+      - subtotal
+      - shipping
+      - total
+      - transaction_fee
+      - commission
+      title: ChannableOrderDataPrice
+    EfferentOrder:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        channel_name:
+          $ref: '#/components/schemas/ChannelName'
+          title: Channel Name
+        platform_name:
+          anyOf:
+          - $ref: '#/components/schemas/PlatformName'
+          - type: 'null'
+          title: Platform Name
+        project_id:
+          type: integer
+          title: Project Id
+        order_config_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Config Id
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        channel_id:
+          type: string
+          title: Channel Id
+        status_paid:
+          $ref: '#/components/schemas/ChannableOrderPaymentStatus'
+          title: Payment Status
+        status_shipped:
+          $ref: '#/components/schemas/ChannableOrderShipmentStatus'
+          title: Shipment status
+        error:
+          type: boolean
+          title: Error
+        obfuscated:
+          type: boolean
+          title: Obfuscated
+        created:
+          type: string
+          format: date-time
+          title: Created
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        retrieved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At
+        channel_id_internal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id Internal
+        data:
+          $ref: '#/components/schemas/ChannableOrderData'
+          title: Order Data
+        error_reason:
+          anyOf:
+          - $ref: '#/components/schemas/OrderErrorReason'
+          - type: 'null'
+          title: Error reason
+        fulfillments:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/OrderItemFulfillment'
+            type: array
+          - type: 'null'
+          title: Fulfillments
+        attachments:
+          items:
+            $ref: '#/components/schemas/OrderAttachmentEfferent'
+          type: array
+          title: Attachments
+          default: []
+        supports_partial_fulfillments:
+          type: boolean
+          const: true
+          title: Supports Partial Fulfillments
+          default: true
+        supports_order_attachments:
+          type: boolean
+          title: Supports Order Attachments
+          default: false
+        supports_alternate_id_mapping:
+          type: boolean
+          title: Supports Alternate Id Mapping
+          default: false
+        supports_tracking:
+          type: boolean
+          title: Supports Tracking
+          default: true
+      type: object
+      required:
+      - channel_name
+      - project_id
+      - channel_id
+      - status_paid
+      - status_shipped
+      - error
+      - obfuscated
+      - created
+      - modified
+      - data
+      title: EfferentOrder
+    ChannableOrderDataExtra:
+      properties:
+        memo:
+          type: string
+          title: Memo
+        comment:
+          type: string
+          title: Comment
+          default: ''
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+        external_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Status
+        is_test_order:
+          type: boolean
+          title: Is Test Order
+          default: false
+        is_demo_order:
+          type: boolean
+          title: Is Demo Order
+          default: false
+        platform_internal_reference:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Internal Reference
+        channel_order_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Order Number
+      type: object
+      required:
+      - memo
+      title: ChannableOrderDataExtra
+    OrderItemFulfillment:
+      properties:
+        item_id:
+          type: string
+          title: Item Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        quantity:
+          type: integer
+          title: Quantity
+        status:
+          $ref: '#/components/schemas/ChannableOrderItemStatusEnum'
+          title: Order item status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        tracking_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tracking Code
+        tracking_code_original:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tracking Code Original
+        transporter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transporter
+        transporter_original:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transporter Original
+        return_tracking_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Tracking Code
+        return_tracking_code_original:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Tracking Code Original
+        return_transporter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Transporter
+        return_transporter_original:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Transporter Original
+      type: object
+      required:
+      - item_id
+      - quantity
+      - status
+      - created_at
+      - modified_at
+      title: OrderItemFulfillment
+    ChannableErrorResponse:
+      properties:
+        status:
+          type: string
+          const: error
+          title: Status
+          default: error
+        message:
+          type: string
+          title: Message
+          description: A description about the given error
+      type: object
+      required:
+      - message
+      title: ChannableErrorResponse
+      description: The standard Channable error response
+    OrderEventStatus:
+      type: string
+      enum:
+      - info
+      - error
+      - warning
+      title: OrderEventStatus
+    RecentChannableAPIOrders:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        orders:
+          items:
+            $ref: '#/components/schemas/ChannableAPIOrder'
+          type: array
+          title: Orders
+      type: object
+      required:
+      - total
+      - error_count
+      - orders
+      title: RecentChannableAPIOrders
+      example:
+        error_count: 0
+        orders:
+        - attachments: []
+          channel_id: 123456789-6049197
+          channel_id_internal: ''
+          channel_name: ebay
+          created: '2022-04-19T06:38:23.044176+00:00'
+          data:
+            billing:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: Extra address info
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              region: Limburg
+              region_code: LI
+              street: Test street
+              tax_id_number: ''
+              vat_number: NL123456790B01
+              zip_code: 1234 AB
+            customer:
+              business_order: false
+              company: Test company
+              customer_channel_id: ''
+              email: dontemail@me.net
+              first_name: Test
+              gender: male
+              last_name: from Channable
+              middle_name: ''
+              mobile: '123456789'
+              phone: '123456789'
+            delivery_request:
+              carrier: ''
+              method: Standard
+              promise: 3 days
+              shipment_promise: '2019-11-08'
+            extra:
+              comment: 'Order id: 123'
+              external_status: ''
+              is_demo_order: false
+              is_test_order: false
+              label: ''
+              memo: Order from Channable
+            price:
+              commission: 0.32
+              currency: EUR
+              discount: 0.0
+              payment_details_iban: ''
+              payment_method: channable
+              shipping: 1.0
+              subtotal: 8.0
+              total: 10.0
+              transaction_fee: 1.0
+              transaction_id: ''
+            products:
+            - article_number: ''
+              commission: 0.32
+              delivery_period: 2016-06-28+02:00
+              ean: ''
+              gift_message: ''
+              id: '3124567'
+              price: 8.0
+              quantity: 1
+              reference_code: '123'
+              shipping: 1.0
+              title: Test item
+            shipping:
+              address1: Test street 1 bis
+              address2: ''
+              address_supplement: ''
+              city: Test
+              company: Test company
+              country_code: NL
+              email: dontemail@me.net
+              first_name: Test order
+              house_number: 1
+              house_number_ext: bis
+              last_name: from Channable
+              middle_name: ''
+              pickup_point_name: ''
+              region: Limburg
+              region_code: LI
+              shipping_center_id: ''
+              street: Test street
+              zip_code: 1234 AB
+          error: false
+          id: 8355
+          modified: '2022-05-20T14:47:58.995190+00:00'
+          obfuscated: false
+          order_config_id: 98734
+          platform_id: '8355'
+          platform_name: lightspeed
+          project_id: 53967
+          retrieved_at: '2022-04-19T06:38:23.044176+00:00'
+          status_paid: paid
+          status_shipped: not_shipped
+        total: 1
+    ChannableShippingPayload:
+      properties:
+        tracking_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tracking Code
+        transporter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transporter
+        return_tracking_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Tracking Code
+        return_transporter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Return Transporter
+        order_item_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Order Item Ids
+          description: Channable order item ids that are part of a partial shipment. If you want to ship all order items of the order, you can set this field to `null` or provide all order item ids. If you want to ship some of the order items of the order you can provide the item ids of the ones that you are willing to ship. The status of the order will then change to `partial`. Once you ship more of the order items, you can repeat the request using the new order item ids that you want to ship.
+      type: object
+      title: ChannableShippingPayload
+      description: Model for data obtained from the Channable API shipment update
+      example:
+        order_item_ids:
+        - 1
+        - 2
+        tracking_code: 3S1234567890
+        transporter: POSTNL
+    Gender:
+      type: string
+      enum:
+      - male
+      - female
+      - unknown
+      title: Gender
+      description: This Enum contains all possible genders.
+    ChannableApiOrderEvent:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        project_id:
+          type: integer
+          title: Project Id
+        order_id:
+          type: integer
+          title: Order Id
+        created:
+          type: string
+          format: date-time
+          title: Created
+        status:
+          $ref: '#/components/schemas/OrderEventStatus'
+          title: Order Event Status
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - project_id
+      - order_id
+      - created
+      - status
+      - modified
+      - message
+      title: ChannableApiOrderEvent
+      description: Differentiate ChannableAPI order events to allow drift in the future
+    AnonymizedEfferentOrderDataProduct:
+      properties:
+        id:
+          type: string
+          title: Id
+        price:
+          type: number
+          title: Price
+        ean:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ean
+        article_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Article Number
+        reference_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reference Code
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        delivery_period:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Period
+        quantity:
+          type: integer
+          title: Quantity
+        discount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount
+        shipping:
+          type: number
+          title: Shipping
+        commission:
+          type: number
+          title: Commission
+        price_tax:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Price Tax
+        shipping_tax:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Shipping Tax
+      type: object
+      required:
+      - id
+      - price
+      - quantity
+      - shipping
+      - commission
+      title: AnonymizedEfferentOrderDataProduct
+    ChannableOrderDataCustomer:
+      properties:
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        gender:
+          $ref: '#/components/schemas/Gender'
+          default: unknown
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        mobile:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobile
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        business_order:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Business Order
+        customer_channel_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Customer Channel Id
+      type: object
+      title: ChannableOrderDataCustomer
+    ChannableOrderDataProduct-Input:
+      properties:
+        price:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Price
+        ean:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ean
+        article_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Article Number
+        reference_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reference Code
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        delivery_period:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Period
+        quantity:
+          type: integer
+          title: Quantity
+        discount:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Discount
+        shipping:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Shipping
+        commission:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Commission
+          default: '0.00'
+        price_tax:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Price Tax
+        shipping_tax:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Shipping Tax
+        gift_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gift Message
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        channel_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id
+        channel_product_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Product Id
+        channel_stock_level:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channel Stock Level
+        virtual_product_bundle_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Virtual Product Bundle Id
+          openapi_hidden: true
+        virtual_product_bundle_quantity:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Virtual Product Bundle Quantity
+          openapi_hidden: true
+        id:
+          type: string
+          title: Id
+        channable_order_item_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channable Order Item Id
+          description: Channable internal order item id
+      type: object
+      required:
+      - price
+      - quantity
+      - shipping
+      - id
+      title: ChannableOrderDataProduct
+    AnonymizedEfferentOrder:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        channel_name:
+          $ref: '#/components/schemas/ChannelName'
+          title: Channel Name
+        platform_name:
+          anyOf:
+          - $ref: '#/components/schemas/PlatformName'
+          - type: 'null'
+          title: Platform Name
+        project_id:
+          type: integer
+          title: Project Id
+        order_config_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Config Id
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        channel_id:
+          type: string
+          title: Channel Id
+        status_paid:
+          $ref: '#/components/schemas/ChannableOrderPaymentStatus'
+          title: Payment Status
+        status_shipped:
+          $ref: '#/components/schemas/ChannableOrderShipmentStatus'
+          title: Shipment status
+        error:
+          type: boolean
+          title: Error
+        obfuscated:
+          type: boolean
+          title: Obfuscated
+        created:
+          type: string
+          format: date-time
+          title: Created
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        retrieved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At
+        channel_id_internal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id Internal
+        data:
+          $ref: '#/components/schemas/AnonymizedEfferentOrderData'
+          title: Anonymized Order Data
+      type: object
+      required:
+      - channel_name
+      - project_id
+      - channel_id
+      - status_paid
+      - status_shipped
+      - error
+      - obfuscated
+      - created
+      - modified
+      - data
+      title: AnonymizedEfferentOrder
+      description: 'An order representation from any channel to any platform,
+
+        but with all PII filtered out of the data.'
+    ResponseModel:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+          title: Response Status
+        message:
+          type: string
+          title: Message
+        response:
+          type: string
+          title: Response
+          default: ''
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+          description: Data relevant to the specific response. This may vary by endpoint
+      type: object
+      required:
+      - status
+      - message
+      title: ResponseModel
+      description: A container for response model.
+    ShippingResponseModel:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+          title: Response Status
+        message:
+          type: string
+          title: Message
+        response:
+          type: string
+          title: Response
+          default: ''
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+          description: Data relevant to the specific response. This may vary by endpoint
+        channable_order_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channable Order Id
+      type: object
+      required:
+      - status
+      - message
+      title: ShippingResponseModel
+      description: A container for shipping response model.
+    ResponseModelStatus:
+      type: string
+      enum:
+      - success
+      - error
+      - warning
+      - debug
+      title: ResponseModelStatus
+    ChannableOrderPaymentStatus:
+      type: string
+      enum:
+      - not_paid
+      - paid
+      - cancelled
+      - manual
+      - cancellation_request
+      title: ChannableOrderPaymentStatus
+    AnonymizedEfferentOrderDataPrice:
+      properties:
+        payment_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Payment Method
+        currency:
+          $ref: '#/components/schemas/Currency'
+        subtotal:
+          type: number
+          title: Subtotal
+        shipping:
+          type: number
+          title: Shipping
+        discount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount
+        total:
+          type: number
+          title: Total
+        transaction_fee:
+          type: number
+          title: Transaction Fee
+        commission:
+          type: number
+          title: Commission
+      type: object
+      required:
+      - currency
+      - subtotal
+      - shipping
+      - total
+      - transaction_fee
+      - commission
+      title: AnonymizedEfferentOrderDataPrice
+    ChannableOrderData:
+      properties:
+        billing:
+          $ref: '#/components/schemas/ChannableOrderDataBillingAddress'
+          title: Billing Address
+        shipping:
+          $ref: '#/components/schemas/ChannableOrderDataShippingAddress'
+          title: Shipping Address
+        price:
+          $ref: '#/components/schemas/ChannableOrderDataPrice-Output'
+          title: Price
+        customer:
+          $ref: '#/components/schemas/ChannableOrderDataCustomer'
+          title: Customer
+        products:
+          items:
+            $ref: '#/components/schemas/ChannableOrderDataProduct-Output'
+          type: array
+          title: Products
+        extra:
+          $ref: '#/components/schemas/ChannableOrderDataExtra'
+          title: Extra Order Information
+          default:
+            memo: ''
+            comment: ''
+            is_test_order: false
+            is_demo_order: false
+        delivery_request:
+          $ref: '#/components/schemas/ChannableOrderDataDeliveryRequest'
+          title: Delivery Request
+          default: {}
+      type: object
+      required:
+      - billing
+      - shipping
+      - price
+      - customer
+      - products
+      title: ChannableOrderData
+    OrderErrorReason:
+      type: string
+      enum:
+      - address_parsing
+      - expired
+      - orphan
+      - shipment_failure
+      - platform_failure
+      - missing_reference
+      - pricing
+      title: OrderErrorReason
+    ChannableOrderDataPrice-Output:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+        currency:
+          $ref: '#/components/schemas/Currency'
+        subtotal:
+          type: number
+          title: Subtotal
+        shipping:
+          type: number
+          title: Shipping
+        discount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount
+        total:
+          type: number
+          title: Total
+        transaction_fee:
+          type: number
+          title: Transaction Fee
+        commission:
+          type: number
+          title: Commission
+        transaction_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transaction Id
+        payment_details_iban:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Payment Details Iban
+      type: object
+      required:
+      - payment_method
+      - currency
+      - subtotal
+      - shipping
+      - total
+      - transaction_fee
+      - commission
+      title: ChannableOrderDataPrice
+    AnonymizedRecentOrders:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        orders:
+          items:
+            $ref: '#/components/schemas/AnonymizedEfferentOrder'
+          type: array
+          title: Anonymized Orders
+      type: object
+      required:
+      - total
+      - error_count
+      - orders
+      title: AnonymizedRecentOrders
+    ChannableOrderShipmentStatus:
+      type: string
+      enum:
+      - not_shipped
+      - shipped
+      - cancelled
+      - manual
+      - waiting
+      - processing
+      - pending_shipment
+      - pending_cancellation
+      - partial
+      - cancellation_request
+      - awaiting_confirmation
+      title: ChannableOrderShipmentStatus
+    ChannableOrderDataProduct-Output:
+      properties:
+        price:
+          type: number
+          title: Price
+        ean:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ean
+        article_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Article Number
+        reference_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reference Code
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        delivery_period:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Period
+        quantity:
+          type: integer
+          title: Quantity
+        discount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount
+        shipping:
+          type: number
+          title: Shipping
+        commission:
+          type: number
+          title: Commission
+          default: 0.0
+        price_tax:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Price Tax
+        shipping_tax:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Shipping Tax
+        gift_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gift Message
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        channel_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id
+        channel_product_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Product Id
+        channel_stock_level:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channel Stock Level
+        virtual_product_bundle_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Virtual Product Bundle Id
+          openapi_hidden: true
+        virtual_product_bundle_quantity:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Virtual Product Bundle Quantity
+          openapi_hidden: true
+        id:
+          type: string
+          title: Id
+        channable_order_item_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Channable Order Item Id
+          description: Channable internal order item id
+      type: object
+      required:
+      - price
+      - quantity
+      - shipping
+      - id
+      title: ChannableOrderDataProduct
+    ChannableAPIOrder:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        channel_name:
+          $ref: '#/components/schemas/ChannelName'
+          title: Channel Name
+        platform_name:
+          anyOf:
+          - $ref: '#/components/schemas/PlatformName'
+          - type: 'null'
+          title: Platform Name
+        project_id:
+          type: integer
+          title: Project Id
+        order_config_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Config Id
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        channel_id:
+          type: string
+          title: Channel Id
+        status_paid:
+          $ref: '#/components/schemas/ChannableOrderPaymentStatus'
+          title: Payment Status
+        status_shipped:
+          $ref: '#/components/schemas/ChannableOrderShipmentStatus'
+          title: Shipment status
+        error:
+          type: boolean
+          title: Error
+        obfuscated:
+          type: boolean
+          title: Obfuscated
+        created:
+          type: string
+          format: date-time
+          title: Created
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        retrieved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At
+        channel_id_internal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id Internal
+        data:
+          $ref: '#/components/schemas/ChannableOrderData'
+          title: Order Data
+        error_reason:
+          anyOf:
+          - $ref: '#/components/schemas/OrderErrorReason'
+          - type: 'null'
+          title: Error reason
+        fulfillments:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/OrderItemFulfillment'
+            type: array
+          - type: 'null'
+          title: Fulfillments
+        attachments:
+          items:
+            $ref: '#/components/schemas/OrderAttachmentEfferent'
+          type: array
+          title: Attachments
+          default: []
+      type: object
+      required:
+      - channel_name
+      - project_id
+      - channel_id
+      - status_paid
+      - status_shipped
+      - error
+      - obfuscated
+      - created
+      - modified
+      - data
+      title: ChannableAPIOrder
+    FileExtensionOrderAttachments:
+      type: string
+      enum:
+      - .pdf
+      - .png
+      - .zpl
+      title: FileExtensionOrderAttachments
+    OrderReturnProduct:
+      properties:
+        id:
+          type: string
+          title: Id
+        quantity:
+          type: integer
+          title: Quantity
+        status:
+          $ref: '#/components/schemas/ManualReturnStatus'
+          default: accepted
+      type: object
+      required:
+      - id
+      - quantity
+      title: OrderReturnProduct
+    OrderConfigNameAndId:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - name
+      title: OrderConfigNameAndId
