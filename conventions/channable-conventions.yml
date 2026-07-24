@@ -1,0 +1,48 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.channable.com/api/v1/
+derived_from: openapi/channable-order-connection-openapi.json
+authentication:
+  style: bearer-token
+  detail: >-
+    Company-level API token sent as `Authorization: Bearer <token>` (preferred) or as an
+    `access_token` query parameter. See authentication/channable-authentication.yml.
+base_url: https://api.channable.com/v1
+resource_scoping:
+  detail: >-
+    Most resources are scoped to a company and project in the path:
+    /v1/companies/{company_id}/projects/{project_id}/... . company_id and project_id are found in
+    app.channable.com. Transporter lookups are global (/v1/transporters/...).
+idempotency:
+  supported: false
+  detail: >-
+    The API does not document an Idempotency-Key header or parameter, and none appears in the OpenAPI.
+    Retries of write operations (shipment, cancel, stock_updates) are not guaranteed idempotent by an
+    idempotency key; use the resource state and 409 Conflict responses to detect duplicate transitions.
+pagination:
+  style: offset-limit
+  params:
+    offset: default 0
+    limit: default 15, max 100
+  detail: >-
+    List endpoints (orders, returns, offers) page with `offset` and `limit` query parameters. Response
+    envelopes carry the returned collection plus paging context.
+versioning:
+  style: uri-path
+  detail: v1 in the path; a v2 exists for orders read endpoints (v1 order reads are deprecated).
+rate_limiting:
+  detail: >-
+    Per-company leaky bucket: 2 requests/second sustained, burst of 100. See
+    rate-limits/channable-rate-limits.yml.
+error_envelope:
+  detail: >-
+    Standard errors use {status:"error", message:"..."} (ChannableErrorResponse); 401 uses an `error`
+    field; 422 validation errors use HTTPValidationError with detail[]. See
+    errors/channable-problem-types.yml. Not RFC 9457.
+request_tracing:
+  detail: No documented request-id / correlation header was found.
+cross_links:
+  authentication: authentication/channable-authentication.yml
+  errors: errors/channable-problem-types.yml
+  lifecycle: lifecycle/channable-lifecycle.yml
+  rate_limits: rate-limits/channable-rate-limits.yml

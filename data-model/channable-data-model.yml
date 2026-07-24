@@ -1,0 +1,67 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/channable-order-connection-openapi.json
+entities:
+- name: Company
+  detail: Top-level tenant; identified by company_id in the path. Owns projects and API tokens.
+- name: Project
+  detail: Scoping unit under a company (project_id in path); order connections and offers live here.
+- name: Order
+  id_field: order_id
+  detail: A marketplace order (ChannableAPIOrder / ChannableOrderData) with customer, addresses, price, products, and shipment/payment status enums.
+- name: OrderEvent
+  detail: Status/history event attached to an order (ChannableApiOrderEvent); returned with single order (ChannableApiOrderWithEvents).
+- name: OrderAttachment
+  id_field: order_attachment_id
+  detail: File attached to an order (invoice, etc.); uploaded and later fetched via a time-limited download URL.
+- name: Return
+  id_field: return_id
+  detail: A marketplace return (EfferentReturn / ChannableReturnsPayload) with items, addresses, status.
+- name: Offer
+  detail: A product offer / stock unit (EfferentOffer, ChannableApiStockUpdate) updated across marketplaces.
+- name: Transporter
+  id_field: transporter_code
+  detail: Standardized shipping carrier code (UnifiedTransporter); mapped to marketplace channels.
+- name: Channel
+  detail: A marketplace/channel (ChannelName); transporters are resolved per channel.
+- name: OrderStatistics
+  detail: Aggregated order metrics per project / order config (OrderStatistic, StatsPlot).
+relationships:
+- from: Company
+  to: Project
+  type: has_many
+  via: project_id
+- from: Project
+  to: Order
+  type: has_many
+  via: order_id
+- from: Project
+  to: Return
+  type: has_many
+  via: return_id
+- from: Project
+  to: Offer
+  type: has_many
+- from: Order
+  to: OrderEvent
+  type: has_many
+- from: Order
+  to: OrderAttachment
+  type: has_many
+  via: order_attachment_id
+- from: Order
+  to: Return
+  type: has_many
+  via: order_id
+- from: Order
+  to: Transporter
+  type: has_one
+  via: transporter_code
+- from: Transporter
+  to: Channel
+  type: has_many
+  via: channel
+notes: >-
+  Derived from OpenAPI schema names and path parameters. Path scoping is
+  company -> project -> {orders|returns|offers|statistics}; transporters and channels are global
+  lookup entities. No id-prefix scheme was documented in the object reference.

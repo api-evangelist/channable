@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+source: https://helpcenter.channable.com/changelog/
+scheme: dated
+current_version: v1
+docs: https://helpcenter.channable.com/changelog/
+notes: >-
+  Channable publishes a dated product/API changelog in its help center. Entries below are the recent
+  window captured during this pass; the live changelog is the source of truth. Not all entries are
+  API-surface changes (many are marketplace/channel and app updates).
+entries:
+- date: '2026-07-13'
+  title: 'Insights for Ads: new segmentation names'
+  breaking: false
+  highlights: Label rebranding (e.g., Stars to Heroes, Potentials to Sidekicks); manual switch until Dec 28.
+- date: '2026-07-10'
+  title: Fnac Darty integration discontinued
+  breaking: true
+  highlights: Support for the Fnac Darty integration ends Dec 31, 2026; new French Mirakl marketplaces planned.
+- date: '2026-07-08'
+  title: Channable app relisted in Shopify App Store
+  breaking: false
+  highlights: App restored after May authentication issues; standard install flow available again.
+- date: '2026-07-06'
+  title: Product data errors shown for Fnac Darty
+  breaking: false
+  highlights: Catalog-level errors (ERR_026, ERR_111, ERR_155) now surfaced in the Channable interface.
+- date: '2026-07-01'
+  title: 'Google Shopping: Content API to Merchant API migration complete'
+  breaking: false
+  highlights: Automatic data-source creation on first run; no manual setup required.
+- date: '2026-07-01'
+  title: Refurbished items supported for bol channels
+  breaking: false
+  highlights: New capability for Dutch/Belgian markets; requires seller approval and grading compliance.
+- date: '2025-11-07'
+  title: Legacy Channable API tokens expire December 9
+  breaking: true
+  highlights: Legacy API tokens deprecated and expired Dec 9, 2025; integrations must use newly generated tokens.

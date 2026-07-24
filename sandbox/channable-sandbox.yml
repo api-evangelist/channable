@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+source: https://helpcenter.channable.com/list-advertise/orders/order-connections/supported-ecommerce-platforms-for-order-connections/how-to-set-up-the-channable-api-for-an-order-connection
+mode: sandbox-connection
+detail: >-
+  Channable provides a "Channable Sandbox" that lets integrators test order integration without sending
+  requests to live marketplaces. It is provisioned as a connection inside the app rather than a separate
+  API host: under user menu -> connections -> "+ Add new connection", select "Channable Sandbox" and
+  create it, then set up an order connection between the "Channable API" and the "Channable Sandbox" for
+  the project. The sandbox uses mocked marketplace data with the same structure and API calls as production.
+test_flows:
+- name: Send test order
+  detail: >-
+    From Setup -> Setup orders -> Settings of the Channable Sandbox order connection, use the gear menu
+    "Send test order", supply an item id, and submit. Programmatically this corresponds to
+    POST /v1/companies/{company_id}/projects/{project_id}/orders/test/{order_config_id}
+    (operationId create_test_order...).
+- name: Create test return
+  detail: >-
+    POST /v1/companies/{company_id}/projects/{project_id}/returns/test (operationId create_test_return...)
+    creates a test return in the sandbox.
+test_operations:
+- create_test_order_companies__company_id__projects__project_id__orders_test__order_config_id__post
+- create_test_return_companies__company_id__projects__project_id__returns_test_post
+notes: >-
+  Channable publishes no static magic test values (no test card numbers, test tokens, or fixed test
+  identifiers) for the order connection API; test data is generated through the sandbox connection and the
+  test-order/test-return endpoints. No values are invented here. The same production base URL
+  (https://api.channable.com/v1) is used; isolation is by the sandbox connection/order-config, not a
+  separate host.

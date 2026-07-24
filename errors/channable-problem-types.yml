@@ -1,0 +1,55 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/channable-order-connection-openapi.json
+enriched_from: https://docs.channable.com/api/v1/
+format: channable-error-envelope
+envelope:
+  description: >-
+    Non-validation errors return the standard Channable error envelope (schema ChannableErrorResponse):
+    a JSON object with `status` (always "error") and `message` (human-readable description). Note the
+    401 Unauthorized response uses an `error` field instead of `message`. HTTP 422 validation errors use
+    a different shape (HTTPValidationError) with a `detail[]` array of field-level ValidationError items
+    (loc/msg/type). This API does not use RFC 9457 application/problem+json.
+  content_type: application/json
+  fields:
+    status: const "error"
+    message: human-readable error description (ChannableErrorResponse)
+    error: used in place of message on 401 responses
+    detail: array of {loc, msg, type} on 422 validation errors (HTTPValidationError)
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or contained invalid parameters/payload.
+  seen_on: [shipment, cancel, stock_updates, offers, returns/test]
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid API token. Response uses an `error` field rather than `message`.
+  seen_on: [offers, stock_updates]
+- status: 404
+  title: Not Found
+  meaning: The referenced order, return, or attachment does not exist for this company/project.
+  seen_on: [single order, shipment, cancel, manual, order attachment upload, create test return]
+- status: 409
+  title: Conflict
+  meaning: The resource is in a state incompatible with the requested transition (e.g. shipment/cancel/return-status conflict).
+  seen_on: [shipment, cancel, update return status, create test return, order attachment upload]
+- status: 410
+  title: Gone
+  meaning: The requested order attachment download URL has expired / is no longer available.
+  seen_on: [order attachment download url]
+- status: 413
+  title: Payload Too Large
+  meaning: The stock-updates payload exceeds the accepted size limit.
+  seen_on: [stock_updates]
+- status: 415
+  title: Unsupported Media Type
+  meaning: The uploaded order attachment uses an unsupported file type/content type.
+  seen_on: [order attachment upload]
+- status: 422
+  title: Validation Error
+  meaning: Request failed schema validation; body is HTTPValidationError with a detail[] list of field errors.
+  seen_on: [most endpoints]
+- status: 504
+  title: Gateway Timeout
+  meaning: The v2 orders listing timed out upstream.
+  seen_on: [all orders v2]

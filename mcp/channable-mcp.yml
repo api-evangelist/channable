@@ -1,0 +1,141 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/channable-order-connection-openapi.json
+status: candidate
+server:
+  name: channable
+  transport: http
+  note: >-
+    No official hosted/remote Channable MCP server was found (searched docs, npm
+    @modelcontextprotocol, and MCP registries). The tools below are candidates derived
+    one-per-operation from the Channable order connection OpenAPI; they are not a
+    published server.
+tools:
+  - name: all_orders_companies__company_id__projects__project_id__orders_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/orders"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/orders
+    deprecated: true
+    source_operation: openapi/channable-order-connection-openapi.json#all_orders_companies__company_id__projects__project_id__orders_get
+  - name: anonymized_all_orders_companies__company_id__projects__project_id__anonymous_orders_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/anonymous_orders"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/anonymous_orders
+    source_operation: openapi/channable-order-connection-openapi.json#anonymized_all_orders_companies__company_id__projects__project_id__anonymous_orders_get
+  - name: single_order_companies__company_id__projects__project_id__orders__order_id__get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}
+    deprecated: true
+    source_operation: openapi/channable-order-connection-openapi.json#single_order_companies__company_id__projects__project_id__orders__order_id__get
+  - name: manual_return_companies__company_id__projects__project_id__orders__order_id__return_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/return"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/return
+    source_operation: openapi/channable-order-connection-openapi.json#manual_return_companies__company_id__projects__project_id__orders__order_id__return_post
+  - name: create_test_order_companies__company_id__projects__project_id__orders_test__order_config_id__post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/test/{order_config_id}"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/test/{order_config_id}
+    source_operation: openapi/channable-order-connection-openapi.json#create_test_order_companies__company_id__projects__project_id__orders_test__order_config_id__post
+  - name: shipment_companies__company_id__projects__project_id__orders__order_id__shipment_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/shipment"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/shipment
+    source_operation: openapi/channable-order-connection-openapi.json#shipment_companies__company_id__projects__project_id__orders__order_id__shipment_post
+  - name: cancellation_companies__company_id__projects__project_id__orders__order_id__cancel_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/cancel"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/cancel
+    source_operation: openapi/channable-order-connection-openapi.json#cancellation_companies__company_id__projects__project_id__orders__order_id__cancel_post
+  - name: manual_companies__company_id__projects__project_id__orders__order_id__manual_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/manual"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/manual
+    source_operation: openapi/channable-order-connection-openapi.json#manual_companies__company_id__projects__project_id__orders__order_id__manual_post
+  - name: all_orders_v2_v2_companies__company_id__projects__project_id__orders_get
+    description: "GET /v2/companies/{company_id}/projects/{project_id}/orders"
+    method: GET
+    path: /v2/companies/{company_id}/projects/{project_id}/orders
+    source_operation: openapi/channable-order-connection-openapi.json#all_orders_v2_v2_companies__company_id__projects__project_id__orders_get
+  - name: single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get
+    description: "GET /v2/companies/{company_id}/projects/{project_id}/orders/{order_id}"
+    method: GET
+    path: /v2/companies/{company_id}/projects/{project_id}/orders/{order_id}
+    source_operation: openapi/channable-order-connection-openapi.json#single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get
+  - name: get_stock_updates_companies__company_id__projects__project_id__offers_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/offers"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/offers
+    source_operation: openapi/channable-order-connection-openapi.json#get_stock_updates_companies__company_id__projects__project_id__offers_get
+  - name: Stock_Updates_Update__deprecated__companies__company_id__projects__project_id__offers_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/offers"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/offers
+    deprecated: true
+    source_operation: openapi/channable-order-connection-openapi.json#Stock_Updates_Update__deprecated__companies__company_id__projects__project_id__offers_post
+  - name: stock_updates_update_companies__company_id__projects__project_id__stock_updates_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/stock_updates"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/stock_updates
+    source_operation: openapi/channable-order-connection-openapi.json#stock_updates_update_companies__company_id__projects__project_id__stock_updates_post
+  - name: all_returns_companies__company_id__projects__project_id__returns_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/returns"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/returns
+    source_operation: openapi/channable-order-connection-openapi.json#all_returns_companies__company_id__projects__project_id__returns_get
+  - name: anonymized_all_returns_companies__company_id__projects__project_id__anonymous_returns_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/anonymous_returns"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/anonymous_returns
+    source_operation: openapi/channable-order-connection-openapi.json#anonymized_all_returns_companies__company_id__projects__project_id__anonymous_returns_get
+  - name: single_return_companies__company_id__projects__project_id__returns__return_id__get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/returns/{return_id}"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/returns/{return_id}
+    source_operation: openapi/channable-order-connection-openapi.json#single_return_companies__company_id__projects__project_id__returns__return_id__get
+  - name: create_test_return_companies__company_id__projects__project_id__returns_test_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/returns/test"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/returns/test
+    source_operation: openapi/channable-order-connection-openapi.json#create_test_return_companies__company_id__projects__project_id__returns_test_post
+  - name: update_return_status_companies__company_id__projects__project_id__returns__return_id__status_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/returns/{return_id}/status"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/returns/{return_id}/status
+    source_operation: openapi/channable-order-connection-openapi.json#update_return_status_companies__company_id__projects__project_id__returns__return_id__status_post
+  - name: order_attachment_download_url_companies__company_id__projects__project_id__orders__order_id__attachments__order_attachment_id__get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/attachments/{order_attachment_id}"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/attachments/{order_attachment_id}
+    source_operation: openapi/channable-order-connection-openapi.json#order_attachment_download_url_companies__company_id__projects__project_id__orders__order_id__attachments__order_attachment_id__get
+  - name: order_attachment_upload_companies__company_id__projects__project_id__orders__order_id__attachments_post
+    description: "POST /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/attachments"
+    method: POST
+    path: /v1/companies/{company_id}/projects/{project_id}/orders/{order_id}/attachments
+    source_operation: openapi/channable-order-connection-openapi.json#order_attachment_upload_companies__company_id__projects__project_id__orders__order_id__attachments_post
+  - name: all_transporters_transporters_all_get
+    description: "GET /v1/transporters/all"
+    method: GET
+    path: /v1/transporters/all
+    source_operation: openapi/channable-order-connection-openapi.json#all_transporters_transporters_all_get
+  - name: channels_for_transporter_transporters_transporter__transporter_code__get
+    description: "GET /v1/transporters/transporter/{transporter_code}"
+    method: GET
+    path: /v1/transporters/transporter/{transporter_code}
+    source_operation: openapi/channable-order-connection-openapi.json#channels_for_transporter_transporters_transporter__transporter_code__get
+  - name: transporters_for_channel_transporters_channel__channel__get
+    description: "GET /v1/transporters/channel/{channel}"
+    method: GET
+    path: /v1/transporters/channel/{channel}
+    source_operation: openapi/channable-order-connection-openapi.json#transporters_for_channel_transporters_channel__channel__get
+  - name: all_statistics_companies__company_id__projects__project_id__statistics_orders_get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/statistics/orders"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/statistics/orders
+    source_operation: openapi/channable-order-connection-openapi.json#all_statistics_companies__company_id__projects__project_id__statistics_orders_get
+  - name: single_orders_config_statistics_companies__company_id__projects__project_id__statistics_orders__order_config_id__get
+    description: "GET /v1/companies/{company_id}/projects/{project_id}/statistics/orders/{order_config_id}"
+    method: GET
+    path: /v1/companies/{company_id}/projects/{project_id}/statistics/orders/{order_config_id}
+    source_operation: openapi/channable-order-connection-openapi.json#single_orders_config_statistics_companies__company_id__projects__project_id__statistics_orders__order_config_id__get

@@ -1,0 +1,24 @@
+{
+  "provider": "channable",
+  "sources": [
+    "channable-order-attachments-api-openapi.yml",
+    "channable-orders-api-openapi.yml",
+    "channable-returns-api-openapi.yml",
+    "channable-statistics-api-openapi.yml",
+    "channable-stock-updates-api-openapi.yml",
+    "channable-transporters-api-openapi.yml"
+  ],
+  "outputs": [
+    "channable-order-attachments-api-openapi.yml",
+    "channable-orders-api-openapi.yml",
+    "channable-returns-api-openapi.yml",
+    "channable-statistics-api-openapi.yml",
+    "channable-stock-updates-api-openapi.yml",
+    "channable-transporters-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/channable-order-connection-openapi.json
+note: >-
+  No provider-published Agent Skills or AGENTS.md was found; these are generated from the Channable
+  order connection OpenAPI, grounded in real operationIds, plus the captured conventions/errors rules.
+skills:
+- file: channable-fulfill-orders.md
+  name: Fulfill Channable marketplace orders
+  api: openapi/channable-order-connection-openapi.json
+  operations:
+  - all_orders_v2_v2_companies__company_id__projects__project_id__orders_get
+  - single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get
+  - shipment_companies__company_id__projects__project_id__orders__order_id__shipment_post
+  - cancellation_companies__company_id__projects__project_id__orders__order_id__cancel_post
+- file: channable-update-stock.md
+  name: Update Channable stock and offers
+  api: openapi/channable-order-connection-openapi.json
+  operations:
+  - get_stock_updates_companies__company_id__projects__project_id__offers_get
+  - stock_updates_update_companies__company_id__projects__project_id__stock_updates_post
+- file: channable-process-returns.md
+  name: Process Channable returns
+  api: openapi/channable-order-connection-openapi.json
+  operations:
+  - all_returns_companies__company_id__projects__project_id__returns_get
+  - single_return_companies__company_id__projects__project_id__returns__return_id__get
+  - update_return_status_companies__company_id__projects__project_id__returns__return_id__status_post

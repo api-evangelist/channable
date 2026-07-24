@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/channable-order-connection-openapi.json
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Spec is OpenAPI 3.1.0, served at https://api.channable.com/v1/openapi.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme; auth is a company bearer token.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a proprietary {status,message} envelope, not application/problem+json.
+- id: rest-json
+  conforms: true
+  evidence: JSON over HTTPS, resource-oriented paths, standard HTTP status codes.
+- id: pagination-offset-limit
+  conforms: true
+  evidence: List endpoints use offset/limit query parameters.
+- id: idempotency-keys
+  conforms: false
+  evidence: No Idempotency-Key header/parameter documented or present in the spec.
+- id: uri-versioning
+  conforms: true
+  evidence: Version carried in the URL path (v1, v2).
+notes: >-
+  Derived from the OpenAPI and published docs. No published third-party certifications (SOC 2, ISO
+  27001, PCI DSS, HIPAA, FedRAMP) were found on a discoverable trust/security page during this pass,
+  so no `type: Compliance` pointer is emitted. Channable is a Netherlands-based (EU) SaaS and is subject
+  to GDPR, but a discoverable, named compliance program page was not confirmed.

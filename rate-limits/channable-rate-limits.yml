@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.channable.com/api/v1/
+scope: per-company
+algorithm: leaky-bucket
+rate_limits:
+- name: sustained
+  limit_count: 2
+  window: 1s
+  description: Maximum 2 requests per second, sustained.
+- name: burst
+  limit_count: 100
+  window: burst
+  description: Burst allowance of 100 requests before the leaky bucket throttles.
+notes: >-
+  The Channable API rate limit is enforced on a per-company basis using a leaky-bucket algorithm:
+  a sustained rate of 2 requests/second with a burst of 100 requests. Generating additional API
+  tokens does not circumvent the limit because it is applied per company, not per token.

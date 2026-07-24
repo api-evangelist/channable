@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.channable.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 14 16:21:36 2026 GMT
+  hsts: null
+- host: docs.channable.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 25 16:35:19 2026 GMT
+  hsts: false
+- host: api.channable.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 27 13:52:26 2026 GMT
+  hsts: false
+domains:
+- domain: channable.com
+  dnssec: true
+  caa:
+  - 0 issuewild "comodoca.com"
+  - 0 issuewild "digicert.com"
+  - 0 issuewild "letsencrypt.org"
+  - 0 issue "comodoca.com"
+  - 0 issue "digicert.com"
+  - 0 issue "letsencrypt.org"
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

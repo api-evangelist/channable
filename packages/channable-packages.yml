@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  GitHub org github.com/channable, npm, PyPI, Packagist, and community connectors. Channable publishes
+  no first-party API client SDK; the entries below are community/third-party integrations found while
+  searching the registries and are marked official:false.
+packages: []
+third_party:
+- language: php
+  registry: github
+  name: onlineidentity/channable
+  url: https://github.com/onlineidentity/channable
+  install: composer require onlineidentity/channable
+  official: false
+  description: >-
+    Community PHP connector for the Channable API. Instantiate a Channable object with a ChannableConfig
+    (API token, company ID, project ID) to call the order/stock endpoints.
+- language: python
+  registry: pypi
+  name: dlt (channable source)
+  url: https://dlthub.com/workspace/source/channable
+  install: uv add "dlt[hub]"
+  official: false
+  description: >-
+    Community dlt (data load tool) verified source for extracting Channable data via the REST API
+    (Bearer token, base URL https://api.channable.com/v1). Not a Channable-authored SDK.
+- language: php
+  registry: github
+  name: magmodules/magento1-channable-api
+  url: https://github.com/magmodules/magento1-channable-api
+  official: false
+  description: Channable API extension for Magento 1 (platform integration, not a general SDK).
+notes: >-
+  As of this pass Channable does not ship an official client library on npm, PyPI, Packagist, NuGet,
+  RubyGems, Maven Central, crates.io, or pkg.go.dev. Integrators call the REST API directly with a
+  bearer token. No `type: SDKs` pointer is emitted because no first-party (official) SDK was found.

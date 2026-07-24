@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: searched
+source: https://api.channable.com/v1/docs
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: >-
+    The order connection API is versioned in the URL path (v1). A newer v2 exists for the orders
+    listing/detail endpoints (GET /v2/.../orders and GET /v2/.../orders/{order_id}); the equivalent
+    v1 order-read operations are marked deprecated in the OpenAPI in favor of v2.
+deprecation:
+  policy_url: https://helpcenter.channable.com/changelog/
+  sunset_header: false
+  notes: >-
+    Deprecations are communicated through the Channable changelog and in-spec `deprecated: true`
+    flags. Example: legacy API tokens were announced deprecated (Nov 7, 2025) and expired Dec 9, 2025;
+    the Fnac Darty integration was announced for discontinuation by Dec 31, 2026.
+status_page: https://www.channablestatus.com/
+deprecated_operations:
+- openapi/channable-order-connection-openapi.json#all_orders_companies__company_id__projects__project_id__orders_get
+- openapi/channable-order-connection-openapi.json#single_order_companies__company_id__projects__project_id__orders__order_id__get
+- openapi/channable-order-connection-openapi.json#Stock_Updates_Update__deprecated__companies__company_id__projects__project_id__offers_post
+notes: >-
+  Three v1 operations are deprecated in the OpenAPI: the v1 orders list and single-order reads
+  (superseded by the v2 orders endpoints) and the legacy POST /offers stock update (superseded by
+  POST /stock_updates).

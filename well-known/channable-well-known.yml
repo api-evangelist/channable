@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: live probes of /.well-known/ on Channable hosts
+hosts:
+- host: https://api.channable.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 429
+    note: host returns 429 (bot/rate protection) rather than a served document
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://www.channable.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 429
+  - path: /.well-known/ai-plugin.json
+    status: 429
+- host: https://docs.channable.com
+  documents:
+  - path: /llms.txt
+    status: 404
+files: []
+notes: >-
+  No .well-known discovery documents were served. The api.channable.com and www.channable.com hosts
+  return 429 (Cloudflare-style bot protection) for automated /.well-known/ requests rather than a
+  document; docs.channable.com returns 404 for /llms.txt. No security.txt, OIDC discovery,
+  OAuth authorization-server metadata, api-catalog, or ai-plugin.json was found. Absence is recorded
+  as real data; no raw well-known files were saved.

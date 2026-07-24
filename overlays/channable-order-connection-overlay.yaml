@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Channable Order Connection API
+  version: 1.0.0
+extends: openapi/channable-order-connection-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-18'
+    x-apievangelist-provider: channable
+    x-apievangelist-notes: >-
+      Auth is a company-level bearer token documented at https://docs.channable.com/api/v1/ but not
+      declared in components.securitySchemes; rate limit is per-company leaky bucket (2 req/s, burst 100).
+- target: $
+  update:
+    servers:
+    - url: https://api.channable.com/v1
+      description: Channable order connection API v1 (production; sandbox is provisioned as an in-app connection)
+- target: $.components
+  update:
+    securitySchemes:
+      bearerToken:
+        type: http
+        scheme: bearer
+        description: Company API token sent as Authorization Bearer (see authentication/channable-authentication.yml).
+      accessTokenQuery:
+        type: apiKey
+        in: query
+        name: access_token
+        description: Company API token sent as the access_token query parameter (header method preferred).
+notes: >-
+  This Overlay records API Evangelist enhancements only; it does not mutate the harvested spec. The
+  scorer parses the original OpenAPI, so these additions (servers, securitySchemes) improve our derived
+  artifacts and document the real, published auth/host that Channable omits from its machine-readable spec.

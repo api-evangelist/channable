@@ -1,8 +1,17 @@
 aid: channable
 name: Channable
-description: 'Channable is a company surfaced as a portfolio company of partech and added to the API Evangelist
-  network as a stub for enrichment. Sector: Applicative SaaS. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Channable is a feed management and marketplace integration platform that helps online retailers,
+  brands, and agencies optimize, distribute, and advertise their product data across more than 2,500
+  marketing channels, price comparison sites, affiliate networks, and online marketplaces. Beyond feed
+  optimization and PPC ad automation, Channable operates an order-connection layer that synchronizes
+  orders, shipments, stock, and returns between marketplaces and a seller's ERP, WMS, or e-commerce
+  platform. The Channable order connection API (v1) exposes this layer programmatically: retailers and
+  platform integrators can retrieve orders and returns, post shipment and cancellation updates, push
+  stock/offer updates to every connected marketplace at once, upload order attachments, resolve
+  standardized transporter codes, and pull order statistics. Authentication is a company-level bearer
+  token, requests are rate limited per company with a leaky-bucket policy, and a Channable Sandbox
+  connection lets integrators test order flows without touching live marketplaces.
 url: https://raw.githubusercontent.com/api-evangelist/channable/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,13 +19,190 @@ x-backed-by:
 - partech
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.channable.com/favicon.ico
 tags:
 - Company
 - Applicative Saas
-apis: []
+- Feed Management
+- Marketplaces
+- E-commerce
+- Product Data
+- Order Management
+- Advertising
+- PPC
+- Retail
+apis:
+- aid: channable:channable-order-attachments-api
+  name: Channable order_attachments API
+  description: The order_attachments API from Channable — 2 operation(s) for order_attachments.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - order_attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-order-attachments-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
+- aid: channable:channable-orders-api
+  name: Channable orders API
+  description: The orders API from Channable — 10 operation(s) for orders.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - orders
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-orders-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
+- aid: channable:channable-returns-api
+  name: Channable returns API
+  description: The returns API from Channable — 5 operation(s) for returns.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - returns
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-returns-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
+- aid: channable:channable-statistics-api
+  name: Channable statistics API
+  description: The statistics API from Channable — 2 operation(s) for statistics.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-statistics-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
+- aid: channable:channable-stock-updates-api
+  name: Channable stock_updates API
+  description: The stock_updates API from Channable — 2 operation(s) for stock_updates.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - stock_updates
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-stock-updates-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
+- aid: channable:channable-transporters-api
+  name: Channable transporters API
+  description: The transporters API from Channable — 3 operation(s) for transporters.
+  humanURL: https://docs.channable.com/api/v1/
+  baseURL: https://api.channable.com/v1
+  tags:
+  - transporters
+  properties:
+  - type: OpenAPI
+    url: openapi/channable-transporters-api-openapi.yml
+  - type: APIReference
+    url: https://docs.channable.com/api/v1/
+  - type: Documentation
+    url: https://api.channable.com/v1/docs
+  - type: Authentication
+    url: authentication/channable-authentication.yml
+  - type: ErrorCatalog
+    url: errors/channable-problem-types.yml
+  - type: Conventions
+    url: conventions/channable-conventions.yml
+  - type: DataModel
+    url: data-model/channable-data-model.yml
+  - type: Conformance
+    url: conformance/channable-conformance.yml
+  - type: Sandbox
+    url: sandbox/channable-sandbox.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +211,58 @@ maintainers:
 common:
 - type: Website
   url: https://www.channable.com/
+- type: DeveloperPortal
+  url: https://docs.channable.com/
+- type: Documentation
+  url: https://docs.channable.com/api/v1/
+- type: APIReference
+  url: https://api.channable.com/v1/docs
+- type: GettingStarted
+  url: https://helpcenter.channable.com/hc/en-us/articles/360011209639-Using-the-Channable-API-for-an-order-connection
+- type: HelpCenter
+  url: https://helpcenter.channable.com/
+- type: Support
+  url: https://support.channable.com/
+- type: Blog
+  url: https://www.channable.com/blog
+- type: ChangeLog
+  url: https://helpcenter.channable.com/changelog/
+- type: StatusPage
+  url: https://www.channablestatus.com/
+- type: Pricing
+  url: https://www.channable.com/pricing
+- type: SignUp
+  url: https://app.channable.com/
+- type: Login
+  url: https://app.channable.com/
+- type: TermsOfService
+  url: https://www.channable.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.channable.com/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/channable
+- type: Postman
+  url: https://www.postman.com/docking-module-engineer-59598931/channable-integration-environement/collection/o2462ca/channable
+- type: Packages
+  url: packages/channable-packages.yml
+- type: Lifecycle
+  url: lifecycle/channable-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/channable-lifecycle.yml
+- type: RateLimits
+  url: rate-limits/channable-rate-limits.yml
+- type: ChangeLog
+  url: changelog/channable-changelog.yml
+- type: Conventions
+  url: conventions/channable-conventions.yml
+- type: DomainSecurity
+  url: security/channable-domain-security.yml
+- type: WellKnown
+  url: well-known/channable-well-known.yml
+- type: LLMsTxt
+  url: llms/channable-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
