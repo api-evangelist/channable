@@ -209,6 +209,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgentSkill
+  url: skills/channable-fulfill-orders.md
+- type: MCPServer
+  url: mcp/channable-mcp.yml
+- type: Overlay
+  url: overlays/channable-order-connection-overlay.yaml
 - type: Website
   url: https://www.channable.com/
 - type: DeveloperPortal
