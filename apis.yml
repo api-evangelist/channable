@@ -20,20 +20,25 @@ x-backed-by:
 x-tier: stub
 x-tier-reason: portfolio-lead
 accessModel:
-  pricing: unknown
+  pricing: paid
   onboarding: self-serve
-  trial: false
+  trial: true
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Paid subscription with a free trial; API access requires the order-sync add-on
+  confidence: high
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - plans/channable-plans-pricing.yml
+  - authentication/channable-authentication.yml
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    Free trial has no time limit but cannot activate channels. The order connection API is unlocked
+    by the Marketplaces Standard module plus the order-sync add-on (EUR 49 per active order
+    connection per month); a company owner then generates the API token in Company settings.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-13'
 image: https://www.channable.com/favicon.ico
 tags:
 - Company
@@ -211,6 +216,10 @@ maintainers:
 common:
 - type: AgentSkill
   url: skills/channable-fulfill-orders.md
+- type: AgentSkill
+  url: skills/channable-update-stock.md
+- type: AgentSkill
+  url: skills/channable-process-returns.md
 - type: MCPServer
   url: mcp/channable-mcp.yml
 - type: Overlay
@@ -263,12 +272,25 @@ common:
   url: conventions/channable-conventions.yml
 - type: DomainSecurity
   url: security/channable-domain-security.yml
-- type: WellKnown
-  url: well-known/channable-well-known.yml
 - type: LLMsTxt
   url: llms/channable-llms.txt
+- type: Plans
+  url: plans/channable-plans-pricing.yml
+- type: Sandbox
+  url: sandbox/channable-sandbox.yml
+- type: Quickstart
+  url: https://helpcenter.channable.com/get-started/getting-started/quickstart-guide.md
+- type: Conformance
+  url: conformance/channable-conformance.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 1
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Re-probed all five hosts. Found and captured the provider-published llms.txt at
+    helpcenter.channable.com (200, text/markdown), refreshed the live OpenAPI from
+    api.channable.com/v1/openapi, and read real pricing from the GitBook help center. Removed the
+    WellKnown pointer — no /.well-known/ document is served anywhere; app.channable.com answers 200
+    with an SPA shell for every /.well-known/* path (including agent-card.json), which is a
+    catch-all, not a document, so no AgentCard is recorded.
