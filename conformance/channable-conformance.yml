@@ -25,8 +25,41 @@ standards:
 - id: uri-versioning
   conforms: true
   evidence: Version carried in the URL path (v1, v2).
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No event/streaming surface. The OpenAPI declares no `webhooks`, the help-center llms.txt index
+    contains zero webhook or push-notification entries, and /asyncapi.yaml and /v1/asyncapi.json
+    return 404 on api.channable.com and docs.channable.com (probed 2026-08-13). The order connection
+    is pull-based: the integrator's backend polls the Channable API. N/A rather than a failure.
+- id: llms-txt
+  conforms: true
+  evidence: >-
+    https://helpcenter.channable.com/llms.txt returns 200 text/markdown (124 KB, 678 lines), a
+    GitBook-published index of the whole help center. Every page has a markdown twin (append .md)
+    and documents an `?ask=&goal=` natural-language query parameter for agents.
+- id: well-known-discovery
+  conforms: false
+  evidence: >-
+    No /.well-known/ document is served on any Channable host (probed 2026-08-13). See
+    well-known/channable-well-known.yml — app.channable.com returns HTTP 200 SPA shells for every
+    /.well-known/* path, which is a catch-all and not a document.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    No A2A agent card. /.well-known/agent-card.json and the legacy /.well-known/agent.json 404 on
+    api/docs/helpcenter and return the SPA HTML shell on app.channable.com; neither parses as an
+    AgentCard object.
+- id: statuspage-api
+  conforms: true
+  evidence: >-
+    https://www.channablestatus.com/api/v2/status.json and /api/v2/summary.json return 200 JSON
+    (Atlassian Statuspage schema) — a machine-readable availability signal for agents.
 notes: >-
-  Derived from the OpenAPI and published docs. No published third-party certifications (SOC 2, ISO
-  27001, PCI DSS, HIPAA, FedRAMP) were found on a discoverable trust/security page during this pass,
-  so no `type: Compliance` pointer is emitted. Channable is a Netherlands-based (EU) SaaS and is subject
-  to GDPR, but a discoverable, named compliance program page was not confirmed.
+  Derived from the OpenAPI and published docs, re-probed 2026-08-13. No published third-party
+  certifications (SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP) were found on a discoverable
+  trust/security page during this pass, so no `type: Compliance` pointer is emitted. Channable is a
+  Netherlands-based (EU) SaaS and is subject to GDPR, but a discoverable, named compliance program
+  page was not confirmed — www.channable.com answers 429 (Vercel Security Checkpoint) to automated
+  requests, including /security and /.well-known/security.txt, so any trust content published there
+  is unreadable to a machine.

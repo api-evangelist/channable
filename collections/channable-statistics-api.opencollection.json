@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments statistics API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/statistics/orders",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "download",
+                "value": "",
+                "type": "query",
+                "description": "If true, a file download will be served"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Statistics for all order configs of a project for a given time frame.\n\nContains the following information per orders config in the project:\n- Total number of orders\n- Total number of ordered products\n- Total amount spent on commission to marketplaces\n- Total amount spent on shipping costs\n- Total order revenue\n- The currency of the marketplace\n- Daily revenue numbers\n\nContains the following information aggregated across all orders configs in the project:\n- Total number of orders\n- Total number o"
+        },
+        {
+          "info": {
+            "name": "Single Orders Config Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/statistics/orders/:order_config_id",
+            "params": [
+              {
+                "name": "order_config_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Statistics for a specific order config for the given time frame.\n\nContains the following information:\n- Cumulative counts:\n    - Order revenue\n    - Order shipping costs\n    - Amount spent on commission to marketplaces\n- Daily counts:\n    - Order revenue\n    - Order shipping costs\n    - Amount spent on commission to marketplaces\n    - Number of orders\n    - Number of ordered products"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments transporters API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "transporters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All Transporters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/transporters/all"
+          },
+          "docs": "Returns the code and label of all Channable transporters.\n\nYou should always use one of these standardized transporter codes when submitting an order\nshipment. If your transporter is not supported already, please contact our <a target=\"\\_blank\" href=\"https://www.channable.com/company/contact/\">support department</a>\nso we can start supporting it.\n\n<details><summary>Click here to see a table of all transporters</summary>\n\n|Transporter code|Transporter label|\n|--|--|\n|007EX|007EX\n|2EBOX|2ebox\n|2GO"
+        },
+        {
+          "info": {
+            "name": "Channels For Transporter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/transporters/transporter/:transporter_code",
+            "params": [
+              {
+                "name": "transporter_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the marketplace specific transporters that match the `transporter_code` url parameter.\nExpects a Channable transporter code as the `transporter_code` parameter. For a list of valid\ntransporter codes see the `/transporters/all` endpoint.\n\n<details><summary>Click here to see a table of all transporters supported by each channel</summary>\n\n### Allegro\n\n|Country|Allegro transporter label|\n|--|--|\n|ALL|4PX Express\n|ALL|Ambro Express\n|ALL|Austrian Post Express\n|ALL|Austrian Post (Registered)\n|"
+        },
+        {
+          "info": {
+            "name": "Transporters For Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/transporters/channel/:channel",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of transporters which are supported by a specific channel.\n\n<details><summary>Click here to see a table of all transporters supported by each channel</summary>\n\n### Allegro\n\n|Country|Allegro transporter label|\n|--|--|\n|ALL|4PX Express\n|ALL|Ambro Express\n|ALL|Austrian Post Express\n|ALL|Austrian Post (Registered)\n|ALL|B2C Europe\n|ALL|B2C Europe\n|ALL|Cainiao\n|ALL|China EMS\n|ALL|China Post\n|ALL|Chukou1\n|ALL|CNE Express\n|ALL|Česká pošta\n|ALL|DB Schenker\n|ALL|Deutsche Post\n|ALL|DHL\n|ALL"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

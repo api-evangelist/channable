@@ -1,0 +1,1417 @@
+{
+  "item": [
+    {
+      "id": "1dfcfe5d-3d19-4d67-8631-dfe3337fb18c",
+      "name": "returns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abcf55fa-c443-4dab-aadd-13f50e2ec3a6",
+          "name": "All Returns",
+          "request": {
+            "name": "All Returns",
+            "description": {
+              "content": "This endpoint retrieves all returns for a given project, sorted from most recent to oldest.\nOptionally, you can pass query parameters to customize the query and response content.\n\n**Example usage**\n\nSuppose the following scenario for a given project of yours:\n    - The project contains the returns `o1`, `o2`, `o3`, and `o4` (from oldest to most recent)\n    - `o1` and `o4` are searchable by the term `t`\n    - `o3` is searchable by the term `tE`\n\n\n|  Request parameters                          | Response\n| -------------                                | -----------\n| _none_                                       | `{\"returns\": [o4, o3, o2, o1], \"total\": 4}`\n| `?limit=2`                                   | `{\"returns\": [o4, o3], \"total\": 2}`\n| `?offset=4`                                  | `{\"returns\": [], \"total\": 0}`\n| `?offset=1`                                  | `{\"returns\": [o3, o2, o1], \"total\": 3}`\n| `?offset=1&limit=1`                          | `{\"returns\": [o3], \"total\": 1}`\n| `?offset=1&limit=2`                          | `{\"returns\": [o3, o2], \"total\": 2}`\n| `?search=t`                                  | `{\"returns\": [o4, o1], \"total\": 2}`\n| `?search=tE`                                 | `{\"returns\": [o3], \"total\": 1}`\n| `?start_date=2018-01-01`                     | `{\"returns\": [o4, o3, o2], \"total\": 3}`\n| `?start_date=2018-01-01&end_date=2018-02-28` | `{\"returns\": [o3, o2], \"total\": 2}`\n| `?last_modified_after=2018-02-29`            | `{\"returns\": [o4], \"total\": 1}`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "returns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "download",
+                  "value": "false",
+                  "description": "If true, a file download will be served"
+                },
+                {
+                  "disabled": false,
+                  "key": "errors",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Any text based search query"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "retrieved_at_start",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "retrieved_at_end",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_modified_after",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_modified_before",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Max number of results in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Filter results starting from this offset."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3d568d3-8e8d-48f6-a6c3-ed46a01820a4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "download",
+                      "value": "false"
+                    },
+                    {
+                      "key": "errors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "retrieved_at_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "retrieved_at_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_count\": 0,\n  \"returns\": [\n    {\n      \"channel_id\": \"31234567\",\n      \"channel_name\": \"bol\",\n      \"created\": \"2017-02-09T12:39:48+00:00\",\n      \"data\": {\n        \"address\": {\n          \"address1\": \"streetname 1\",\n          \"address_supplement\": \"\",\n          \"city\": \"cityname\",\n          \"company\": \"\",\n          \"country_code\": \"NL\",\n          \"email\": \"noreply@example.com\",\n          \"first_name\": \"Firstname\",\n          \"house_number\": \"1\",\n          \"house_number_ext\": \"\",\n          \"last_name\": \"Lastname\",\n          \"region_code\": \"\",\n          \"street\": \"streetname\",\n          \"zip_code\": \"1234 AB\"\n        },\n        \"customer\": {\n          \"email\": \"noreply@example.com\",\n          \"first_name\": \"Firstname\",\n          \"gender\": \"female\",\n          \"last_name\": \"Lastname\"\n        },\n        \"item\": {\n          \"comment\": \"Some extra info\",\n          \"delivery_period\": \"\",\n          \"gtin\": \"1234567890123\",\n          \"quantity\": 1,\n          \"reason\": \"Not as pictured\",\n          \"title\": \"Product Title\"\n        },\n        \"meta\": {\n          \"channel_order_id\": \"123456-some-order\",\n          \"channel_order_id_internal\": \"\",\n          \"channel_return_id\": \"123456-some-return\",\n          \"platform_order_id\": \"ABC9839833\"\n        }\n      },\n      \"error\": false,\n      \"id\": 1,\n      \"log\": [],\n      \"modified\": \"2017-02-09T12:39:48+00:00\",\n      \"obfuscated\": false,\n      \"platform_id\": \"123456\",\n      \"platform_name\": \"lightspeed\",\n      \"project_id\": 1,\n      \"retrieved_at\": \"2017-02-09T12:39:48+00:00\",\n      \"status\": \"new\"\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bece716e-aeb7-495e-ac5d-6fbd89d8caf4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "download",
+                      "value": "false"
+                    },
+                    {
+                      "key": "errors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "retrieved_at_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "retrieved_at_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "646d0f4d-9098-4e31-8cd5-02d9bf6b40a4",
+          "name": "Anonymized All Returns",
+          "request": {
+            "name": "Anonymized All Returns",
+            "description": {
+              "content": "This endpoint is identical to `/returns`, but the returned return data has all personal\nidentifiable information (PII) removed.\n\nSee the docs of `/returns` for more info on how to query this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "anonymous_returns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Any text based search query"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_modified_after",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_modified_before",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Max number of results in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Filter results starting from this offset."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43cf546c-dec1-4620-aa15-08bdefa1546c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "anonymous_returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 9147,\n  \"error_count\": 6924,\n  \"returns\": [\n    {\n      \"id\": 696,\n      \"project_id\": 6388,\n      \"created\": \"2008-06-25T20:16:19.588Z\",\n      \"modified\": \"1970-09-02T22:44:25.804Z\",\n      \"error\": true,\n      \"channel_id\": \"string\",\n      \"channel_name\": \"string\",\n      \"log\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 1081\n        },\n        {\n          \"key_0\": 6235.330831059643,\n          \"key_1\": \"string\"\n        }\n      ],\n      \"status\": \"rejected\",\n      \"data\": {\n        \"item\": {\n          \"quantity\": 842,\n          \"id\": \"string\",\n          \"gtin\": \"string\",\n          \"title\": \"string\",\n          \"reason\": \"string\",\n          \"delivery_period\": \"string\"\n        },\n        \"address\": {\n          \"city\": \"string\",\n          \"country_code\": \"string\",\n          \"company\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"customer\": {\n          \"gender\": \"string\"\n        },\n        \"meta\": {\n          \"channel_order_id\": \"string\",\n          \"channel_order_id_internal\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"platform_order_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_demo_return\": false,\n          \"is_test_return\": false,\n          \"channel_return_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"retrieved_at\": \"2017-07-21T01:14:52.238Z\",\n      \"platform_id\": \"string\",\n      \"platform_name\": \"string\"\n    },\n    {\n      \"id\": 7323,\n      \"project_id\": 5658,\n      \"created\": \"1949-10-19T03:24:29.595Z\",\n      \"modified\": \"1962-01-10T19:44:29.839Z\",\n      \"error\": false,\n      \"channel_id\": \"string\",\n      \"channel_name\": \"string\",\n      \"log\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 433.81513095464675,\n          \"key_2\": 7296,\n          \"key_3\": false\n        },\n        {\n          \"key_0\": 7384,\n          \"key_1\": true,\n          \"key_2\": 1175\n        }\n      ],\n      \"status\": \"accepted\",\n      \"data\": {\n        \"item\": {\n          \"quantity\": 6594,\n          \"id\": \"string\",\n          \"gtin\": \"string\",\n          \"title\": \"string\",\n          \"reason\": \"string\",\n          \"delivery_period\": \"string\"\n        },\n        \"address\": {\n          \"city\": \"string\",\n          \"country_code\": \"string\",\n          \"company\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"customer\": {\n          \"gender\": \"string\"\n        },\n        \"meta\": {\n          \"channel_order_id\": \"string\",\n          \"channel_order_id_internal\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"platform_order_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_demo_return\": false,\n          \"is_test_return\": false,\n          \"channel_return_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"retrieved_at\": \"1979-03-03T14:49:14.910Z\",\n      \"platform_id\": \"string\",\n      \"platform_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "267fec88-37e0-42c3-945a-b2452650f6f2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "anonymous_returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_modified_before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ca3da15-4006-4ed2-a859-f75a40dc9c83",
+          "name": "Single Return",
+          "request": {
+            "name": "Single Return",
+            "description": {
+              "content": "This endpoint retrieves a given return based on its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "returns",
+                ":return_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "return_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "866c6553-e9a9-4381-8bf8-a3c593953daf",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    ":return_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "return_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"return\": {\n    \"channel_id\": \"31234567\",\n    \"channel_name\": \"bol\",\n    \"created\": \"2017-02-09T12:39:48+00:00\",\n    \"data\": {\n      \"address\": {\n        \"address1\": \"streetname 1\",\n        \"address_supplement\": \"\",\n        \"city\": \"cityname\",\n        \"company\": \"\",\n        \"country_code\": \"NL\",\n        \"email\": \"noreply@example.com\",\n        \"first_name\": \"Firstname\",\n        \"house_number\": \"1\",\n        \"house_number_ext\": \"\",\n        \"last_name\": \"Lastname\",\n        \"region_code\": \"\",\n        \"street\": \"streetname\",\n        \"zip_code\": \"1234 AB\"\n      },\n      \"customer\": {\n        \"email\": \"noreply@example.com\",\n        \"first_name\": \"Firstname\",\n        \"gender\": \"female\",\n        \"last_name\": \"Lastname\"\n      },\n      \"item\": {\n        \"comment\": \"Some extra info\",\n        \"delivery_period\": \"\",\n        \"gtin\": \"1234567890123\",\n        \"quantity\": 1,\n        \"reason\": \"Not as pictured\",\n        \"title\": \"Product Title\"\n      },\n      \"meta\": {\n        \"channel_order_id\": \"123456-some-order\",\n        \"channel_order_id_internal\": \"\",\n        \"channel_return_id\": \"123456-some-return\",\n        \"platform_order_id\": \"ABC9839833\"\n      }\n    },\n    \"error\": false,\n    \"id\": 1,\n    \"log\": [],\n    \"modified\": \"2017-02-09T12:39:48+00:00\",\n    \"obfuscated\": false,\n    \"platform_id\": \"123456\",\n    \"platform_name\": \"lightspeed\",\n    \"project_id\": 1,\n    \"retrieved_at\": \"2017-02-09T12:39:48+00:00\",\n    \"status\": \"new\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff74bea5-8a8e-4d66-9372-e5bf92d03292",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    ":return_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "return_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25b6554e-ae9a-4032-bae1-a448019f18d6",
+          "name": "Create Test Return",
+          "request": {
+            "name": "Create Test Return",
+            "description": {
+              "content": "This endpoint allows you to create one or more test returns within Channable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "returns",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22556ade-ccd8-4f17-a7f4-ac16bef515cb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"status\": \"success\",\n      \"message\": \"string\",\n      \"response\": \"\",\n      \"id\": \"string\",\n      \"data\": {\n        \"key_0\": 9826,\n        \"key_1\": true,\n        \"key_2\": 1249.730714081726\n      }\n    },\n    {\n      \"status\": \"warning\",\n      \"message\": \"string\",\n      \"response\": \"\",\n      \"id\": \"string\",\n      \"data\": {\n        \"key_0\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9977c316-3f0f-4bd7-baed-42d730d18cd4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d3b1d17-b824-41b5-aff9-59e30de5a16d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bff231b3-78da-4b12-a163-1938fb09066e",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "040ffe70-2ffa-429e-b7e4-bffbdaf38ffa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7324a021-2453-4ea6-8297-f4f1911e6521",
+          "name": "Update Return Status",
+          "request": {
+            "name": "Update Return Status",
+            "description": {
+              "content": "This endpoint allows you to update a return status. We will then propagate the update to\nthe involved marketplace.\n\nDepending of the return status the end customer does or does not get their money back.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "returns",
+                ":return_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "return_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a85fd701-2b0c-404c-b165-3509a64b24d3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    ":return_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "return_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"rejected\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd2e7ed1-8ba2-4c5a-8041-351ebabb0a01",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    ":return_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "return_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"rejected\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b2d71d4-8654-4cdf-b656-0592779ad22f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "returns",
+                    ":return_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "return_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"rejected\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2f7bfd90-dd55-46fe-8b91-5486865e8ba2",
+    "name": "Channable order connection order_attachments returns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nWelcome to the Channable API __v1__.\n\nThis version of the Channable API allows you to:\n\n- Access orders\n- Manage order shipments\n- Update the stock of an offer on all marketplaces\n- Access returns\n\n### Details\n\n|    Key             |       Value\n-------------     | -----------\nApi version       | `v1`, `v2`\nProtocol          | `HTTPS`\nHostname          | `api.channable.com`\nCommon Path v1    | `/v1/companies/:company_id/projects/:project_id`\nCommon Path v2    | `/v2/companies/:company_id/projects/:project_id`\n\n\nThe <em>Common Path</em> is shared by all endpoints except the transporters endpoints in this version of our API. Note that you have to replace <code>:company_id</code> and <code>:project_id</code> with valid values. All endpoints using v2 will state so in their names, and should use the <em>common path v2</em>. All other endpoints are v1 endpoints and should use <em>Common Path v1</em>.\n\n## Taxonomy\n\n\n|    Term         | Description\n-------------     | -----------\n`Platform`        | A webshop platform, such as WooComerce, Lightspeed, etc.\n`Marketplace`     | A place where you can sell your products, such as Amazon, Bol, eBay, etc. Sometimes referred to as _channel_.\n`Order`           | A purchase of any products made by a client.\n`Offer`           | A selling proposal made by a seller over any class of products. It includes price, stock and other seller-dependent values.\n\n\n## Rate Limiting\n\nThe Channable API has a rate limiting policy to which you must comply.<br>\nIt is defined on a per-company basis, meaning that generating new API tokens will not circumvent our rate-limiting.\n\n|    Frequency             | Burst\n-------------              | -----------\nMax 4 requests per second  | Burst of 200 requests\n\n**Note**: We use the [Leaky Bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket) for rate-limiting.\n\n## Getting started\n\n\nTo get started you need to:\n\n1. Find the project ids you are interested in\n1. Find your Channable company id\n1. Generate an **API token** for your company\n\n**Note**: Information about the supported channels can be found in our [help center](https://helpcenter.channable.com/hc/en-us/articles/360011094300-For-which-marketplaces-does-Channable-support-an-order-connection-integration-).\n\n### 1. Find your project ids\n\nTo find the project ids you are interested in:\n\n1. Log in to the <a target=\"\\\\_blank\" href=\"https://app.channable.com\">Channable app</a>\n2. Select a project\n3. Open the project `Settings`\n4. Copy the _Project id_ value\n\n\n### 2. Generate an API Token for your company\n\nTo both find your Channable `company_id` and to generate a new **API token** for your company, go to [app.channable.com](https://app.channable.com) and sign in.\n\nOn the main page navigate to company settings then channabke API.\nFrom here you can see your company id, as well as generate your API token.\n\n<img src='https://lh3.googleusercontent.com/d/1yUAdfXLRryVV9i0ce0mJpOX3c7z97HSD=w1000' />\n\n**Notes**:\n\n- Only owners of companies are able to generate an API Token.\n- Channable does not store your tokens. Please store them securely.\n- In case you lose or leak your token, generate a new one. The previously generated tokens can be revoked by you or will expire after 1 year.\n- Two API tokens can be valid at any time, allowing you to seamlessly change to a new token, if needed.\n\n### 3. Using the API Token\n\nYou must include your API token in every request you make to Channable.<br/>\nThe token should be included in the headers of the request: `Authorization: Bearer your_api_token`\n\n<aside class=\"notice\">\nYou must replace <code>your_api_token</code> with your API token.\n</aside>\n\nAfter generating your API token you are ready to try out the endpoints and build your integration\nusing the Channable Sandbox.\n\n**How to include the token in your requests:**\n\n```shell\n# Headers method: Authorization: Bearer\ncurl \"api_endpoint_here\"\n  -H \"Authorization: Bearer your_api_token\"\n```\n\n\n### Common error codes and their meanings\n\nThe Channable API uses the following error codes:\n\nCode | Meaning | Reason\n---------- | ------- | -------\n400 | Bad Request | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)\n401 | Unauthorized | You are using an invalid or already revoked API token.\n403 | Forbidden | You are not allowed to access the resources your request targets.\n404 | Not Found | The targeted resources could not be found.\n405 | Method Not Allowed | You tried to access an endpoint with an invalid HTTP method.\n406 | Not Acceptable | You requested a format that isn't json.\n409 | Conflict | Your request could not be completed due to a conflict with the current state of the target resource.\n422 | Unprocessable Entity | We could understand the content type of the request entity, but we are unable to process the contained instructions.\n429 | Too Many Requests | You have sent too many requests in a given amount of time, thus exceeding our rate-limiting policy. Please try again later.\n500 | Internal Server Error | We had a problem with our server. Please try again later.\n503 | Service Unavailable | We are temporarily offline for maintenance. Please try again later.\n\n\n## Sandbox Testing\n\nThe Channable API sandbox lets you test your order integration with the Channable API in a safe\nenvironment without sending requests to the marketplaces you want to connect to. All data is mocked\nbut the structure of the data and API calls needed to manage your orders are the same no matter\nwhich marketplace you end up connecting with.\n\n\n### Setup\n\nTo set up a test environment with the Channable Sandbox you must first make a connection with the\nSandbox. This can be done in the same way as all other connections within Channable by going to\n\"Company settings\" -> \"Connections\" and clicking on \"+ Add new connection\".\n\n<img src='https://lh3.googleusercontent.com/d/1iBA33tS5JmjdJEVDuS0ks5j9MJEewJMg=w1000' />\n\nSelect \"Channable Sandbox\", give the connection a label and click on the blue \"Create\" button.\nNo further information is needed.\n\nOnce you have made a connection, navigate to the project you want to use and click on\n\"Setup\" -> \"Setup orders\" > \"+ Setup orders\".\n\n<img src='https://lh3.googleusercontent.com/d/1zjpfcCbbU84GD45qMn3wrI3WFMNk438D=w1000' />\n\nFrom here make an order connection between the \"Channable API\" and the \"Channable Sandbox\" and\nactivate the order connection. You are now ready to start testing.\n\n<img src='https://lh3.googleusercontent.com/d/1piCcRzylFAy9uZf6vpjdukozC9-mgV_q=w1000' />\n\n### Orders\n\nTo create a test order, navigate to \"Setup\" -> \"Orders\" -> \"Settings\" of the Channable Sandbox\norder connection.\n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test order\".\n\n<img src='https://lh3.googleusercontent.com/d/1f1tn9uooKz1uy0uq9xvfcMpREn5zKDVW=w1000' />\n\nIn the popup fill in an item id and click the blue \"Send test order\" button. A test order has now\nbeen created, and you can use all request methods described in \"Orders\" to interact with it. If you\nneed special test cases, most data in the test order can be provided by you in the popup when you\nclick on \"Send test order\".\n\n\n### Shipments/Cancellations\n\nOnce one or more testorders have been created, use the request methods described in \"Shipment\nupdate\" and \"Cancellation update\" under \"Orders\" above to mark an order as \"shipped\" and to give it\ntrack & trace information or to mark the order as \"cancelled\".\n\n\n### Offers\n\nTo test sending offer updates, that is updating the stock value on all marketplaces that you have\nan order connection to, you can use the request methods described in \"Offers\" above. You do not need\nto have created a test order to test this as you can update the stock value of any product in your\nstore, also products that you have not received an order for through Channable.\n\n\n### Returns\n\nReturns come from the marketplaces you will connect to. In order to test this, navigate to\n\"Setup\" -> \"Setup orders\" -> \"Settings\" of the Channable Sandbox order connection. \n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test return\".\n\n<img src='https://lh3.googleusercontent.com/d/1Xdbdn329jneJqwiqxMPXV4d_nFrAyb1H=w1000' />\n\nIn the popup fill in a Channable order id and click the blue \"Send test return\" button. A test\nreturn has now been created for the order id you filled in. You can now use all request methods\ndescribed in \"Returns\" to handle the return.\n\n\n### When you are done testing\n\nOnce you are satisfied with your Channable API setup and want to go live, contact our\n<a target=\"\\\\_blank\" href=\"https://www.channable.com/company/contact/\">support department</a>\nand they will help you setup the order connections.\n",
+      "type": "text/plain"
+    }
+  }
+}

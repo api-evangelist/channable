@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments stock_updates API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "stock_updates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Stock Updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/offers",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all offers for a given project of your company, sorted from most recent\nto oldest. Offers are the product updates that you posted.\n\nThese are found under \"Orders\" > \"Product updates\" in the Channable tool.\nOptionally, you can pass query parameters to customize the query and response content.\n\n\n**Example usage**\n\nSuppose the following scenario for a given project of yours:\n  - The project contains the offers `o1`, `o2`, `o3`, and `o4` (from oldest to most recent)\n  - `o1` "
+        },
+        {
+          "info": {
+            "name": "Stock Updates Update (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/offers",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use [/stock_updates](https://api.channable.com/v1/docs#tag/stock_updates/operation/stock_updates_update_companies__company_id__projects__project_id__stock_updates_post) instead"
+        },
+        {
+          "info": {
+            "name": "Stock Updates Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/stock_updates",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update the offers' stock of a selected project.\nWe will then propagate the update to all the marketplaces of the targeted project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,204 @@
+generated: '2026-08-13'
+method: searched
+source: https://helpcenter.channable.com/account-billing/manage-your-subscription/channables-pricing-plans.md
+docs:
+- https://helpcenter.channable.com/account-billing/manage-your-subscription/channables-pricing-plans.md
+- https://helpcenter.channable.com/account-billing/manage-your-subscription/pricing-faqs.md
+- https://helpcenter.channable.com/list-advertise/orders/order-connections/how-to-add-the-order-sync-add-on.md
+- https://www.channable.com/pricing
+note: >-
+  Channable's marketing pricing page (https://www.channable.com/pricing) is served behind a Vercel
+  Security Checkpoint and answers 429 to automated requests, so the tiers below were read from
+  Channable's own GitBook help center, which publishes the same subscription model as markdown.
+  A Channable subscription = package (item/project/channel volume) + Core plan (Standard | Plus | Pro)
+  + optional modules and add-ons. Channable does NOT publish a list price for the packages or the
+  Core plans in public documentation; the only public per-unit prices are the CSS plans and the
+  order-sync add-on, which are recorded verbatim below. Nothing is estimated or invented.
+model: package + plan + modules
+currencies:
+- EUR
+- USD
+billing_period: monthly
+billing_notes: >-
+  Invoiced in advance on the 20th of each month for the following month. Upgrades/downgrades and
+  cancellations must be made before the 20th. No setup fees. Unlimited users on every plan.
+  Payment methods: direct debit (EU), credit card (outside EU), invoice (EU, subscriptions EUR 500+).
+  Exceeding the package usage limit triggers an automatic subscription upgrade.
+plan_count: 6
+plans:
+- name: Free trial
+  family: package
+  price: 0
+  currency: EUR
+  period: monthly
+  quota:
+    items: 0
+    projects: unlimited (inactive)
+    channels: unlimited (inactive)
+  notes: >-
+    No time limit. Channels cannot be activated and product data cannot be shared with a channel
+    without a paid subscription.
+- name: Core Standard
+  family: core-plan
+  price: null
+  currency: EUR
+  period: monthly
+  price_note: List price not published in the help center; shown only on the gated pricing page.
+  included:
+  - Feed management
+  - Rules
+  - AI product categorization
+  - AI Feed Setup
+  - Data syncs (1 per day)
+  limits:
+    data_syncs_per_day: 1
+- name: Core Plus
+  family: core-plan
+  price: null
+  currency: EUR
+  period: monthly
+  price_note: List price not published in the help center.
+  included:
+  - Everything in Core Standard
+  - AI enriched attributes
+  - Shared rules
+  - Data syncs (up to 3 per day)
+  limits:
+    data_syncs_per_day: 3
+- name: Core Pro
+  family: core-plan
+  price: null
+  currency: EUR
+  period: monthly
+  price_note: List price not published in the help center.
+  included:
+  - Everything in Core Plus
+  - AI Text Generation
+  - Channable Insights
+  - Channable Analytics
+  - Rule versioning
+  - Activity logs
+  - Custom notification management
+  - Custom user role management
+  - Data syncs (up to 24 per day)
+  limits:
+    data_syncs_per_day: 24
+- name: 'CSS Standard'
+  family: css-plan
+  price: 29
+  currency: EUR
+  period: monthly
+  unit: per active shop (Google Merchant Center ID / domain)
+  included:
+  - CSS 20% margin advantage (EEA only)
+  - Title Optimizer
+  - Labelizer Lite
+  - Price benchmark Lite
+- name: 'CSS Pro'
+  family: css-plan
+  price: 99
+  currency: EUR
+  period: monthly
+  unit: per active shop (Google Merchant Center ID / domain)
+  included:
+  - Everything in CSS Standard
+  - Labelizer (full version)
+  - Price benchmark (full version)
+  - Manual tagging
+  - Products AI
+packages:
+  note: >-
+    The package tier sets the item/project/channel allowance a Core plan is sold against. Prices for
+    packages are not published publicly.
+  tiers:
+  - name: Free trial
+    items: 0
+    projects: unlimited (inactive)
+    channels: unlimited (inactive)
+  - name: Small business
+    items: 500
+    projects: 1
+    channels: 3
+  - name: Medium business
+    items: 5000
+    projects: 2
+    channels: 6
+  - name: Large business
+    items: 15000
+    projects: 3
+    channels: 15
+  - name: XL business
+    items: 30000
+    projects: 5
+    channels: 30
+  - name: XXL business
+    items: 100000
+    projects: 15
+    channels: 75
+  - name: Small Enterprise
+    items: 250000
+    projects: unlimited
+    channels: unlimited
+  - name: Medium Enterprise
+    items: 500000
+    projects: unlimited
+    channels: unlimited
+  - name: Large Enterprise
+    items: 1000000
+    projects: unlimited
+    channels: unlimited
+  - name: XL Enterprise
+    items: 2000000
+    projects: unlimited
+    channels: unlimited
+  - name: XXL Enterprise
+    items: 3000000
+    projects: unlimited
+    channels: unlimited
+  - name: Custom
+    items: 3000000+
+    projects: unlimited
+    channels: unlimited
+    contact: https://www.channable.com/contact
+modules:
+- name: Marketplaces Standard
+  description: >-
+    Marketplace integration catalog; receive and manage orders, shipments and returns from each
+    marketplace. Prerequisite for the order-sync add-on that the Channable order connection API serves.
+  price: null
+- name: PPC Standard
+  description: One advertising connection.
+  price: null
+- name: PPC Pro
+  description: Unlimited advertising connections.
+  price: null
+- name: Creatives
+  description: Generate optimized product images from the feed at scale.
+  price: null
+add_ons:
+- name: Order sync
+  description: >-
+    Required to use the Channable order connection API. Priced per active unique order connection;
+    all order connections going to the same seller account count as one connection.
+  price: 49
+  currency: EUR
+  period: monthly
+  unit: per active unique order connection
+  alt_price: 59
+  alt_currency: USD
+  alt_note: USD 59 per active unique order connection per month on a Shopify plan.
+  requires: Marketplaces Standard module
+  source: https://helpcenter.channable.com/list-advertise/orders/order-connections/how-to-add-the-order-sync-add-on.md
+- name: Repricer
+  description: Amazon and bol repricing add-on under the Marketplaces module.
+  price: null
+api_access:
+  note: >-
+    API access is not sold as its own plan. The order connection API is unlocked by the Marketplaces
+    Standard module plus the order-sync add-on (EUR 49 per active order connection per month); the
+    company API token is generated by a company owner under Company settings > Channable API.
+  metered: false
+  free_tier: false
+discounts:
+  long_term_contract: false
+  educational_nonprofit: false

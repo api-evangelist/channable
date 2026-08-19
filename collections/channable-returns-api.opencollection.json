@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments returns API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "returns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All Returns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/returns",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "download",
+                "value": "",
+                "type": "query",
+                "description": "If true, a file download will be served"
+              },
+              {
+                "name": "errors",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all returns for a given project, sorted from most recent to oldest.\nOptionally, you can pass query parameters to customize the query and response content.\n\n**Example usage**\n\nSuppose the following scenario for a given project of yours:\n    - The project contains the returns `o1`, `o2`, `o3`, and `o4` (from oldest to most recent)\n    - `o1` and `o4` are searchable by the term `t`\n    - `o3` is searchable by the term `tE`\n\n\n|  Request parameters                          | R"
+        },
+        {
+          "info": {
+            "name": "Anonymized All Returns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/anonymous_returns",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "This endpoint is identical to `/returns`, but the returned return data has all personal\nidentifiable information (PII) removed.\n\nSee the docs of `/returns` for more info on how to query this endpoint."
+        },
+        {
+          "info": {
+            "name": "Single Return",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/returns/:return_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "return_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a given return based on its id."
+        },
+        {
+          "info": {
+            "name": "Create Test Return",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/returns/test",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create one or more test returns within Channable."
+        },
+        {
+          "info": {
+            "name": "Update Return Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/returns/:return_id/status",
+            "params": [
+              {
+                "name": "return_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update a return status. We will then propagate the update to\nthe involved marketplace.\n\nDepending of the return status the end customer does or does not get their money back."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

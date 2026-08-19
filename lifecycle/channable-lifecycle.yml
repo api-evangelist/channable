@@ -16,6 +16,16 @@ deprecation:
     flags. Example: legacy API tokens were announced deprecated (Nov 7, 2025) and expired Dec 9, 2025;
     the Fnac Darty integration was announced for discontinuation by Dec 31, 2026.
 status_page: https://www.channablestatus.com/
+status_page_api:
+  url: https://www.channablestatus.com/api/v2/status.json
+  summary_url: https://www.channablestatus.com/api/v2/summary.json
+  platform: Atlassian Statuspage
+  status: 200
+  checked: '2026-08-13'
+  note: >-
+    Machine-readable availability endpoint; returns {page:{id,name,url,time_zone,updated_at},
+    status:{indicator,description}}. Usable by an agent to check Channable availability before
+    calling the order connection API.
 deprecated_operations:
 - openapi/channable-order-connection-openapi.json#all_orders_companies__company_id__projects__project_id__orders_get
 - openapi/channable-order-connection-openapi.json#single_order_companies__company_id__projects__project_id__orders__order_id__get

@@ -1,36 +1,113 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
 source: >-
-  GitHub org github.com/channable, npm, PyPI, Packagist, and community connectors. Channable publishes
-  no first-party API client SDK; the entries below are community/third-party integrations found while
-  searching the registries and are marked official:false.
+  GitHub org github.com/channable (43 repos, re-listed 2026-08-13), registry.npmjs.org,
+  pypi.org, repo.packagist.org, and the Channable help center. Channable publishes NO first-party
+  API client SDK; every entry below is a community/third-party integration and is marked
+  official:false. Versions and dates are read from the registry metadata endpoints.
 packages: []
+official_sdk_count: 0
 third_party:
 - language: php
-  registry: github
+  registry: packagist
   name: onlineidentity/channable
-  url: https://github.com/onlineidentity/channable
+  url: https://packagist.org/packages/onlineidentity/channable
+  repo: https://github.com/onlineidentity/channable
   install: composer require onlineidentity/channable
   official: false
+  version: v1.0.0
+  published: '2023-03-07'
   description: >-
     Community PHP connector for the Channable API. Instantiate a Channable object with a ChannableConfig
-    (API token, company ID, project ID) to call the order/stock endpoints.
+    (API token, company ID, project ID) to call the order/stock endpoints. Last release predates the
+    current v2 order endpoints.
+- language: php
+  registry: packagist
+  name: deniztezcan/laravel-channable
+  url: https://packagist.org/packages/deniztezcan/laravel-channable
+  install: composer require deniztezcan/laravel-channable
+  official: false
+  version: 0.3.0
+  published: '2023-07-12'
+  description: Community Laravel package wrapping the Channable API. Dormant since 2023.
+- language: php
+  registry: packagist
+  name: magmodules/magento2-channable
+  url: https://packagist.org/packages/magmodules/magento2-channable
+  install: composer require magmodules/magento2-channable
+  official: false
+  version: 1.24.2
+  published: '2026-06-22'
+  description: >-
+    Magmodules' Channable integration for Magento 2 — the most actively maintained third-party
+    Channable distribution (1.5M+ installs). A platform integration, not a general-purpose SDK.
+- language: php
+  registry: packagist
+  name: magmodules/magento1-channable-api
+  url: https://packagist.org/packages/magmodules/magento1-channable-api
+  official: false
+  version: null
+  published: null
+  note: >-
+    Legacy Magento 1 extension; registry metadata not re-read this pass because Magento 1 is
+    end-of-life. Recorded as checked-with-nothing-current, not as unchecked.
+  description: Channable API extension for Magento 1 (platform integration, not a general SDK).
+- language: javascript
+  registry: npm
+  name: n8n-nodes-channable
+  url: https://www.npmjs.com/package/n8n-nodes-channable
+  repo: https://github.com/daize-ai/n8n-channable
+  install: npm install n8n-nodes-channable
+  official: false
+  version: 0.1.0
+  published: '2026-07-16'
+  description: Community n8n node for the Channable API (orders, offers, returns, transporters).
+- language: javascript
+  registry: npm
+  name: '@skriptfabrik/n8n-nodes-channable'
+  url: https://www.npmjs.com/package/@skriptfabrik/n8n-nodes-channable
+  repo: https://github.com/skriptfabrik/n8n-nodes
+  install: npm install @skriptfabrik/n8n-nodes-channable
+  official: false
+  version: 0.2.0
+  published: '2026-01-15'
+  description: Channable community nodes for n8n.
+- language: javascript
+  registry: npm
+  name: '@pipedream/channable'
+  url: https://www.npmjs.com/package/@pipedream/channable
+  install: npm install @pipedream/channable
+  official: false
+  version: 0.2.0
+  published: '2026-05-19'
+  description: Pipedream Channable components (workflow connector, not a client SDK).
 - language: python
-  registry: pypi
-  name: dlt (channable source)
+  registry: none
+  name: dlt verified source (channable)
   url: https://dlthub.com/workspace/source/channable
   install: uv add "dlt[hub]"
   official: false
+  version: null
+  published: null
+  note: >-
+    Distributed as a dlt verified-source template rather than a published package; there is no
+    channable package on PyPI (pypi.org/pypi/channable/json returns 404), so there is no registry
+    metadata endpoint to read a version from.
   description: >-
     Community dlt (data load tool) verified source for extracting Channable data via the REST API
     (Bearer token, base URL https://api.channable.com/v1). Not a Channable-authored SDK.
-- language: php
-  registry: github
-  name: magmodules/magento1-channable-api
-  url: https://github.com/magmodules/magento1-channable-api
-  official: false
-  description: Channable API extension for Magento 1 (platform integration, not a general SDK).
+github_org:
+  url: https://github.com/channable
+  public_repos: 43
+  note: >-
+    The Channable GitHub organization is real and active, but it publishes Haskell/Rust/Python
+    infrastructure tooling (opsqueue, vaultenv, opnieuw, alfred-margaret, icepeak, hoff, dbcritic)
+    and forks of upstream dependencies. It contains NO Channable API client library, no .proto
+    definitions, and no CLI for the order connection API.
 notes: >-
-  As of this pass Channable does not ship an official client library on npm, PyPI, Packagist, NuGet,
+  As of 2026-08-13 Channable does not ship an official client library on npm, PyPI, Packagist, NuGet,
   RubyGems, Maven Central, crates.io, or pkg.go.dev. Integrators call the REST API directly with a
-  bearer token. No `type: SDKs` pointer is emitted because no first-party (official) SDK was found.
+  bearer token. No `type: SDKs` pointer is emitted because no first-party (official) SDK exists.
+  Decay signal: the two general-purpose community PHP clients last released in 2023, before the v2
+  order endpoints that now supersede the deprecated v1 order reads — an integrator adopting either
+  gets a client that cannot reach the current surface.

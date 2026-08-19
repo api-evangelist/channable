@@ -14,8 +14,13 @@ actions:
 - target: $
   update:
     servers:
-    - url: https://api.channable.com/v1
-      description: Channable order connection API v1 (production; sandbox is provisioned as an in-app connection)
+    - url: https://api.channable.com
+      description: >-
+        Channable API production host. The server is the bare host because every path in the spec
+        already carries its own version prefix (/v1/... and /v2/...); Channable's own docs state
+        Hostname `api.channable.com` with Common Path v1 `/v1/companies/:company_id/projects/:project_id`
+        and Common Path v2 `/v2/...`. Sandbox is provisioned as an in-app connection on the same host,
+        not a separate base URL.
 - target: $.components
   update:
     securitySchemes:

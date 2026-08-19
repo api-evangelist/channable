@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "order_attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Order attachment download",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/attachments/:order_attachment_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The order ID as it is known to Channable"
+              },
+              {
+                "name": "order_attachment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint responds with the download URL for an order attachment.\nThe download URL is valid for 5 minutes."
+        },
+        {
+          "info": {
+            "name": "Order attachment upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/attachments",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The order ID as it is known to Channable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order attachments sent to this endpoint will be uploaded to the marketplace and linked to the specified order (items). A 202 status response indicates the file has been processed and will be uploaded asynchronously.\n\nCurrently only accepts PDF invoices.\n\nAvailable for:\n - ANWB\n- Allegro\n- Amazon\n- Bol\n- Boulanger\n- But\n- Carrefour\n- Carrefour France\n- Castorama\n- Channable Sandbox\n- Conforama\n- Conrad\n- Debenhams\n- Decathlon\n- Douglas\n- Galeries LaFayette\n- Home24\n- Hornbach\n- Inno\n- Kaufland\n- "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

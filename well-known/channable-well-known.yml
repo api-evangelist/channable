@@ -1,32 +1,139 @@
-generated: '2026-07-18'
-method: searched
-source: live probes of /.well-known/ on Channable hosts
+generated: '2026-08-13'
+method: probed
+source: live probes of /.well-known/ and /llms.txt on every Channable host (2026-08-13)
+summary: >-
+  Channable serves NO /.well-known/ discovery document on any host. api.channable.com and
+  helpcenter.channable.com answer 404 for every path; docs.channable.com answers 404 with an HTML
+  shell; www.channable.com answers 429 with a "Vercel Security Checkpoint" interstitial for every
+  automated request; and app.channable.com answers 200 with the single-page-app HTML shell for
+  EVERY /.well-known/* path — a catch-all, not a document. No WellKnown or SecurityTxt pointer is
+  emitted in apis.yml, because the probe records an absence, not a presence.
+  The one real machine-readable discovery document Channable does publish is
+  https://helpcenter.channable.com/llms.txt (200, text/markdown, 124 KB, 678 lines) — a GitBook
+  llms.txt indexing the whole help center; it is captured verbatim in llms/channable-llms.txt.
 hosts:
 - host: https://api.channable.com
   documents:
   - path: /.well-known/security.txt
-    status: 429
-    note: host returns 429 (bot/rate protection) rather than a served document
+    status: 301
+    note: redirects to https://www.channable.com/.well-known/security.txt which answers 429 (Vercel Security Checkpoint HTML)
   - path: /.well-known/openid-configuration
     status: 404
   - path: /.well-known/oauth-authorization-server
     status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
   - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
     status: 404
 - host: https://www.channable.com
   documents:
   - path: /.well-known/security.txt
     status: 429
+    note: Vercel Security Checkpoint HTML interstitial, not a document
+  - path: /.well-known/openid-configuration
+    status: 429
+  - path: /.well-known/oauth-authorization-server
+    status: 429
+  - path: /.well-known/oauth-protected-resource
+    status: 429
+  - path: /.well-known/api-catalog
+    status: 429
   - path: /.well-known/ai-plugin.json
+    status: 429
+  - path: /.well-known/agent-card.json
+    status: 429
+  - path: /.well-known/agent.json
+    status: 429
+  - path: /llms.txt
     status: 429
 - host: https://docs.channable.com
   documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
   - path: /llms.txt
     status: 404
+- host: https://app.channable.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: redirects to www.channable.com/.well-known/security.txt (429)
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: SPA catch-all — returns the app's HTML shell, NOT an OIDC document. Counted as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: SPA catch-all HTML shell. Counted as a miss.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: SPA catch-all HTML shell. Counted as a miss.
+  - path: /.well-known/api-catalog
+    status: 200
+    note: SPA catch-all HTML shell. Counted as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: SPA catch-all HTML shell. Counted as a miss.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: >-
+      SPA catch-all HTML shell — does NOT parse as a JSON AgentCard object. This is the dominant
+      A2A false positive; no agent card is recorded and no AgentCard pointer is emitted.
+  - path: /.well-known/agent.json
+    status: 200
+    note: SPA catch-all HTML shell. Counted as a miss.
+  - path: /llms.txt
+    status: 200
+    note: SPA catch-all HTML shell, not markdown. Counted as a miss.
+- host: https://helpcenter.channable.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    content_type: text/markdown; charset=utf-8
+    bytes: 124149
+    file: ../llms/channable-llms.txt
+    note: >-
+      REAL document. GitBook-published llms.txt indexing the full Channable help center, with a
+      markdown twin of every page (append .md to any help-center URL) and a documented
+      ?ask=/&goal= natural-language query parameter on each markdown page.
 files: []
-notes: >-
-  No .well-known discovery documents were served. The api.channable.com and www.channable.com hosts
-  return 429 (Cloudflare-style bot protection) for automated /.well-known/ requests rather than a
-  document; docs.channable.com returns 404 for /llms.txt. No security.txt, OIDC discovery,
-  OAuth authorization-server metadata, api-catalog, or ai-plugin.json was found. Absence is recorded
-  as real data; no raw well-known files were saved.
+pointers_emitted:
+  well_known: false
+  security_txt: false
+  llms_txt: true

@@ -1,0 +1,443 @@
+{
+  "item": [
+    {
+      "id": "abca0a4f-83cc-41bf-ac14-0b8bbee51b4a",
+      "name": "statistics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b927cf0-7b32-4665-8c8b-6224c2c1bb61",
+          "name": "All Statistics",
+          "request": {
+            "name": "All Statistics",
+            "description": {
+              "content": "Statistics for all order configs of a project for a given time frame.\n\nContains the following information per orders config in the project:\n- Total number of orders\n- Total number of ordered products\n- Total amount spent on commission to marketplaces\n- Total amount spent on shipping costs\n- Total order revenue\n- The currency of the marketplace\n- Daily revenue numbers\n\nContains the following information aggregated across all orders configs in the project:\n- Total number of orders\n- Total number of ordered products\n- Total amount spent on commission to marketplaces\n- Total amount spent on shipping costs\n- Total order revenue",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "statistics",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "download",
+                  "value": "false",
+                  "description": "If true, a file download will be served"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9e346d4-eb28-48fa-b850-9173d2c0f978",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "statistics",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "download",
+                      "value": "false"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_statistics\": [\n    {\n      \"points\": [\n        [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      ],\n      \"total_commission\": \"+000000686908582619\",\n      \"total_orders\": 9167,\n      \"total_products\": 6509,\n      \"total_revenue\": \"0093513253513\",\n      \"total_shipping\": \"-000000562.3571213794\",\n      \"id\": 3957,\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    },\n    {\n      \"points\": [\n        [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      ],\n      \"total_commission\": \"+02392043788748\",\n      \"total_orders\": 8174,\n      \"total_products\": 2856,\n      \"total_revenue\": \"00000096313858.732825\",\n      \"total_shipping\": \"+000000159666815.6\",\n      \"id\": 6075,\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    }\n  ],\n  \"total\": {\n    \"revenue\": \"-0000000004555822037845\",\n    \"commission\": \"000509509941.6\",\n    \"shipping\": \"-000000881\",\n    \"orders\": 4287,\n    \"products\": 848,\n    \"currency\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2559266b-61e6-4925-b2be-234cea94bd44",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "statistics",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "download",
+                      "value": "false"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63bdf2ba-233b-4039-9c5f-195ad8261179",
+          "name": "Single Orders Config Statistics",
+          "request": {
+            "name": "Single Orders Config Statistics",
+            "description": {
+              "content": "Statistics for a specific order config for the given time frame.\n\nContains the following information:\n- Cumulative counts:\n    - Order revenue\n    - Order shipping costs\n    - Amount spent on commission to marketplaces\n- Daily counts:\n    - Order revenue\n    - Order shipping costs\n    - Amount spent on commission to marketplaces\n    - Number of orders\n    - Number of ordered products",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "companies",
+                ":company_id",
+                "projects",
+                ":project_id",
+                "statistics",
+                "orders",
+                ":order_config_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "order_config_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00847159-42fe-4764-a878-e1455c4c0768",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "statistics",
+                    "orders",
+                    ":order_config_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "order_config_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"stats_total\": [\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    },\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    }\n  ],\n  \"stats_revenue\": [\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    },\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    }\n  ],\n  \"stats_orders\": [\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    },\n    {\n      \"points\": [\n        [\n          \"string\",\n          \"string\"\n        ],\n        [\n          \"string\",\n          \"string\"\n        ]\n      ],\n      \"label\": \"string\",\n      \"currency\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0178d01-0452-4e1c-8727-bf1df84b93ba",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "companies",
+                    ":company_id",
+                    "projects",
+                    ":project_id",
+                    "statistics",
+                    "orders",
+                    ":order_config_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "order_config_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f4d4ac36-95db-4e34-8b42-f9122b25bf2a",
+    "name": "Channable order connection order_attachments statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nWelcome to the Channable API __v1__.\n\nThis version of the Channable API allows you to:\n\n- Access orders\n- Manage order shipments\n- Update the stock of an offer on all marketplaces\n- Access returns\n\n### Details\n\n|    Key             |       Value\n-------------     | -----------\nApi version       | `v1`, `v2`\nProtocol          | `HTTPS`\nHostname          | `api.channable.com`\nCommon Path v1    | `/v1/companies/:company_id/projects/:project_id`\nCommon Path v2    | `/v2/companies/:company_id/projects/:project_id`\n\n\nThe <em>Common Path</em> is shared by all endpoints except the transporters endpoints in this version of our API. Note that you have to replace <code>:company_id</code> and <code>:project_id</code> with valid values. All endpoints using v2 will state so in their names, and should use the <em>common path v2</em>. All other endpoints are v1 endpoints and should use <em>Common Path v1</em>.\n\n## Taxonomy\n\n\n|    Term         | Description\n-------------     | -----------\n`Platform`        | A webshop platform, such as WooComerce, Lightspeed, etc.\n`Marketplace`     | A place where you can sell your products, such as Amazon, Bol, eBay, etc. Sometimes referred to as _channel_.\n`Order`           | A purchase of any products made by a client.\n`Offer`           | A selling proposal made by a seller over any class of products. It includes price, stock and other seller-dependent values.\n\n\n## Rate Limiting\n\nThe Channable API has a rate limiting policy to which you must comply.<br>\nIt is defined on a per-company basis, meaning that generating new API tokens will not circumvent our rate-limiting.\n\n|    Frequency             | Burst\n-------------              | -----------\nMax 4 requests per second  | Burst of 200 requests\n\n**Note**: We use the [Leaky Bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket) for rate-limiting.\n\n## Getting started\n\n\nTo get started you need to:\n\n1. Find the project ids you are interested in\n1. Find your Channable company id\n1. Generate an **API token** for your company\n\n**Note**: Information about the supported channels can be found in our [help center](https://helpcenter.channable.com/hc/en-us/articles/360011094300-For-which-marketplaces-does-Channable-support-an-order-connection-integration-).\n\n### 1. Find your project ids\n\nTo find the project ids you are interested in:\n\n1. Log in to the <a target=\"\\\\_blank\" href=\"https://app.channable.com\">Channable app</a>\n2. Select a project\n3. Open the project `Settings`\n4. Copy the _Project id_ value\n\n\n### 2. Generate an API Token for your company\n\nTo both find your Channable `company_id` and to generate a new **API token** for your company, go to [app.channable.com](https://app.channable.com) and sign in.\n\nOn the main page navigate to company settings then channabke API.\nFrom here you can see your company id, as well as generate your API token.\n\n<img src='https://lh3.googleusercontent.com/d/1yUAdfXLRryVV9i0ce0mJpOX3c7z97HSD=w1000' />\n\n**Notes**:\n\n- Only owners of companies are able to generate an API Token.\n- Channable does not store your tokens. Please store them securely.\n- In case you lose or leak your token, generate a new one. The previously generated tokens can be revoked by you or will expire after 1 year.\n- Two API tokens can be valid at any time, allowing you to seamlessly change to a new token, if needed.\n\n### 3. Using the API Token\n\nYou must include your API token in every request you make to Channable.<br/>\nThe token should be included in the headers of the request: `Authorization: Bearer your_api_token`\n\n<aside class=\"notice\">\nYou must replace <code>your_api_token</code> with your API token.\n</aside>\n\nAfter generating your API token you are ready to try out the endpoints and build your integration\nusing the Channable Sandbox.\n\n**How to include the token in your requests:**\n\n```shell\n# Headers method: Authorization: Bearer\ncurl \"api_endpoint_here\"\n  -H \"Authorization: Bearer your_api_token\"\n```\n\n\n### Common error codes and their meanings\n\nThe Channable API uses the following error codes:\n\nCode | Meaning | Reason\n---------- | ------- | -------\n400 | Bad Request | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)\n401 | Unauthorized | You are using an invalid or already revoked API token.\n403 | Forbidden | You are not allowed to access the resources your request targets.\n404 | Not Found | The targeted resources could not be found.\n405 | Method Not Allowed | You tried to access an endpoint with an invalid HTTP method.\n406 | Not Acceptable | You requested a format that isn't json.\n409 | Conflict | Your request could not be completed due to a conflict with the current state of the target resource.\n422 | Unprocessable Entity | We could understand the content type of the request entity, but we are unable to process the contained instructions.\n429 | Too Many Requests | You have sent too many requests in a given amount of time, thus exceeding our rate-limiting policy. Please try again later.\n500 | Internal Server Error | We had a problem with our server. Please try again later.\n503 | Service Unavailable | We are temporarily offline for maintenance. Please try again later.\n\n\n## Sandbox Testing\n\nThe Channable API sandbox lets you test your order integration with the Channable API in a safe\nenvironment without sending requests to the marketplaces you want to connect to. All data is mocked\nbut the structure of the data and API calls needed to manage your orders are the same no matter\nwhich marketplace you end up connecting with.\n\n\n### Setup\n\nTo set up a test environment with the Channable Sandbox you must first make a connection with the\nSandbox. This can be done in the same way as all other connections within Channable by going to\n\"Company settings\" -> \"Connections\" and clicking on \"+ Add new connection\".\n\n<img src='https://lh3.googleusercontent.com/d/1iBA33tS5JmjdJEVDuS0ks5j9MJEewJMg=w1000' />\n\nSelect \"Channable Sandbox\", give the connection a label and click on the blue \"Create\" button.\nNo further information is needed.\n\nOnce you have made a connection, navigate to the project you want to use and click on\n\"Setup\" -> \"Setup orders\" > \"+ Setup orders\".\n\n<img src='https://lh3.googleusercontent.com/d/1zjpfcCbbU84GD45qMn3wrI3WFMNk438D=w1000' />\n\nFrom here make an order connection between the \"Channable API\" and the \"Channable Sandbox\" and\nactivate the order connection. You are now ready to start testing.\n\n<img src='https://lh3.googleusercontent.com/d/1piCcRzylFAy9uZf6vpjdukozC9-mgV_q=w1000' />\n\n### Orders\n\nTo create a test order, navigate to \"Setup\" -> \"Orders\" -> \"Settings\" of the Channable Sandbox\norder connection.\n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test order\".\n\n<img src='https://lh3.googleusercontent.com/d/1f1tn9uooKz1uy0uq9xvfcMpREn5zKDVW=w1000' />\n\nIn the popup fill in an item id and click the blue \"Send test order\" button. A test order has now\nbeen created, and you can use all request methods described in \"Orders\" to interact with it. If you\nneed special test cases, most data in the test order can be provided by you in the popup when you\nclick on \"Send test order\".\n\n\n### Shipments/Cancellations\n\nOnce one or more testorders have been created, use the request methods described in \"Shipment\nupdate\" and \"Cancellation update\" under \"Orders\" above to mark an order as \"shipped\" and to give it\ntrack & trace information or to mark the order as \"cancelled\".\n\n\n### Offers\n\nTo test sending offer updates, that is updating the stock value on all marketplaces that you have\nan order connection to, you can use the request methods described in \"Offers\" above. You do not need\nto have created a test order to test this as you can update the stock value of any product in your\nstore, also products that you have not received an order for through Channable.\n\n\n### Returns\n\nReturns come from the marketplaces you will connect to. In order to test this, navigate to\n\"Setup\" -> \"Setup orders\" -> \"Settings\" of the Channable Sandbox order connection. \n\n<img src='https://lh3.googleusercontent.com/d/11wBOEB55t6_Y934xM3N50JtOmSbJfxGW=w1000' />\n\nFrom here click on the gear in the top right and \"Send test return\".\n\n<img src='https://lh3.googleusercontent.com/d/1Xdbdn329jneJqwiqxMPXV4d_nFrAyb1H=w1000' />\n\nIn the popup fill in a Channable order id and click the blue \"Send test return\" button. A test\nreturn has now been created for the order id you filled in. You can now use all request methods\ndescribed in \"Returns\" to handle the return.\n\n\n### When you are done testing\n\nOnce you are satisfied with your Channable API setup and want to go live, contact our\n<a target=\"\\\\_blank\" href=\"https://www.channable.com/company/contact/\">support department</a>\nand they will help you setup the order connections.\n",
+      "type": "text/plain"
+    }
+  }
+}

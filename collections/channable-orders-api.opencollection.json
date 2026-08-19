@@ -1,0 +1,465 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Channable order connection order_attachments orders API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "download",
+                "value": "",
+                "type": "query",
+                "description": "If true, a file download will be served"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "errors",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "<h3 style=\"background-color:#EC771A;color:#FFFFFF;margin:5px\">This operation is deprecated.\nUse <a href=\"https://api.channable.com/v1/docs#tag/orders/operation/all_orders_v2_v2_companies__company_id__projects__project_id__orders_get\">All orders v2</a> instead.</h3>\n\nThis endpoint retrieves all orders for a given project of your company, sorted from most recent\nto oldest. Optionally, you can pass query parameters to customize the response content.\n\nNote that the order data itself (like address in"
+        },
+        {
+          "info": {
+            "name": "Anonymized All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/anonymous_orders",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "This endpoint is identical to `/orders`, but the returned order data has all personal\nidentifiable information (PII) removed.\n\nSee the docs of `/orders` for more info on how to query this endpoint."
+        },
+        {
+          "info": {
+            "name": "Single Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 style=\"background-color:#EC771A;color:#FFFFFF;margin:5px\">This operation is deprecated.\nUse <a href=\"https://api.channable.com/v1/docs#tag/orders/operation/single_order_v2_v2_companies__company_id__projects__project_id__orders__order_id__get\">Single order v2</a> instead.</h3>\n\nThis endpoint retrieves an order, and its events, based on the order_id.\n\n**Understanding the address fields**\n\nThere are two ways of storing the address information for order billing and shipping:\n\nUsing the fields st"
+        },
+        {
+          "info": {
+            "name": "Manual Return",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/return",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually create a return for the ordered products on the marketplace. NB! Only a limited number of marketplaces support this operation: Fruugo, Otto, Veepee, Zalando"
+        },
+        {
+          "info": {
+            "name": "Create Test Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/test/:order_config_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_config_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create one or more test orders containing fake data within Channable\n\nWarning: This endpoint is not meant to be part of an automated process, and could change without\nprior notice"
+        },
+        {
+          "info": {
+            "name": "Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/shipment",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update an order shipment status.\nWe will then propagate the update to the involved marketplace."
+        },
+        {
+          "info": {
+            "name": "Cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/cancel",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update an order status and set it to `cancelled`.\nWe will then propagate the update to the involved marketplaces.\n\nNote that this only covers the case where the seller wants to cancel an order. If the buyer\ncancels an order, the marketplace requires the seller to manually confirm this cancellation in\nthe marketplace seller account."
+        },
+        {
+          "info": {
+            "name": "Manual",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/companies/:company_id/projects/:project_id/orders/:order_id/manual",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to indicate that the given order will be handled manually.\nChannable will no longer take any actions on the order after this operation has been performed."
+        },
+        {
+          "info": {
+            "name": "All Orders V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v2/companies/:company_id/projects/:project_id/orders",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "errors",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Any text based search query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retrieved_at_end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "last_modified_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Filter results starting from this offset."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all orders for a given project of your company, sorted from most recent\nto oldest. Optionally, you can pass query parameters to customize the response content.\n\nNote that the order data itself (like address information) can not be modified.\n\n**Timezones**\n\nWhen using the `start_date`, `end_date`, `last_modified_after`, `last_modified_before`,\n`retrieved_at_start` or `retrieved_at_end` parameters please keep in mind that the we will\ninterpret the provided dates and times t"
+        },
+        {
+          "info": {
+            "name": "Single Order V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v2/companies/:company_id/projects/:project_id/orders/:order_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The Channable ID of the order"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves an order, and its events, based on the order_id.\n\n**Understanding the address fields**\n\nThere are two ways of storing the address information for order billing and shipping:\n\nUsing the fields street, house_number, house_number_ext, and address_supplement\nUsing the fields address1 and address2\n\nThe first is more used in the Netherlands, where an address requires a house number, while the\nsecond version is more used abroad. We support both cases, and, in the example to the "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
