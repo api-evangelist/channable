@@ -36,7 +36,7 @@ accessModel:
     Free trial has no time limit but cannot activate channels. The order connection API is unlocked
     by the Marketplaces Standard module plus the order-sync add-on (EUR 49 per active order
     connection per month); a company owner then generates the API token in Company settings.
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 image: https://www.channable.com/favicon.ico
