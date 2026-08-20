@@ -45,6 +45,17 @@ tags:
 - Applicative Saas
 - Feed Management
 - Marketplaces
+- E-Commerce
+- Product Data
+- Order Management
+- Advertising
+- PPC
+- Retail
+tags_raw:
+- Company
+- Applicative Saas
+- Feed Management
+- Marketplaces
 - E-commerce
 - Product Data
 - Order Management
@@ -57,7 +68,8 @@ apis:
   description: The order_attachments API from Channable — 2 operation(s) for order_attachments.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
-  tags:
+  tags: []
+  tags_raw:
   - order_attachments
   properties:
   - type: OpenAPI
@@ -84,6 +96,8 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
+  - Order
+  tags_raw:
   - orders
   properties:
   - type: OpenAPI
@@ -110,6 +124,8 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
+  - Returns
+  tags_raw:
   - returns
   properties:
   - type: OpenAPI
@@ -136,6 +152,8 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
+  - Statistics
+  tags_raw:
   - statistics
   properties:
   - type: OpenAPI
@@ -162,6 +180,8 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
+  - StockUpdates
+  tags_raw:
   - stock_updates
   properties:
   - type: OpenAPI
