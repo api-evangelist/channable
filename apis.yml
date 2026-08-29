@@ -246,6 +246,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/channable-capability-edges.yml
+  name: Channable Business Capability Map
 - type: AgentSkill
   url: skills/channable-fulfill-orders.md
 - type: AgentSkill
