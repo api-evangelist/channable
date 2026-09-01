@@ -136,7 +136,7 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
-  - returns
+  - Returns
   tags_raw:
   - returns
   properties:
@@ -191,7 +191,8 @@ apis:
   description: The stock_updates API from Channable — 2 operation(s) for stock_updates.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
-  tags: []
+  tags:
+  - StockUpdates
   tags_raw:
   - stock_updates
   properties:
