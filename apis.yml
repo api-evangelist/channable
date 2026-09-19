@@ -56,7 +56,7 @@ tags:
 - Company
 - Applicative Saas
 - Feed Management
-- Marketplaces
+- Marketplace
 - E-Commerce
 - Product Data
 - Order Management
@@ -192,7 +192,7 @@ apis:
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
   tags:
-  - StockUpdates
+  - Stock Updates
   tags_raw:
   - stock_updates
   properties:
