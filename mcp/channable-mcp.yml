@@ -139,17 +139,7 @@ tools:
   source_operation: openapi/channable-order-connection-openapi.json#single_orders_config_statistics_companies__company_id__projects__project_id__statistics_orders__order_config_id__get
 deployment:
   mode: none
-  endpoint: null
-  install: null
-  package: null
-  auth: unknown
-  verified: probed
+  verified: derived
   tools: 25
-  checked: '2026-08-13'
-  source: >-
-    Live probes 2026-08-13: mcp.channable.com does not resolve (NXDOMAIN);
-    POST https://api.channable.com/mcp returns 404; POST https://helpcenter.channable.com/mcp
-    returns 405. No Channable MCP server is published on npm, in the MCP registries, or in the
-    Channable help center (llms.txt index contains no MCP entry). mode: none — the 25 tools below
-    are a candidate list derived one-per-operation from the Channable order connection OpenAPI and
-    are NOT a shipped agent surface. No endpoint URL is invented.
+  checked: '2026-08-12'
+  source: catalog MCP census

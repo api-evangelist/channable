@@ -33,7 +33,7 @@ actions:
         in: query
         name: access_token
         description: Company API token sent as the access_token query parameter (header method preferred).
-notes: >-
+x-notes: >-
   This Overlay records API Evangelist enhancements only; it does not mutate the harvested spec. The
   scorer parses the original OpenAPI, so these additions (servers, securitySchemes) improve our derived
   artifacts and document the real, published auth/host that Channable omits from its machine-readable spec.

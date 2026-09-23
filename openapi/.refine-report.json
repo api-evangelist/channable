@@ -1,12 +1,7 @@
 {
   "provider": "channable",
   "sources": [
-    "channable-order-attachments-api-openapi.yml",
-    "channable-orders-api-openapi.yml",
-    "channable-returns-api-openapi.yml",
-    "channable-statistics-api-openapi.yml",
-    "channable-stock-updates-api-openapi.yml",
-    "channable-transporters-api-openapi.yml"
+    "_original/channable-order-connection-openapi.json"
   ],
   "outputs": [
     "channable-order-attachments-api-openapi.yml",
@@ -19,6 +14,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "channable-order-connection-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "channable-order-connection-openapi.json: declared missing tag: order_attachments",
+    "channable-order-connection-openapi.json: declared missing tag: orders",
+    "channable-order-connection-openapi.json: declared missing tag: returns",
+    "channable-order-connection-openapi.json: declared missing tag: statistics",
+    "channable-order-connection-openapi.json: declared missing tag: stock_updates",
+    "channable-order-connection-openapi.json: declared missing tag: transporters",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "channable-order-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "channable-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "channable-returns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "channable-statistics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "channable-stock-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "channable-transporters-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
