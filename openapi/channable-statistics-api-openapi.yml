@@ -232,45 +232,61 @@ components:
       - total_revenue
       - total_shipping
       title: OrderStatistic
-    HTTPValidationError:
+    OrderStatistics:
+      items:
+        $ref: '#/components/schemas/OrderStatistic'
+      type: array
+      title: OrderStatistics
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OrderConfigStatistics:
-      properties:
-        name:
+          title: Location
+        msg:
           type: string
-          title: Name
-        stats_total:
-          items:
-            $ref: '#/components/schemas/StatsPlot'
-          type: array
-          title: Cumulative Statistics
-          description: Three point lists containing cumulative revenue, cumulative shipping costs and cumulative commission costs.
-        stats_revenue:
-          items:
-            $ref: '#/components/schemas/StatsPlot'
-          type: array
-          title: Daily Statistics
-          description: Three point lists containing daily revenue, daily shipping costs and daily commission costs.
-        stats_orders:
-          items:
-            $ref: '#/components/schemas/StatsPlot'
-          type: array
-          title: Daily Statistics
-          description: Two point lists containing daily order and ordered products counts.
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - name
-      - stats_total
-      - stats_revenue
-      - stats_orders
-      title: OrderConfigStatistics
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StatsPlot:
+      properties:
+        points:
+          $ref: '#/components/schemas/OrderStatisticPointList'
+          title: Plot Point
+          description: Date and value for a single statistics point.
+        label:
+          type: string
+          title: Label
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+      type: object
+      required:
+      - points
+      - label
+      title: StatsPlot
+    OrderStatisticPointList:
+      items:
+        $ref: '#/components/schemas/StatPoint'
+      type: array
+      title: OrderStatisticPointList
     OrderStatisticsTotals:
       properties:
         revenue:
@@ -303,56 +319,6 @@ components:
       - products
       - currency
       title: OrderStatisticsTotals
-    OrderStatistics:
-      items:
-        $ref: '#/components/schemas/OrderStatistic'
-      type: array
-      title: OrderStatistics
-    StatsPlot:
-      properties:
-        points:
-          $ref: '#/components/schemas/OrderStatisticPointList'
-          title: Plot Point
-          description: Date and value for a single statistics point.
-        label:
-          type: string
-          title: Label
-        currency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Currency
-      type: object
-      required:
-      - points
-      - label
-      title: StatsPlot
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     StatPoint:
       items:
         anyOf:
@@ -361,11 +327,6 @@ components:
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
       type: array
       title: StatPoint
-    OrderStatisticPointList:
-      items:
-        $ref: '#/components/schemas/StatPoint'
-      type: array
-      title: OrderStatisticPointList
     OrderStatisticsCombined:
       properties:
         order_statistics:
@@ -381,3 +342,42 @@ components:
       - order_statistics
       - total
       title: OrderStatisticsCombined
+    OrderConfigStatistics:
+      properties:
+        name:
+          type: string
+          title: Name
+        stats_total:
+          items:
+            $ref: '#/components/schemas/StatsPlot'
+          type: array
+          title: Cumulative Statistics
+          description: Three point lists containing cumulative revenue, cumulative shipping costs and cumulative commission costs.
+        stats_revenue:
+          items:
+            $ref: '#/components/schemas/StatsPlot'
+          type: array
+          title: Daily Statistics
+          description: Three point lists containing daily revenue, daily shipping costs and daily commission costs.
+        stats_orders:
+          items:
+            $ref: '#/components/schemas/StatsPlot'
+          type: array
+          title: Daily Statistics
+          description: Two point lists containing daily order and ordered products counts.
+      type: object
+      required:
+      - name
+      - stats_total
+      - stats_revenue
+      - stats_orders
+      title: OrderConfigStatistics
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

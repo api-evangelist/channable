@@ -241,34 +241,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OrderAttachmentUploadResponse:
-      properties:
-        status:
-          $ref: '#/components/schemas/ResponseModelStatus'
-        order_attachment_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Order Attachment Id
-          description: Channable ID for the attachment. Is empty on failure
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-      type: object
-      required:
-      - status
-      title: OrderAttachmentUploadResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ChannableErrorResponse:
       properties:
         status:
@@ -285,38 +257,6 @@ components:
       - message
       title: ChannableErrorResponse
       description: The standard Channable error response
-    OrderAttachmentUploadPayload:
-      properties:
-        attachment_type:
-          type: string
-          title: Attachment Type
-          description: Only `INVOICE` is currently accepted
-          default: INVOICE
-        file:
-          type: string
-          title: File
-          description: A base64 encoded string
-        order_item_ids:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Order Item Ids
-          description: Only used for Bol invoices. Order item ids of the subset of items the invoiceis for. If omitted the invoice will be linked to all items in the order.
-      type: object
-      required:
-      - file
-      title: OrderAttachmentUploadPayload
-    OrderAttachmentDownloadURLResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-      type: object
-      required:
-      - url
-      title: OrderAttachmentDownloadURLResponse
     ValidationError:
       properties:
         loc:
@@ -351,3 +291,63 @@ components:
       - warning
       - debug
       title: ResponseModelStatus
+    OrderAttachmentUploadPayload:
+      properties:
+        attachment_type:
+          type: string
+          title: Attachment Type
+          description: Only `INVOICE` is currently accepted
+          default: INVOICE
+        file:
+          type: string
+          title: File
+          description: A base64 encoded string
+        order_item_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Order Item Ids
+          description: Only used for Bol invoices. Order item ids of the subset of items the invoiceis for. If omitted the invoice will be linked to all items in the order.
+      type: object
+      required:
+      - file
+      title: OrderAttachmentUploadPayload
+    OrderAttachmentUploadResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+        order_attachment_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Attachment Id
+          description: Channable ID for the attachment. Is empty on failure
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      required:
+      - status
+      title: OrderAttachmentUploadResponse
+    OrderAttachmentDownloadURLResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - url
+      title: OrderAttachmentDownloadURLResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -76,7 +76,7 @@ tags_raw:
 - Retail
 apis:
 - aid: channable:channable-order-attachments-api
-  name: Channable order_attachments API
+  name: Channable Order Attachments API
   description: The order_attachments API from Channable — 2 operation(s) for order_attachments.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
@@ -103,7 +103,7 @@ apis:
   - type: Sandbox
     url: sandbox/channable-sandbox.yml
 - aid: channable:channable-orders-api
-  name: Channable orders API
+  name: Channable Orders API
   description: The orders API from Channable — 10 operation(s) for orders.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
@@ -131,7 +131,7 @@ apis:
   - type: Sandbox
     url: sandbox/channable-sandbox.yml
 - aid: channable:channable-returns-api
-  name: Channable returns API
+  name: Channable Returns API
   description: The returns API from Channable — 5 operation(s) for returns.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
@@ -159,7 +159,7 @@ apis:
   - type: Sandbox
     url: sandbox/channable-sandbox.yml
 - aid: channable:channable-statistics-api
-  name: Channable statistics API
+  name: Channable Statistics API
   description: The statistics API from Channable — 2 operation(s) for statistics.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
@@ -187,7 +187,7 @@ apis:
   - type: Sandbox
     url: sandbox/channable-sandbox.yml
 - aid: channable:channable-stock-updates-api
-  name: Channable stock_updates API
+  name: Channable Stock Updates API
   description: The stock_updates API from Channable — 2 operation(s) for stock_updates.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1
@@ -215,7 +215,7 @@ apis:
   - type: Sandbox
     url: sandbox/channable-sandbox.yml
 - aid: channable:channable-transporters-api
-  name: Channable transporters API
+  name: Channable Transporters API
   description: The transporters API from Channable — 3 operation(s) for transporters.
   humanURL: https://docs.channable.com/api/v1/
   baseURL: https://api.channable.com/v1

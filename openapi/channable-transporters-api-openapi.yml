@@ -80,86 +80,341 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ChannelName:
+    ReducedChannelTransporter:
+      properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        label:
+          type: string
+          title: Label
+      type: object
+      required:
+      - country
+      - label
+      title: ReducedChannelTransporter
+      description: 'Model that only contains some information about the channel transporter. This is useful when
+
+        customers request channel transporters for a given unified transporter.'
+      example:
+        country: NL
+        label: Post NL
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Country:
       type: string
       enum:
-      - aliexpress
-      - allegro
-      - amazon
-      - arise
-      - beslist
-      - bol
-      - cdiscount
-      - channable_sandbox
-      - check24
-      - ebay
-      - fnac
-      - fruugo
-      - galaxus
-      - google_ucp
-      - homedeco
-      - idealo
-      - kaufland
-      - manomano
-      - miinto
-      - miinto_new
-      - mirakl_anwb
-      - mirakl_boulanger
-      - mirakl_but
-      - mirakl_carrefour
-      - mirakl_carrefour_fr
-      - mirakl_castorama
-      - mirakl_conforama
-      - mirakl_conrad
-      - mirakl_coolshop
-      - mirakl_darty
-      - mirakl_debenhams
-      - mirakl_decathlon
-      - mirakl_douglas
-      - mirakl_eprice
-      - mirakl_fonq
-      - mirakl_galeries_lafayette
-      - mirakl_home24
-      - mirakl_hornbach
-      - mirakl_inno
-      - mirakl_kruidvat
-      - mirakl_la_redoute
-      - mirakl_le_bhv_marais
-      - mirakl_leen_bakker
-      - mirakl_leroy_merlin
-      - mirakl_maisons_du_monde
-      - mirakl_manor
-      - mirakl_maxeda_brico
-      - mirakl_maxeda_praxis
-      - mirakl_mediamarkt
-      - mirakl_nextail
-      - mirakl_nocibe
-      - mirakl_obelink
-      - mirakl_pccomponentes
-      - mirakl_shop_apotheke
-      - mirakl_shop_apotheke_at
-      - mirakl_shop_apotheke_farmaline
-      - mirakl_shop_apotheke_redcare
-      - mirakl_showroomprive
-      - mirakl_sprinter
-      - mirakl_teract
-      - mirakl_vtwonen
-      - mirakl_worten
-      - otto
-      - rakuten
-      - real
-      - spartoo
-      - tiktok
-      - tiktok_us
-      - tobedressed
-      - v_and_d
-      - veepee
-      - walmart
-      - wayfair
-      - wish
-      - zalando
-      title: ChannelName
-      description: This Enum contains the names of all possible channels.
+      - ALL
+      - OTHER
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - FX
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KP
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UK
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+      title: Country
+      description: This Enum contains all possible countries.
+    ChannelTransportersForChannel:
+      properties:
+        transporters:
+          items:
+            $ref: '#/components/schemas/ReducedChannelTransporter'
+          type: array
+          title: Transporters
+      type: object
+      required:
+      - transporters
+      title: ChannelTransportersForChannel
+      example:
+        transporters:
+        - country: DE
+          label: DHL Germany
+        - country: ALL
+          label: DHL
+        - country: ALL
+          label: DHL For You
+        - country: ALL
+          label: DHL Global Mail
+        - country: ALL
+          label: DPD Pakketshop Nederland
+        - country: BE
+          label: DPD Pakketshop België
+        - country: ALL
+          label: Dynalogic
+        - country: ALL
+          label: FedEx Nederland
+        - country: BE
+          label: FedEx België
+        - country: ALL
+          label: Fiege
     ChannelTransportersForUnifiedTransporter:
       properties:
         channels:
@@ -188,46 +443,6 @@ components:
           cdiscount:
           - country: ALL
             label: DPD
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ReducedChannelTransporter:
-      properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        label:
-          type: string
-          title: Label
-      type: object
-      required:
-      - country
-      - label
-      title: ReducedChannelTransporter
-      description: 'Model that only contains some information about the channel transporter. This is useful when
-
-        customers request channel transporters for a given unified transporter.'
-      example:
-        country: NL
-        label: Post NL
-    UnifiedTransporter:
-      properties:
-        transporter_code:
-          type: string
-          title: Transporter Code
-        transporter_label:
-          type: string
-          title: Transporter Label
-      type: object
-      required:
-      - transporter_code
-      - transporter_label
-      title: UnifiedTransporter
     UnifiedTransporters:
       properties:
         transporters:
@@ -4450,320 +4665,105 @@ components:
           transporter_label: PostNL
         - transporter_code: OTHER
           transporter_label: Other
-    ValidationError:
+    UnifiedTransporter:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        transporter_code:
           type: string
-          title: Message
-        type:
+          title: Transporter Code
+        transporter_label:
           type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Transporter Label
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ChannelTransportersForChannel:
+      - transporter_code
+      - transporter_label
+      title: UnifiedTransporter
+    HTTPValidationError:
       properties:
-        transporters:
+        detail:
           items:
-            $ref: '#/components/schemas/ReducedChannelTransporter'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Transporters
+          title: Detail
       type: object
-      required:
-      - transporters
-      title: ChannelTransportersForChannel
-      example:
-        transporters:
-        - country: DE
-          label: DHL Germany
-        - country: ALL
-          label: DHL
-        - country: ALL
-          label: DHL For You
-        - country: ALL
-          label: DHL Global Mail
-        - country: ALL
-          label: DPD Pakketshop Nederland
-        - country: BE
-          label: DPD Pakketshop België
-        - country: ALL
-          label: Dynalogic
-        - country: ALL
-          label: FedEx Nederland
-        - country: BE
-          label: FedEx België
-        - country: ALL
-          label: Fiege
-    Country:
+      title: HTTPValidationError
+    ChannelName:
       type: string
       enum:
-      - ALL
-      - OTHER
-      - AD
-      - AE
-      - AF
-      - AG
-      - AI
-      - AL
-      - AM
-      - AO
-      - AQ
-      - AR
-      - AS
-      - AT
-      - AU
-      - AW
-      - AX
-      - AZ
-      - BA
-      - BB
-      - BD
-      - BE
-      - BF
-      - BG
-      - BH
-      - BI
-      - BJ
-      - BL
-      - BM
-      - BN
-      - BO
-      - BQ
-      - BR
-      - BS
-      - BT
-      - BV
-      - BW
-      - BY
-      - BZ
-      - CA
-      - CC
-      - CD
-      - CF
-      - CG
-      - CH
-      - CI
-      - CK
-      - CL
-      - CM
-      - CN
-      - CO
-      - CR
-      - CU
-      - CV
-      - CW
-      - CX
-      - CY
-      - CZ
-      - DE
-      - DJ
-      - DK
-      - DM
-      - DO
-      - DZ
-      - EC
-      - EE
-      - EG
-      - EH
-      - ER
-      - ES
-      - ET
-      - FI
-      - FJ
-      - FK
-      - FM
-      - FO
-      - FR
-      - FX
-      - GA
-      - GB
-      - GD
-      - GE
-      - GF
-      - GG
-      - GH
-      - GI
-      - GL
-      - GM
-      - GN
-      - GP
-      - GQ
-      - GR
-      - GS
-      - GT
-      - GU
-      - GW
-      - GY
-      - HK
-      - HM
-      - HN
-      - HR
-      - HT
-      - HU
-      - ID
-      - IE
-      - IL
-      - IM
-      - IN
-      - IO
-      - IQ
-      - IR
-      - IS
-      - IT
-      - JE
-      - JM
-      - JO
-      - JP
-      - KE
-      - KG
-      - KH
-      - KI
-      - KM
-      - KN
-      - KP
-      - KR
-      - KW
-      - KY
-      - KZ
-      - LA
-      - LB
-      - LC
-      - LI
-      - LK
-      - LR
-      - LS
-      - LT
-      - LU
-      - LV
-      - LY
-      - MA
-      - MC
-      - MD
-      - ME
-      - MF
-      - MG
-      - MH
-      - MK
-      - ML
-      - MM
-      - MN
-      - MO
-      - MP
-      - MQ
-      - MR
-      - MS
-      - MT
-      - MU
-      - MV
-      - MW
-      - MX
-      - MY
-      - MZ
-      - NA
-      - NC
-      - NE
-      - NF
-      - NG
-      - NI
-      - NL
-      - 'NO'
-      - NP
-      - NR
-      - NU
-      - NZ
-      - OM
-      - PA
-      - PE
-      - PF
-      - PG
-      - PH
-      - PK
-      - PL
-      - PM
-      - PN
-      - PR
-      - PS
-      - PT
-      - PW
-      - PY
-      - QA
-      - RE
-      - RO
-      - RS
-      - RU
-      - RW
-      - SA
-      - SB
-      - SC
-      - SD
-      - SE
-      - SG
-      - SH
-      - SI
-      - SJ
-      - SK
-      - SL
-      - SM
-      - SN
-      - SO
-      - SR
-      - SS
-      - ST
-      - SV
-      - SX
-      - SY
-      - SZ
-      - TC
-      - TD
-      - TF
-      - TG
-      - TH
-      - TJ
-      - TK
-      - TL
-      - TM
-      - TN
-      - TO
-      - TR
-      - TT
-      - TV
-      - TW
-      - TZ
-      - UA
-      - UG
-      - UK
-      - UM
-      - US
-      - UY
-      - UZ
-      - VA
-      - VC
-      - VE
-      - VG
-      - VI
-      - VN
-      - VU
-      - WF
-      - WS
-      - YE
-      - YT
-      - ZA
-      - ZM
-      - ZW
-      title: Country
-      description: This Enum contains all possible countries.
+      - aliexpress
+      - allegro
+      - amazon
+      - arise
+      - beslist
+      - bol
+      - cdiscount
+      - channable_sandbox
+      - check24
+      - ebay
+      - fnac
+      - fruugo
+      - galaxus
+      - google_ucp
+      - homedeco
+      - idealo
+      - kaufland
+      - manomano
+      - miinto
+      - miinto_new
+      - mirakl_anwb
+      - mirakl_boulanger
+      - mirakl_but
+      - mirakl_carrefour
+      - mirakl_carrefour_fr
+      - mirakl_castorama
+      - mirakl_conforama
+      - mirakl_conrad
+      - mirakl_coolshop
+      - mirakl_darty
+      - mirakl_debenhams
+      - mirakl_decathlon
+      - mirakl_douglas
+      - mirakl_eprice
+      - mirakl_fonq
+      - mirakl_galeries_lafayette
+      - mirakl_home24
+      - mirakl_hornbach
+      - mirakl_inno
+      - mirakl_kruidvat
+      - mirakl_la_redoute
+      - mirakl_le_bhv_marais
+      - mirakl_leen_bakker
+      - mirakl_leroy_merlin
+      - mirakl_maisons_du_monde
+      - mirakl_manor
+      - mirakl_maxeda_brico
+      - mirakl_maxeda_praxis
+      - mirakl_mediamarkt
+      - mirakl_nextail
+      - mirakl_nocibe
+      - mirakl_obelink
+      - mirakl_pccomponentes
+      - mirakl_shop_apotheke
+      - mirakl_shop_apotheke_at
+      - mirakl_shop_apotheke_farmaline
+      - mirakl_shop_apotheke_redcare
+      - mirakl_showroomprive
+      - mirakl_sprinter
+      - mirakl_teract
+      - mirakl_vtwonen
+      - mirakl_worten
+      - otto
+      - rakuten
+      - real
+      - spartoo
+      - tiktok
+      - tiktok_us
+      - tobedressed
+      - v_and_d
+      - veepee
+      - walmart
+      - wayfair
+      - wish
+      - zalando
+      title: ChannelName
+      description: This Enum contains the names of all possible channels.
