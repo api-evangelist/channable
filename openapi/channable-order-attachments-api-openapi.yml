@@ -241,22 +241,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ChannableErrorResponse:
-      properties:
-        status:
-          type: string
-          const: error
-          title: Status
-          default: error
-        message:
-          type: string
-          title: Message
-          description: A description about the given error
-      type: object
-      required:
-      - message
-      title: ChannableErrorResponse
-      description: The standard Channable error response
     ValidationError:
       properties:
         loc:
@@ -283,14 +267,34 @@ components:
       - msg
       - type
       title: ValidationError
-    ResponseModelStatus:
-      type: string
-      enum:
-      - success
-      - error
-      - warning
-      - debug
-      title: ResponseModelStatus
+    OrderAttachmentDownloadURLResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - url
+      title: OrderAttachmentDownloadURLResponse
+    OrderAttachmentUploadResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+        order_attachment_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order Attachment Id
+          description: Channable ID for the attachment. Is empty on failure
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      required:
+      - status
+      title: OrderAttachmentUploadResponse
     OrderAttachmentUploadPayload:
       properties:
         attachment_type:
@@ -314,34 +318,22 @@ components:
       required:
       - file
       title: OrderAttachmentUploadPayload
-    OrderAttachmentUploadResponse:
+    ChannableErrorResponse:
       properties:
         status:
-          $ref: '#/components/schemas/ResponseModelStatus'
-        order_attachment_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Order Attachment Id
-          description: Channable ID for the attachment. Is empty on failure
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-      type: object
-      required:
-      - status
-      title: OrderAttachmentUploadResponse
-    OrderAttachmentDownloadURLResponse:
-      properties:
-        url:
           type: string
-          title: Url
+          const: error
+          title: Status
+          default: error
+        message:
+          type: string
+          title: Message
+          description: A description about the given error
       type: object
       required:
-      - url
-      title: OrderAttachmentDownloadURLResponse
+      - message
+      title: ChannableErrorResponse
+      description: The standard Channable error response
     HTTPValidationError:
       properties:
         detail:
@@ -351,3 +343,11 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ResponseModelStatus:
+      type: string
+      enum:
+      - success
+      - error
+      - warning
+      - debug
+      title: ResponseModelStatus

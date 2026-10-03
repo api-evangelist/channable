@@ -80,50 +80,119 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ReducedChannelTransporter:
+    ChannelTransportersForChannel:
       properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        label:
-          type: string
-          title: Label
-      type: object
-      required:
-      - country
-      - label
-      title: ReducedChannelTransporter
-      description: 'Model that only contains some information about the channel transporter. This is useful when
-
-        customers request channel transporters for a given unified transporter.'
-      example:
-        country: NL
-        label: Post NL
-    ValidationError:
-      properties:
-        loc:
+        transporters:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ReducedChannelTransporter'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Transporters
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - transporters
+      title: ChannelTransportersForChannel
+      example:
+        transporters:
+        - country: DE
+          label: DHL Germany
+        - country: ALL
+          label: DHL
+        - country: ALL
+          label: DHL For You
+        - country: ALL
+          label: DHL Global Mail
+        - country: ALL
+          label: DPD Pakketshop Nederland
+        - country: BE
+          label: DPD Pakketshop België
+        - country: ALL
+          label: Dynalogic
+        - country: ALL
+          label: FedEx Nederland
+        - country: BE
+          label: FedEx België
+        - country: ALL
+          label: Fiege
+    ChannelName:
+      type: string
+      enum:
+      - aliexpress
+      - allegro
+      - amazon
+      - arise
+      - beslist
+      - bol
+      - cdiscount
+      - channable_sandbox
+      - check24
+      - ebay
+      - fnac
+      - fruugo
+      - galaxus
+      - google_ucp
+      - homedeco
+      - idealo
+      - kaufland
+      - manomano
+      - miinto
+      - miinto_new
+      - mirakl_anwb
+      - mirakl_boulanger
+      - mirakl_but
+      - mirakl_carrefour
+      - mirakl_carrefour_fr
+      - mirakl_castorama
+      - mirakl_conforama
+      - mirakl_conrad
+      - mirakl_coolshop
+      - mirakl_darty
+      - mirakl_debenhams
+      - mirakl_decathlon
+      - mirakl_douglas
+      - mirakl_eprice
+      - mirakl_fonq
+      - mirakl_galeries_lafayette
+      - mirakl_home24
+      - mirakl_hornbach
+      - mirakl_inno
+      - mirakl_kruidvat
+      - mirakl_la_redoute
+      - mirakl_le_bhv_marais
+      - mirakl_leen_bakker
+      - mirakl_leroy_merlin
+      - mirakl_maisons_du_monde
+      - mirakl_manor
+      - mirakl_maxeda_brico
+      - mirakl_maxeda_praxis
+      - mirakl_mediamarkt
+      - mirakl_nextail
+      - mirakl_nocibe
+      - mirakl_obelink
+      - mirakl_pccomponentes
+      - mirakl_shop_apotheke
+      - mirakl_shop_apotheke_at
+      - mirakl_shop_apotheke_farmaline
+      - mirakl_shop_apotheke_redcare
+      - mirakl_showroomprive
+      - mirakl_sprinter
+      - mirakl_teract
+      - mirakl_vtwonen
+      - mirakl_worten
+      - otto
+      - rakuten
+      - real
+      - spartoo
+      - tiktok
+      - tiktok_us
+      - tobedressed
+      - v_and_d
+      - veepee
+      - walmart
+      - wayfair
+      - wish
+      - zalando
+      title: ChannelName
+      description: This Enum contains the names of all possible channels.
     Country:
       type: string
       enum:
@@ -382,67 +451,63 @@ components:
       - ZW
       title: Country
       description: This Enum contains all possible countries.
-    ChannelTransportersForChannel:
+    UnifiedTransporter:
       properties:
-        transporters:
+        transporter_code:
+          type: string
+          title: Transporter Code
+        transporter_label:
+          type: string
+          title: Transporter Label
+      type: object
+      required:
+      - transporter_code
+      - transporter_label
+      title: UnifiedTransporter
+    ValidationError:
+      properties:
+        loc:
           items:
-            $ref: '#/components/schemas/ReducedChannelTransporter'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Transporters
-      type: object
-      required:
-      - transporters
-      title: ChannelTransportersForChannel
-      example:
-        transporters:
-        - country: DE
-          label: DHL Germany
-        - country: ALL
-          label: DHL
-        - country: ALL
-          label: DHL For You
-        - country: ALL
-          label: DHL Global Mail
-        - country: ALL
-          label: DPD Pakketshop Nederland
-        - country: BE
-          label: DPD Pakketshop België
-        - country: ALL
-          label: Dynalogic
-        - country: ALL
-          label: FedEx Nederland
-        - country: BE
-          label: FedEx België
-        - country: ALL
-          label: Fiege
-    ChannelTransportersForUnifiedTransporter:
-      properties:
-        channels:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ReducedChannelTransporter'
-            type: array
-          propertyNames:
-            $ref: '#/components/schemas/ChannelName'
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
           type: object
-          title: Channels
+          title: Context
       type: object
       required:
-      - channels
-      title: ChannelTransportersForUnifiedTransporter
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ReducedChannelTransporter:
+      properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        label:
+          type: string
+          title: Label
+      type: object
+      required:
+      - country
+      - label
+      title: ReducedChannelTransporter
+      description: 'Model that only contains some information about the channel transporter. This is useful when
+
+        customers request channel transporters for a given unified transporter.'
       example:
-        channels:
-          amazon:
-          - country: ALL
-            label: DPD Classic
-          bol:
-          - country: ALL
-            label: DPD Pakketshop Nederland
-          - country: BE
-            label: DPD Pakketshop België
-          cdiscount:
-          - country: ALL
-            label: DPD
+        country: NL
+        label: Post NL
     UnifiedTransporters:
       properties:
         transporters:
@@ -4665,19 +4730,6 @@ components:
           transporter_label: PostNL
         - transporter_code: OTHER
           transporter_label: Other
-    UnifiedTransporter:
-      properties:
-        transporter_code:
-          type: string
-          title: Transporter Code
-        transporter_label:
-          type: string
-          title: Transporter Label
-      type: object
-      required:
-      - transporter_code
-      - transporter_label
-      title: UnifiedTransporter
     HTTPValidationError:
       properties:
         detail:
@@ -4687,83 +4739,31 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ChannelName:
-      type: string
-      enum:
-      - aliexpress
-      - allegro
-      - amazon
-      - arise
-      - beslist
-      - bol
-      - cdiscount
-      - channable_sandbox
-      - check24
-      - ebay
-      - fnac
-      - fruugo
-      - galaxus
-      - google_ucp
-      - homedeco
-      - idealo
-      - kaufland
-      - manomano
-      - miinto
-      - miinto_new
-      - mirakl_anwb
-      - mirakl_boulanger
-      - mirakl_but
-      - mirakl_carrefour
-      - mirakl_carrefour_fr
-      - mirakl_castorama
-      - mirakl_conforama
-      - mirakl_conrad
-      - mirakl_coolshop
-      - mirakl_darty
-      - mirakl_debenhams
-      - mirakl_decathlon
-      - mirakl_douglas
-      - mirakl_eprice
-      - mirakl_fonq
-      - mirakl_galeries_lafayette
-      - mirakl_home24
-      - mirakl_hornbach
-      - mirakl_inno
-      - mirakl_kruidvat
-      - mirakl_la_redoute
-      - mirakl_le_bhv_marais
-      - mirakl_leen_bakker
-      - mirakl_leroy_merlin
-      - mirakl_maisons_du_monde
-      - mirakl_manor
-      - mirakl_maxeda_brico
-      - mirakl_maxeda_praxis
-      - mirakl_mediamarkt
-      - mirakl_nextail
-      - mirakl_nocibe
-      - mirakl_obelink
-      - mirakl_pccomponentes
-      - mirakl_shop_apotheke
-      - mirakl_shop_apotheke_at
-      - mirakl_shop_apotheke_farmaline
-      - mirakl_shop_apotheke_redcare
-      - mirakl_showroomprive
-      - mirakl_sprinter
-      - mirakl_teract
-      - mirakl_vtwonen
-      - mirakl_worten
-      - otto
-      - rakuten
-      - real
-      - spartoo
-      - tiktok
-      - tiktok_us
-      - tobedressed
-      - v_and_d
-      - veepee
-      - walmart
-      - wayfair
-      - wish
-      - zalando
-      title: ChannelName
-      description: This Enum contains the names of all possible channels.
+    ChannelTransportersForUnifiedTransporter:
+      properties:
+        channels:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ReducedChannelTransporter'
+            type: array
+          propertyNames:
+            $ref: '#/components/schemas/ChannelName'
+          type: object
+          title: Channels
+      type: object
+      required:
+      - channels
+      title: ChannelTransportersForUnifiedTransporter
+      example:
+        channels:
+          amazon:
+          - country: ALL
+            label: DPD Classic
+          bol:
+          - country: ALL
+            label: DPD Pakketshop Nederland
+          - country: BE
+            label: DPD Pakketshop België
+          cdiscount:
+          - country: ALL
+            label: DPD
