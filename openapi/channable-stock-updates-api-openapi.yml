@@ -290,96 +290,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ChannableApiStockUpdate:
-      properties:
-        id:
-          type: string
-          title: Id
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        stock:
-          type: integer
-          title: Stock
-          description: Whole new stock value for the item, not a delta
-        gtin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Gtin
-      type: object
-      required:
-      - id
-      - stock
-      title: ChannableApiStockUpdate
-      description: 'Channable API payload for sending a stock update for a product.
-
-
-        Only id and stock are mandatory, as this is all we strictly need to send the update. The rest
-
-        is just for display in the frontend.'
-    StockUpdateResponse:
-      properties:
-        status:
-          $ref: '#/components/schemas/ResponseModelStatus'
-          title: Response Status
-        message:
-          type: string
-          title: Message
-        content:
-          items:
-            $ref: '#/components/schemas/ResponseModel'
-          type: array
-          title: Upstream Responses
-      type: object
-      required:
-      - status
-      - message
-      - content
-      title: StockUpdateResponse
-    ResponseModel:
-      properties:
-        status:
-          $ref: '#/components/schemas/ResponseModelStatus'
-          title: Response Status
-        message:
-          type: string
-          title: Message
-        response:
-          type: string
-          title: Response
-          default: ''
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-          description: Data relevant to the specific response. This may vary by endpoint
-      type: object
-      required:
-      - status
-      - message
-      title: ResponseModel
-      description: A container for response model.
-    ChannableStockUpdatePayload:
-      items:
-        $ref: '#/components/schemas/ChannableApiStockUpdate'
-      type: array
-      maxItems: 50
-      title: ChannableStockUpdatePayload
-      example:
-      - gtin: 123-456
-        id: '123'
-        stock: 1
-        title: Some offer
     RecentOffers:
       properties:
         total:
@@ -408,6 +318,42 @@ components:
           stock_tracking: true
           title: test title
         total: 1
+    StockUpdateResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+          title: Response Status
+        message:
+          type: string
+          title: Message
+        content:
+          items:
+            $ref: '#/components/schemas/ResponseModel'
+          type: array
+          title: Upstream Responses
+      type: object
+      required:
+      - status
+      - message
+      - content
+      title: StockUpdateResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ResponseModelStatus:
+      type: string
+      enum:
+      - success
+      - error
+      - warning
+      - debug
+      title: ResponseModelStatus
     EfferentOffer:
       properties:
         id:
@@ -466,6 +412,63 @@ components:
       - created
       - modified
       title: EfferentOffer
+    ResponseModel:
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseModelStatus'
+          title: Response Status
+        message:
+          type: string
+          title: Message
+        response:
+          type: string
+          title: Response
+          default: ''
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+          description: Data relevant to the specific response. This may vary by endpoint
+      type: object
+      required:
+      - status
+      - message
+      title: ResponseModel
+      description: A container for response model.
+    ChannableStockUpdatePayload:
+      items:
+        $ref: '#/components/schemas/ChannableApiStockUpdate'
+      type: array
+      maxItems: 50
+      title: ChannableStockUpdatePayload
+      example:
+      - gtin: 123-456
+        id: '123'
+        stock: 1
+        title: Some offer
+    ChannableErrorResponse:
+      properties:
+        status:
+          type: string
+          const: error
+          title: Status
+          default: error
+        message:
+          type: string
+          title: Message
+          description: A description about the given error
+      type: object
+      required:
+      - message
+      title: ChannableErrorResponse
+      description: The standard Channable error response
     ValidationError:
       properties:
         loc:
@@ -492,36 +495,33 @@ components:
       - msg
       - type
       title: ValidationError
-    ChannableErrorResponse:
+    ChannableApiStockUpdate:
       properties:
-        status:
+        id:
           type: string
-          const: error
-          title: Status
-          default: error
-        message:
-          type: string
-          title: Message
-          description: A description about the given error
+          title: Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        stock:
+          type: integer
+          title: Stock
+          description: Whole new stock value for the item, not a delta
+        gtin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gtin
       type: object
       required:
-      - message
-      title: ChannableErrorResponse
-      description: The standard Channable error response
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ResponseModelStatus:
-      type: string
-      enum:
-      - success
-      - error
-      - warning
-      - debug
-      title: ResponseModelStatus
+      - id
+      - stock
+      title: ChannableApiStockUpdate
+      description: 'Channable API payload for sending a stock update for a product.
+
+
+        Only id and stock are mandatory, as this is all we strictly need to send the update. The rest
+
+        is just for display in the frontend.'

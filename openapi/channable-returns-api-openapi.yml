@@ -455,6 +455,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TestReturnResponse:
+      properties:
+        status:
+          type: string
+          const: success
+          title: Response Status
+          default: success
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResponseModel'
+            type: array
+          - type: 'null'
+          title: Data
+      type: object
+      required:
+      - message
+      title: TestReturnResponse
     ResponseModel:
       properties:
         status:
@@ -554,52 +575,71 @@ components:
       description: 'A return representation from any channel to any platform,
 
         but with all PII filtered out of the data.'
-    AnonymizedEfferentReturnDataItem:
+    TestReturnBody:
       properties:
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        gtin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Gtin
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        quantity:
+        order_id:
           type: integer
-          title: Quantity
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-        delivery_period:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Delivery Period
+          title: Order Id
+          description: The unique id of a Channable order object.
       type: object
       required:
-      - quantity
-      title: AnonymizedEfferentReturnDataItem
-    SingleEfferentReturn:
+      - order_id
+      title: TestReturnBody
+    ResponseModelStatus:
+      type: string
+      enum:
+      - success
+      - error
+      - warning
+      - debug
+      title: ResponseModelStatus
+    ChannableApiReturnsStatus:
+      type: string
+      enum:
+      - accepted
+      - rejected
+      - repaired
+      - keeps
+      - exchanged
+      - cancelled
+      title: ChannableApiReturnsStatus
+      description: 'A container for channable api return status.
+
+        This is similar to realtime2.models.returns.ChannableReturnsStatus but is missing a few
+
+        statuses (new, manual, and processing).'
+    AnonymizedEfferentReturnDataCustomer:
       properties:
-        return:
-          $ref: '#/components/schemas/EfferentReturn'
-          title: Return
+        gender:
+          type: string
+          title: Gender
       type: object
       required:
-      - return
-      title: SingleEfferentReturn
+      - gender
+      title: AnonymizedEfferentReturnDataCustomer
+    RecentReturns:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        returns:
+          items:
+            $ref: '#/components/schemas/EfferentReturn'
+          type: array
+          title: Returns
+      type: object
+      required:
+      - total
+      - error_count
+      - returns
+      title: RecentReturns
       example:
-        return:
-          channel_id: '31234567'
+        error_count: 0
+        returns:
+        - channel_id: '31234567'
           channel_name: bol
           created: '2017-02-09T12:39:48+00:00'
           data:
@@ -645,159 +685,7 @@ components:
           project_id: 1
           retrieved_at: '2017-02-09T12:39:48+00:00'
           status: new
-    TestReturnBody:
-      properties:
-        order_id:
-          type: integer
-          title: Order Id
-          description: The unique id of a Channable order object.
-      type: object
-      required:
-      - order_id
-      title: TestReturnBody
-    AnonymizedEfferentReturnData:
-      properties:
-        item:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataItem'
-          title: Anonymized Item
-        address:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataAddress'
-          title: Anonymized Address
-        customer:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataCustomer'
-          title: Anonymized Customer
-        meta:
-          anyOf:
-          - $ref: '#/components/schemas/ChannableReturnsDataMeta'
-          - type: 'null'
-          title: Return Meta Data
-      type: object
-      required:
-      - item
-      - address
-      - customer
-      title: AnonymizedEfferentReturnData
-    AnonymizedRecentReturns:
-      properties:
-        total:
-          type: integer
-          title: Total
-        error_count:
-          type: integer
-          title: Error Count
-        returns:
-          items:
-            $ref: '#/components/schemas/AnonymizedEfferentReturn'
-          type: array
-          title: Anonymized Returns
-      type: object
-      required:
-      - total
-      - error_count
-      - returns
-      title: AnonymizedRecentReturns
-    ChannableReturnsStatus:
-      type: string
-      enum:
-      - new
-      - accepted
-      - rejected
-      - repaired
-      - keeps
-      - exchanged
-      - cancelled
-      - manual
-      - processing
-      title: ChannableReturnsStatus
-      description: 'A container for channable return status.
-
-
-        Based on the enum values of `status` column in the returns table.'
-    ChannableErrorResponse:
-      properties:
-        status:
-          type: string
-          const: error
-          title: Status
-          default: error
-        message:
-          type: string
-          title: Message
-          description: A description about the given error
-      type: object
-      required:
-      - message
-      title: ChannableErrorResponse
-      description: The standard Channable error response
-    AnonymizedEfferentReturnDataAddress:
-      properties:
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        country_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country Code
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-        region_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region Code
-      type: object
-      title: AnonymizedEfferentReturnDataAddress
-    TestReturnResponse:
-      properties:
-        status:
-          type: string
-          const: success
-          title: Response Status
-          default: success
-        message:
-          type: string
-          title: Message
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResponseModel'
-            type: array
-          - type: 'null'
-          title: Data
-      type: object
-      required:
-      - message
-      title: TestReturnResponse
-    AnonymizedEfferentReturnDataCustomer:
-      properties:
-        gender:
-          type: string
-          title: Gender
-      type: object
-      required:
-      - gender
-      title: AnonymizedEfferentReturnDataCustomer
-    ChannableApiReturnsStatus:
-      type: string
-      enum:
-      - accepted
-      - rejected
-      - repaired
-      - keeps
-      - exchanged
-      - cancelled
-      title: ChannableApiReturnsStatus
-      description: 'A container for channable api return status.
-
-        This is similar to realtime2.models.returns.ChannableReturnsStatus but is missing a few
-
-        statuses (new, manual, and processing).'
+        total: 1
     EfferentReturn:
       properties:
         id:
@@ -869,24 +757,66 @@ components:
       - data
       - obfuscated
       title: EfferentReturn
-    ResponseModelStatus:
-      type: string
-      enum:
-      - success
-      - error
-      - warning
-      - debug
-      title: ResponseModelStatus
-    ChannableReturnsPayload:
+    AnonymizedEfferentReturnDataAddress:
       properties:
-        status:
-          $ref: '#/components/schemas/ChannableApiReturnsStatus'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+      type: object
+      title: AnonymizedEfferentReturnDataAddress
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - status
-      title: ChannableReturnsPayload
-      description: Model for data obtained from the Channable API return status update
-    RecentReturns:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AnonymizedRecentReturns:
       properties:
         total:
           type: integer
@@ -896,19 +826,58 @@ components:
           title: Error Count
         returns:
           items:
-            $ref: '#/components/schemas/EfferentReturn'
+            $ref: '#/components/schemas/AnonymizedEfferentReturn'
           type: array
-          title: Returns
+          title: Anonymized Returns
       type: object
       required:
       - total
       - error_count
       - returns
-      title: RecentReturns
+      title: AnonymizedRecentReturns
+    ChannableReturnsStatus:
+      type: string
+      enum:
+      - new
+      - accepted
+      - rejected
+      - repaired
+      - keeps
+      - exchanged
+      - cancelled
+      - manual
+      - processing
+      title: ChannableReturnsStatus
+      description: 'A container for channable return status.
+
+
+        Based on the enum values of `status` column in the returns table.'
+    UpdateReturnStatusResponse:
+      properties:
+        status:
+          type: string
+          const: success
+          title: Response Status
+          default: success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: UpdateReturnStatusResponse
+    SingleEfferentReturn:
+      properties:
+        return:
+          $ref: '#/components/schemas/EfferentReturn'
+          title: Return
+      type: object
+      required:
+      - return
+      title: SingleEfferentReturn
       example:
-        error_count: 0
-        returns:
-        - channel_id: '31234567'
+        return:
+          channel_id: '31234567'
           channel_name: bol
           created: '2017-02-09T12:39:48+00:00'
           data:
@@ -954,21 +923,6 @@ components:
           project_id: 1
           retrieved_at: '2017-02-09T12:39:48+00:00'
           status: new
-        total: 1
-    UpdateReturnStatusResponse:
-      properties:
-        status:
-          type: string
-          const: success
-          title: Response Status
-          default: success
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - message
-      title: UpdateReturnStatusResponse
     ChannableReturnsDataMeta:
       properties:
         channel_order_id:
@@ -1002,38 +956,84 @@ components:
       required:
       - channel_order_id
       title: ChannableReturnsDataMeta
-    ValidationError:
+    AnonymizedEfferentReturnData:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        item:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataItem'
+          title: Anonymized Item
+        address:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataAddress'
+          title: Anonymized Address
+        customer:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataCustomer'
+          title: Anonymized Customer
+        meta:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableReturnsDataMeta'
+          - type: 'null'
+          title: Return Meta Data
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
+      - item
+      - address
+      - customer
+      title: AnonymizedEfferentReturnData
+    AnonymizedEfferentReturnDataItem:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        gtin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gtin
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        quantity:
+          type: integer
+          title: Quantity
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        delivery_period:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Period
       type: object
-      title: HTTPValidationError
+      required:
+      - quantity
+      title: AnonymizedEfferentReturnDataItem
+    ChannableReturnsPayload:
+      properties:
+        status:
+          $ref: '#/components/schemas/ChannableApiReturnsStatus'
+      type: object
+      required:
+      - status
+      title: ChannableReturnsPayload
+      description: Model for data obtained from the Channable API return status update
+    ChannableErrorResponse:
+      properties:
+        status:
+          type: string
+          const: error
+          title: Status
+          default: error
+        message:
+          type: string
+          title: Message
+          description: A description about the given error
+      type: object
+      required:
+      - message
+      title: ChannableErrorResponse
+      description: The standard Channable error response
