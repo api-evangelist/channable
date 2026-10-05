@@ -1,0 +1,12 @@
+{
+ "url": "https://api.channable.com/v1/openapi",
+ "requested_url": "https://api.channable.com/v1/openapi",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 550424,
+ "sha256": "1a4f42505798400b9f2220df08da4be1669ab031e41cd5f0456b52217c6481a0",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
