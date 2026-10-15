@@ -11,6 +11,7 @@ checked:
 - https://n8n.io/integrations/channable/
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/channable/integrations
+- shopify/integrations/shopify-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -37,4 +38,22 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-adtech.py
   detected: '2026-10-14'
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/channable
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - Channable
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  publisher_verified:
+  - Built for Shopify
 templates: []
