@@ -455,6 +455,96 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    EfferentReturn:
+      properties:
+        id:
+          type: integer
+          title: Id
+        project_id:
+          type: integer
+          title: Project Id
+        created:
+          type: string
+          format: date-time
+          title: Created
+        modified:
+          type: string
+          format: date-time
+          title: Modified
+        retrieved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Retrieved At
+        error:
+          type: boolean
+          title: Error
+        platform_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Id
+        platform_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Platform Name
+        channel_id:
+          type: string
+          title: Channel Id
+        channel_name:
+          type: string
+          title: Channel Name
+        log:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Log
+        status:
+          $ref: '#/components/schemas/ChannableReturnsStatus'
+          title: Return Status
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+        obfuscated:
+          type: boolean
+          title: Obfuscated
+      type: object
+      required:
+      - id
+      - project_id
+      - created
+      - modified
+      - error
+      - channel_id
+      - channel_name
+      - log
+      - status
+      - data
+      - obfuscated
+      title: EfferentReturn
+    AnonymizedRecentReturns:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        returns:
+          items:
+            $ref: '#/components/schemas/AnonymizedEfferentReturn'
+          type: array
+          title: Anonymized Returns
+      type: object
+      required:
+      - total
+      - error_count
+      - returns
+      title: AnonymizedRecentReturns
     TestReturnResponse:
       properties:
         status:
@@ -476,36 +566,159 @@ components:
       required:
       - message
       title: TestReturnResponse
-    ResponseModel:
+    AnonymizedEfferentReturnDataAddress:
       properties:
-        status:
-          $ref: '#/components/schemas/ResponseModelStatus'
-          title: Response Status
-        message:
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+      type: object
+      title: AnonymizedEfferentReturnDataAddress
+    RecentReturns:
+      properties:
+        total:
+          type: integer
+          title: Total
+        error_count:
+          type: integer
+          title: Error Count
+        returns:
+          items:
+            $ref: '#/components/schemas/EfferentReturn'
+          type: array
+          title: Returns
+      type: object
+      required:
+      - total
+      - error_count
+      - returns
+      title: RecentReturns
+      example:
+        error_count: 0
+        returns:
+        - channel_id: '31234567'
+          channel_name: bol
+          created: '2017-02-09T12:39:48+00:00'
+          data:
+            address:
+              address1: streetname 1
+              address_supplement: ''
+              city: cityname
+              company: ''
+              country_code: NL
+              email: noreply@example.com
+              first_name: Firstname
+              house_number: '1'
+              house_number_ext: ''
+              last_name: Lastname
+              region_code: ''
+              street: streetname
+              zip_code: 1234 AB
+            customer:
+              email: noreply@example.com
+              first_name: Firstname
+              gender: female
+              last_name: Lastname
+            item:
+              comment: Some extra info
+              delivery_period: ''
+              gtin: '1234567890123'
+              id: 123456-some-item
+              quantity: 1
+              reason: Not as pictured
+              title: Product Title
+            meta:
+              channel_order_id: 123456-some-order
+              channel_order_id_internal: ''
+              channel_return_id: 123456-some-return
+              platform_order_id: ABC9839833
+          error: false
+          id: 1
+          log: []
+          modified: '2017-02-09T12:39:48+00:00'
+          obfuscated: false
+          platform_id: '123456'
+          platform_name: lightspeed
+          project_id: 1
+          retrieved_at: '2017-02-09T12:39:48+00:00'
+          status: new
+        total: 1
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        response:
+        type:
           type: string
-          title: Response
-          default: ''
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AnonymizedEfferentReturnDataItem:
+      properties:
         id:
           anyOf:
           - type: string
           - type: 'null'
           title: Id
-        data:
+        gtin:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: string
           - type: 'null'
-          title: Data
-          description: Data relevant to the specific response. This may vary by endpoint
+          title: Gtin
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        quantity:
+          type: integer
+          title: Quantity
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        delivery_period:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Period
       type: object
       required:
-      - status
-      - message
-      title: ResponseModel
-      description: A container for response model.
+      - quantity
+      title: AnonymizedEfferentReturnDataItem
     AnonymizedEfferentReturn:
       properties:
         id:
@@ -585,287 +798,6 @@ components:
       required:
       - order_id
       title: TestReturnBody
-    ResponseModelStatus:
-      type: string
-      enum:
-      - success
-      - error
-      - warning
-      - debug
-      title: ResponseModelStatus
-    ChannableApiReturnsStatus:
-      type: string
-      enum:
-      - accepted
-      - rejected
-      - repaired
-      - keeps
-      - exchanged
-      - cancelled
-      title: ChannableApiReturnsStatus
-      description: 'A container for channable api return status.
-
-        This is similar to realtime2.models.returns.ChannableReturnsStatus but is missing a few
-
-        statuses (new, manual, and processing).'
-    AnonymizedEfferentReturnDataCustomer:
-      properties:
-        gender:
-          type: string
-          title: Gender
-      type: object
-      required:
-      - gender
-      title: AnonymizedEfferentReturnDataCustomer
-    RecentReturns:
-      properties:
-        total:
-          type: integer
-          title: Total
-        error_count:
-          type: integer
-          title: Error Count
-        returns:
-          items:
-            $ref: '#/components/schemas/EfferentReturn'
-          type: array
-          title: Returns
-      type: object
-      required:
-      - total
-      - error_count
-      - returns
-      title: RecentReturns
-      example:
-        error_count: 0
-        returns:
-        - channel_id: '31234567'
-          channel_name: bol
-          created: '2017-02-09T12:39:48+00:00'
-          data:
-            address:
-              address1: streetname 1
-              address_supplement: ''
-              city: cityname
-              company: ''
-              country_code: NL
-              email: noreply@example.com
-              first_name: Firstname
-              house_number: '1'
-              house_number_ext: ''
-              last_name: Lastname
-              region_code: ''
-              street: streetname
-              zip_code: 1234 AB
-            customer:
-              email: noreply@example.com
-              first_name: Firstname
-              gender: female
-              last_name: Lastname
-            item:
-              comment: Some extra info
-              delivery_period: ''
-              gtin: '1234567890123'
-              id: 123456-some-item
-              quantity: 1
-              reason: Not as pictured
-              title: Product Title
-            meta:
-              channel_order_id: 123456-some-order
-              channel_order_id_internal: ''
-              channel_return_id: 123456-some-return
-              platform_order_id: ABC9839833
-          error: false
-          id: 1
-          log: []
-          modified: '2017-02-09T12:39:48+00:00'
-          obfuscated: false
-          platform_id: '123456'
-          platform_name: lightspeed
-          project_id: 1
-          retrieved_at: '2017-02-09T12:39:48+00:00'
-          status: new
-        total: 1
-    EfferentReturn:
-      properties:
-        id:
-          type: integer
-          title: Id
-        project_id:
-          type: integer
-          title: Project Id
-        created:
-          type: string
-          format: date-time
-          title: Created
-        modified:
-          type: string
-          format: date-time
-          title: Modified
-        retrieved_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Retrieved At
-        error:
-          type: boolean
-          title: Error
-        platform_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Platform Id
-        platform_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Platform Name
-        channel_id:
-          type: string
-          title: Channel Id
-        channel_name:
-          type: string
-          title: Channel Name
-        log:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Log
-        status:
-          $ref: '#/components/schemas/ChannableReturnsStatus'
-          title: Return Status
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-        obfuscated:
-          type: boolean
-          title: Obfuscated
-      type: object
-      required:
-      - id
-      - project_id
-      - created
-      - modified
-      - error
-      - channel_id
-      - channel_name
-      - log
-      - status
-      - data
-      - obfuscated
-      title: EfferentReturn
-    AnonymizedEfferentReturnDataAddress:
-      properties:
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        country_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country Code
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-        region_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region Code
-      type: object
-      title: AnonymizedEfferentReturnDataAddress
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AnonymizedRecentReturns:
-      properties:
-        total:
-          type: integer
-          title: Total
-        error_count:
-          type: integer
-          title: Error Count
-        returns:
-          items:
-            $ref: '#/components/schemas/AnonymizedEfferentReturn'
-          type: array
-          title: Anonymized Returns
-      type: object
-      required:
-      - total
-      - error_count
-      - returns
-      title: AnonymizedRecentReturns
-    ChannableReturnsStatus:
-      type: string
-      enum:
-      - new
-      - accepted
-      - rejected
-      - repaired
-      - keeps
-      - exchanged
-      - cancelled
-      - manual
-      - processing
-      title: ChannableReturnsStatus
-      description: 'A container for channable return status.
-
-
-        Based on the enum values of `status` column in the returns table.'
-    UpdateReturnStatusResponse:
-      properties:
-        status:
-          type: string
-          const: success
-          title: Response Status
-          default: success
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - message
-      title: UpdateReturnStatusResponse
     SingleEfferentReturn:
       properties:
         return:
@@ -923,6 +855,101 @@ components:
           project_id: 1
           retrieved_at: '2017-02-09T12:39:48+00:00'
           status: new
+    UpdateReturnStatusResponse:
+      properties:
+        status:
+          type: string
+          const: success
+          title: Response Status
+          default: success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: UpdateReturnStatusResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChannableErrorResponse:
+      properties:
+        status:
+          type: string
+          const: error
+          title: Status
+          default: error
+        message:
+          type: string
+          title: Message
+          description: A description about the given error
+      type: object
+      required:
+      - message
+      title: ChannableErrorResponse
+      description: The standard Channable error response
+    ResponseModelStatus:
+      type: string
+      enum:
+      - success
+      - error
+      - warning
+      - debug
+      title: ResponseModelStatus
+    AnonymizedEfferentReturnDataCustomer:
+      properties:
+        gender:
+          type: string
+          title: Gender
+      type: object
+      required:
+      - gender
+      title: AnonymizedEfferentReturnDataCustomer
+    AnonymizedEfferentReturnData:
+      properties:
+        item:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataItem'
+          title: Anonymized Item
+        address:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataAddress'
+          title: Anonymized Address
+        customer:
+          $ref: '#/components/schemas/AnonymizedEfferentReturnDataCustomer'
+          title: Anonymized Customer
+        meta:
+          anyOf:
+          - $ref: '#/components/schemas/ChannableReturnsDataMeta'
+          - type: 'null'
+          title: Return Meta Data
+      type: object
+      required:
+      - item
+      - address
+      - customer
+      title: AnonymizedEfferentReturnData
+    ChannableReturnsStatus:
+      type: string
+      enum:
+      - new
+      - accepted
+      - rejected
+      - repaired
+      - keeps
+      - exchanged
+      - cancelled
+      - manual
+      - processing
+      title: ChannableReturnsStatus
+      description: 'A container for channable return status.
+
+
+        Based on the enum values of `status` column in the returns table.'
     ChannableReturnsDataMeta:
       properties:
         channel_order_id:
@@ -956,62 +983,6 @@ components:
       required:
       - channel_order_id
       title: ChannableReturnsDataMeta
-    AnonymizedEfferentReturnData:
-      properties:
-        item:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataItem'
-          title: Anonymized Item
-        address:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataAddress'
-          title: Anonymized Address
-        customer:
-          $ref: '#/components/schemas/AnonymizedEfferentReturnDataCustomer'
-          title: Anonymized Customer
-        meta:
-          anyOf:
-          - $ref: '#/components/schemas/ChannableReturnsDataMeta'
-          - type: 'null'
-          title: Return Meta Data
-      type: object
-      required:
-      - item
-      - address
-      - customer
-      title: AnonymizedEfferentReturnData
-    AnonymizedEfferentReturnDataItem:
-      properties:
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        gtin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Gtin
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        quantity:
-          type: integer
-          title: Quantity
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-        delivery_period:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Delivery Period
-      type: object
-      required:
-      - quantity
-      title: AnonymizedEfferentReturnDataItem
     ChannableReturnsPayload:
       properties:
         status:
@@ -1021,19 +992,48 @@ components:
       - status
       title: ChannableReturnsPayload
       description: Model for data obtained from the Channable API return status update
-    ChannableErrorResponse:
+    ChannableApiReturnsStatus:
+      type: string
+      enum:
+      - accepted
+      - rejected
+      - repaired
+      - keeps
+      - exchanged
+      - cancelled
+      title: ChannableApiReturnsStatus
+      description: 'A container for channable api return status.
+
+        This is similar to realtime2.models.returns.ChannableReturnsStatus but is missing a few
+
+        statuses (new, manual, and processing).'
+    ResponseModel:
       properties:
         status:
-          type: string
-          const: error
-          title: Status
-          default: error
+          $ref: '#/components/schemas/ResponseModelStatus'
+          title: Response Status
         message:
           type: string
           title: Message
-          description: A description about the given error
+        response:
+          type: string
+          title: Response
+          default: ''
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+          description: Data relevant to the specific response. This may vary by endpoint
       type: object
       required:
+      - status
       - message
-      title: ChannableErrorResponse
-      description: The standard Channable error response
+      title: ResponseModel
+      description: A container for response model.
