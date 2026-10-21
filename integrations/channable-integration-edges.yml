@@ -14,6 +14,9 @@ checked:
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/channable/integrations
 - shopify/integrations/shopify-integration-edges.yml
+- https://advertising.amazon.com/partners/directory
+- https://sellercentral.amazon.com/gspn
+- https://sellercentral.amazon.com/selling-partner-appstore
 summary: null
 marketplace_apps: []
 edges:
@@ -84,4 +87,64 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Amazon Selling Partner Appstore
+  partner: amazon-seller-central
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://sellercentral.amazon.com/selling-partner-appstore/dp/amzn1.sellerapps.app.1d2be1e9-7bd2-4403-8dc4-a1f63b977d9e
+  mirror_of: amazon-seller-central/integrations/amazon-seller-central-integration-edges.yml
+  apps:
+  - Channable - Product Inventory & Orders
+  detected: '2026-10-21'
+  detected_by: sweep-amazon-sp-api-appstore.py
+- partner_name: Amazon Ads (partner directory, technology)
+  partner: amazon
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://advertising.amazon.com/partners/directory
+  mirror_of: amazon/integrations/amazon-integration-edges.yml
+  apps:
+  - Channable
+  contract_reference:
+    register: Amazon Ads Partner Directory (advertising.amazon.com/partners/directory, GetPartners)
+    registered_name: Channable
+    register_id: amzn1.ads1.ma1.ad3w9yc61e9b6ojjcwtxro6go
+    matched_domain: channable.com
+    matched_by: domain
+    services:
+    - ADVERTISING_EFFECTIVENESS
+    - CAMPAIGN_MANAGEMENT
+    - CAMPAIGN_MONITORING
+    - CAMPAIGN_REPORTING
+    - CAMPAIGN_SETUP
+    - DATA_CONNECTORS
+    - DATA_INTEGRATION
+    - DETAIL_PAGE_SET_UP
+    - INVENTORY_MANAGEMENT
+    - PROMOTIONS
+    - REPORTING_AND_ANALYTICS
+    - RETAIL_PERFORMANCE_MEASUREMENT
+    - SALES_AND_PRICING_STRATEGY
+    ads_products:
+    - SPONSORED_PRODUCTS
+    service_models:
+    - SELF_SERVICE
+    signal_note: listing = participation; accreditation recorded as partner_tier; ads_certifications are Amazon
+      Ads LEARNING certifications held by staff, not product conformance, never certified_products
+    detected_by: sweep-amazon-sp-api-appstore.py
+    detected: '2026-10-21'
+  detected: '2026-10-21'
+  detected_by: sweep-amazon-sp-api-appstore.py
+  partner_tier:
+  - VERIFIED_PARTNER
 templates: []
