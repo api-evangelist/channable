@@ -17,6 +17,10 @@ checked:
 - https://advertising.amazon.com/partners/directory
 - https://sellercentral.amazon.com/gspn
 - https://sellercentral.amazon.com/selling-partner-appstore
+- https://commercemarketplace.adobe.com/partner/
+- https://commercemarketplace.adobe.com/sitemap.xml
+- https://store.shopware.com/en/extension-partners/
+- https://store.shopware.com/en/sitemap.xml
 summary: null
 marketplace_apps: []
 edges:
@@ -147,4 +151,34 @@ edges:
   detected_by: sweep-amazon-sp-api-appstore.py
   partner_tier:
   - VERIFIED_PARTNER
+- partner_name: Shopware Store
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: shopware-store
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://store.shopware.com/en/extension-partners/channable
+  category: Shopware Store extension partner
+  publisher_name: Channable
+  publisher_country: The Netherlands
+  partner_tier:
+  - Technology Partner Gold
+  - Extension Partner
+  matched_domain: channable.com
+  matched_by: domain
+  identity_source: the partner's own Shopware Store profile links (domain, name-checked)
+  partner_null_note: 'there is no all/shopware repo (Shopware is a harvest candidate): the platform side cannot
+    be written, so the publisher side names the store with partner null'
+  signal_note: Shopware Store extension partner (listing alone = participation); Partner Status tier in partner_tier;
+    listing count is context, never counted
+  detected_by: sweep-ecommerce-extension-marketplaces.py
+  detected: '2026-10-22'
+  example_listing: https://store.shopware.com/en/chann96219641361f/channable-integration.html
+  listing_count_prefix: 1
+  badges:
+  - Shopware Technology Partner
+  publisher_verified:
+  - Shopware Technology Partner
 templates: []
