@@ -1037,3 +1037,9 @@ components:
       - message
       title: ResponseModel
       description: A container for response model.
+x-provenance:
+  method: harvested
+  publisher: Channable
+  source: https://api.channable.com/v1/openapi
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
