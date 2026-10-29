@@ -64,6 +64,138 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Channable is a company surfaced as a portfolio company of partech and added to the API Evangelist network as a stub for enrichment. Sector: Applicative SaaS. This profile is a lead awaiting the enrichment pipeline.
+Channable is a feed management and marketplace integration platform that helps online retailers, brands, and agencies optimize, distribute, and advertise their product data across more than 2,500 marketing channels, price comparison sites, affiliate networks, and online marketplaces. Beyond feed optimization and PPC ad automation, Channable operates an order-connection layer that synchronizes orders, shipments, stock, and returns between marketplaces and a seller's ERP, WMS, or e-commerce platform. The Channable order connection API (v1) exposes this layer programmatically: retailers and platform integrators can retrieve orders and returns, post shipment and cancellation updates, push stock/offer updates to every connected marketplace at once, upload order attachments, resolve standardized transporter codes, and pull order statistics. Authentication is a company-level bearer token, requests are rate limited per company with a leaky-bucket policy, and a Channable Sandbox connection lets integrators test order flows without touching live marketplaces.
 
-Backed by: partech — https://www.channable.com/
+**Areas:** Company · Applicative Saas · Feed Management · Marketplace · E-Commerce · Product Data · Order Management · Advertising · PPC · Retail
+
+## Channable on APIs.io
+
+Everything profiled for Channable is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/channable/](https://apis.io/providers/channable/)** — or go straight to one of the APIs or properties below.
+
+### APIs (6)
+
+- [Channable Order Attachments API](https://apis.io/apis/channable/channable-order-attachments-api/) — The order_attachments API from Channable — 2 operation(s) for order_attachments.
+- [Channable Orders API](https://apis.io/apis/channable/channable-orders-api/) — The orders API from Channable — 10 operation(s) for orders.
+- [Channable Returns API](https://apis.io/apis/channable/channable-returns-api/) — The returns API from Channable — 5 operation(s) for returns.
+- [Channable Statistics API](https://apis.io/apis/channable/channable-statistics-api/) — The statistics API from Channable — 2 operation(s) for statistics.
+- [Channable Stock Updates API](https://apis.io/apis/channable/channable-stock-updates-api/) — The stock_updates API from Channable — 2 operation(s) for stock_updates.
+- [Channable Transporters API](https://apis.io/apis/channable/channable-transporters-api/) — The transporters API from Channable — 3 operation(s) for transporters.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [channable](https://apis.io/servers/channable/channable/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Channable order connection order_attachments API](https://apis.io/collections/channable/open-channable-order-attachments-api/)
+- [Channable order connection order_attachments orders API](https://apis.io/collections/channable/open-channable-orders-api/)
+- [Channable order connection order_attachments returns API](https://apis.io/collections/channable/open-channable-returns-api/)
+- [Channable order connection order_attachments statistics API](https://apis.io/collections/channable/open-channable-statistics-api/)
+- [Channable order connection order_attachments stock_updates API](https://apis.io/collections/channable/open-channable-stock-updates-api/)
+- [Channable order connection order_attachments transporters API](https://apis.io/collections/channable/open-channable-transporters-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Channable Order Connection Overlay](https://apis.io/overlays/channable/channable-order-connection-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Channable Authentication](https://apis.io/security/channable/channable-authentication/)
+- [Channable Domain Security](https://apis.io/security/channable/channable-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Channable Plans Pricing](https://apis.io/plans/channable/channable-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Channable Rate Limits](https://apis.io/rate-limits/channable/channable-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.channable.com/)
+- [Documentation](https://docs.channable.com/api/v1/)
+- [Getting started](https://helpcenter.channable.com/hc/en-us/articles/360011209639-Using-the-Channable-API-for-an-order-connection)
+- [API reference](https://api.channable.com/v1/docs)
+- [Pricing](https://www.channable.com/pricing)
+- [Sign up](https://app.channable.com/)
+- [Support](https://support.channable.com/)
+- [Changelog](https://helpcenter.channable.com/changelog/)
+- [Blog](https://www.channable.com/blog)
+- [Terms of service](https://www.channable.com/terms-and-conditions)
+- [Privacy policy](https://www.channable.com/privacy-policy)
+- [GitHub](https://github.com/channable)
+- [Status](https://www.channablestatus.com/)
+
+## API Evangelist rating
+
+**Kin Score 49.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 41.6 |
+| Contract governance | 4.5 |
+| Operational transparency | 63.2 |
+| Developer ergonomics | 67.3 |
+| Access clarity | 47.4 |
+
+**Agent readiness 27.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/channable/](https://apis.io/providers/channable/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Channable: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/channable/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
